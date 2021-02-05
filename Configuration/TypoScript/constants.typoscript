@@ -1,0 +1,25 @@
+
+plugin.tx_nshelpdesk_helpdesk {
+    view {
+        # cat=plugin.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template root (FE)
+        templateRootPath = EXT:ns_helpdesk/Resources/Private/Templates/
+        # cat=plugin.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template partials (FE)
+        partialRootPath = EXT:ns_helpdesk/Resources/Private/Partials/
+        # cat=plugin.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template layouts (FE)
+        layoutRootPath = EXT:ns_helpdesk/Resources/Private/Layouts/
+    }
+}
+
+module.tx_nshelpdesk_helpdesk {
+    view {
+        # cat=module.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template root (BE)
+        templateRootPath = EXT:ns_helpdesk/Resources/Private/Backend/Templates/
+        # cat=module.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template partials (BE)
+        partialRootPath = EXT:ns_helpdesk/Resources/Private/Backend/Partials/
+        # cat=module.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template layouts (BE)
+        layoutRootPath = EXT:ns_helpdesk/Resources/Private/Backend/Layouts/
+    }
+}
+
+# Includes FormsConstant
+<INCLUDE_TYPOSCRIPT: source="DIR:EXT:ns_helpdesk/Configuration/TypoScript/FeaturesConstants" extensions="typoscript">

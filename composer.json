@@ -1,0 +1,36 @@
+{
+  "name": "nitsan/ns-helpdesk",
+  "type": "typo3-cms-extension",
+  "description": "Create an individual ticket system",
+  "license": "GPL-2.0+",
+  "keywords": [
+    "TYPO3 CMS",
+    "Helpdesk",
+    "NITSAN",
+    "T3Terminal",
+    "Support"
+  ],
+  "authors": [],
+  "require": {
+    "typo3/cms-core": ">=8.0.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "NITSAN\\NsHelpdesk\\": "Classes/"
+    }
+  },
+  "replace": {
+    "nitsan/ns-helpdesk": "self.version"
+  },
+  "config": {
+    "vendor-dir": ".Build/vendor/",
+    "bin-dir": ".Build/bin/"
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build/public",
+      "extension-key": "ns_helpdesk"
+    }
+  }
+}

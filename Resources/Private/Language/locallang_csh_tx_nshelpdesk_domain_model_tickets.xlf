@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-06-02T10:21:50Z" product-name="ns_helpdesk">
+		<header/>
+		<body>
+			<trans-unit id="ticket_subject.description">
+				<source>ticketSubject</source>
+			</trans-unit>
+			<trans-unit id="ticket_text.description">
+				<source>ticketText</source>
+			</trans-unit>
+			<trans-unit id="ticket_post_date.description">
+				<source>ticketPostDate</source>
+			</trans-unit>
+			<trans-unit id="attachment.description">
+				<source>attachment</source>
+			</trans-unit>
+			<trans-unit id="ticket_status.description">
+				<source>ticketStatus</source>
+			</trans-unit>
+			<trans-unit id="ticket_type.description">
+				<source>ticketType</source>
+			</trans-unit>
+			<trans-unit id="assignee_id.description">
+				<source>assigneeId</source>
+			</trans-unit>
+			<trans-unit id="user_id.description">
+				<source>userId</source>
+			</trans-unit>
+			<trans-unit id="comment.description">
+				<source>comment</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

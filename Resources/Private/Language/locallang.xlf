@@ -1,0 +1,570 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
+		<header/>
+		<body>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets">
+				<source>Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_subject">
+				<source>Ticket Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_text">
+				<source>Ticket Text</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_post_date">
+				<source>Ticket Post Date</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_status">
+				<source>Ticket Status</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_type">
+				<source>Ticket Type</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.assignee_id">
+				<source>Assignee Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.user_id">
+				<source>User Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee">
+				<source>Default Assignee</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee.ticket_type">
+				<source>Ticket Type</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee.assignee_id">
+				<source>Assignee Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus">
+				<source>Ticket Status</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus.status_title">
+				<source>Status Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus.status_color">
+				<source>Status Color</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes">
+				<source>Ticket Types</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes.type_title">
+				<source>Type Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes.type_color">
+				<source>Type Color</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments">
+				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.comment">
+				<source>Comment</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.ticket_id">
+				<source>Ticket Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.user_id">
+				<source>User Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_quickreply">
+				<source>Quick Reply</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_quickreply.quick_text">
+				<source>Quick Text</source>
+			</trans-unit>
+            <trans-unit id="brandname">
+				<source>Helpdesk</source>
+			</trans-unit>
+            <trans-unit id="documentaiton">
+                <source>Documentaiton</source>
+            </trans-unit>
+            <trans-unit id="helpsupport">
+                <source>Help &amp; Support</source>
+            </trans-unit>
+            <trans-unit id="donate">
+                <source>Donate</source>
+            </trans-unit>
+            <trans-unit id="dashboard">
+                <source>Dashboard</source>
+            </trans-unit>
+            <trans-unit id="premiumExtension">
+                <source>Premium Extension</source>
+            </trans-unit>
+            <trans-unit id="noThemeConfiguration">
+                <source>Sorry, Configuration not available for this!</source>
+            </trans-unit>
+            <trans-unit id="sorry">
+                <source>Sorry!</source>
+            </trans-unit>
+            <trans-unit id="noconstantline1">
+                <source>No Extension Template available for this Page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline2">
+                <source>Please go the Template Module and create new extension Template for this page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline3">
+                <source>Please click here</source>
+            </trans-unit>
+            <trans-unit id="templatelinkText">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="save">
+                <source>Save Changes</source>
+            </trans-unit>
+            <trans-unit id="opps">
+                <source>Oops!</source>
+            </trans-unit>
+            <trans-unit id="info1">
+                <source>No Tickets are available yet.</source>
+            </trans-unit>
+            <trans-unit id="dashboard.singular.total.ticket">
+                <source>Total Ticket</source>
+            </trans-unit>
+            <trans-unit id="dashboard.plural.total.ticket">
+                <source>Total Tickets</source>
+            </trans-unit>
+            <trans-unit id="closetickets">
+                <source>Close this Ticket</source>
+            </trans-unit>
+            <trans-unit id="dashboard.singular.close.ticket">
+                <source>Close Ticket</source>
+            </trans-unit>
+            <trans-unit id="dashboard.plural.close.ticket">
+                <source>Close Tickets</source>
+            </trans-unit>
+            <trans-unit id="dashboard.singular.new.ticket">
+                <source>New Ticket</source>
+            </trans-unit>
+            <trans-unit id="dashboard.plural.new.ticket">
+                <source>New Tickets</source>
+            </trans-unit>
+            <trans-unit id="customerreview">
+                <source>Customer Review</source>
+            </trans-unit>
+            <trans-unit id="assigntome">
+                <source>Assigned to %s</source>
+            </trans-unit>
+            <trans-unit id="nav.tickets">
+                <source>Tickets</source>
+            </trans-unit>
+            <trans-unit id="nav.tickets.desc">
+                <source>Tickets Management like Reply, Edit, Delete, etc.</source>
+            </trans-unit>
+            <trans-unit id="tr.id">
+                <source>#ID</source>
+            </trans-unit>
+            <trans-unit id="tr.subject">
+                <source>Subject</source>
+            </trans-unit>
+            <trans-unit id="tr.description">
+                <source>Description</source>
+            </trans-unit>
+            <trans-unit id="tr.crdate">
+                <source>Created Date</source>
+            </trans-unit>
+            <trans-unit id="tr.user">
+                <source>User</source>
+            </trans-unit>
+            <trans-unit id="tr.category">
+                <source>Category</source>
+            </trans-unit>
+            <trans-unit id="tr.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tr.type">
+                <source>Category</source>
+            </trans-unit>
+            <trans-unit id="tr.action">
+                <source>Action</source>
+            </trans-unit>
+            <trans-unit id="action.view">
+                <source>View</source>
+            </trans-unit>
+            <trans-unit id="deleteHeading">
+                <source>Delete Confirmation</source>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="delete">
+                <source>Delete</source>
+            </trans-unit>
+            <trans-unit id="cancel">
+                <source>Cancel</source>
+            </trans-unit>
+            <trans-unit id="delete_selected">
+                <source>Delete Selected</source>
+            </trans-unit>
+            <trans-unit id="deleteTitle">
+                <source>Success Delete</source>
+            </trans-unit>
+            <trans-unit id="nav.ticketStatus">
+                <source>Ticket Status</source>
+            </trans-unit>
+            <trans-unit id="nav.ticketStatus.desc">
+                <source>Manage your ticket status(New, Close, Urgent, etc.)</source>
+            </trans-unit>
+            <trans-unit id="nav.ticketType">
+                <source>Categories</source>
+            </trans-unit>
+            <trans-unit id="nav.ticketType.desc">
+                <source>Manage your ticket Categories(Like Business, Marketing, Accounting, etc.)</source>
+            </trans-unit>
+            <trans-unit id="tr.status">
+                <source>Status</source>
+            </trans-unit>
+            <trans-unit id="tr.color">
+                <source>Status Color</source>
+            </trans-unit>
+            <trans-unit id="action.edit">
+                <source>Edit</source>
+            </trans-unit>
+            <trans-unit id="add_new">
+                <source>Add New</source>
+            </trans-unit>
+            <trans-unit id="confrimSingleTicket">
+                <source>Are you sure to delete this ticket?</source>
+            </trans-unit>
+            <trans-unit id="confrimMultipleTicket">
+                <source>Are you sure to delete selected tickets?</source>
+            </trans-unit>
+            <trans-unit id="confrimSingleTicketStatus">
+                <source>Are you sure to delete this ticket status?</source>
+            </trans-unit>
+            <trans-unit id="confrimMultipleTicketStatus">
+                <source>Are you sure to delete selected ticket status?</source>
+            </trans-unit>
+            <trans-unit id="deletesingleticket">
+                <source>Ticket is deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="deletemultipleticket">
+                <source>Tickets are deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="deletesinglestatus">
+                <source>Ticket Status is deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="deletemultiplestatus">
+                <source>Ticket Status are deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="confrimSingleTicketCategory">
+                <source>Are you want to sure Delete this Category?</source>
+            </trans-unit>
+            <trans-unit id="confrimMultipleTicketCategory">
+                <source>Are you want to sure Delete Selected Categories?</source>
+            </trans-unit>
+            <trans-unit id="deletesinglecategory">
+                <source>Category is deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="deletemultiplecategory">
+                <source>Categories are deleted successfully!</source>
+            </trans-unit>
+            <trans-unit id="backlist">
+                <source>Back to Ticket List</source>
+            </trans-unit>
+            <trans-unit id="changecat">
+                <source>Change Category</source>
+            </trans-unit>
+            <trans-unit id="newticket">
+                <source>New Ticket</source>
+            </trans-unit>
+            <trans-unit id="postedon">
+                <source>Posted On</source>
+            </trans-unit>
+            <trans-unit id="assignedto">
+                <source>Assigned to</source>
+            </trans-unit>
+            <trans-unit id="reopentickets">
+                <source>Reopen this Ticket</source>
+            </trans-unit>
+            <trans-unit id="attachement">
+                <source>Attachments</source>
+            </trans-unit>
+            <trans-unit id="comment">
+                <source>Comments</source>
+            </trans-unit>
+            <trans-unit id="ticketAssignment">
+                <source>Ticket Assignment</source>
+            </trans-unit>
+            <trans-unit id="ticketAssignment.desc">
+                <source>Managed your default ticket assignment for you Categories</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk.assignment">
+                <source>Assignment</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk.defaultassignment">
+                <source>Default Assignee</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk.autoassign">
+                <source>Automatic Assignment</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk.categorywiseassignee">
+                <source>Categories wise Assignee</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk.categorywiseassignee.desc">
+                <source>Auto Assignee works only when Automatic Assignment option is enabled.</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk_formsSettings">
+                <source>Forms Settings</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk_formsSettings.desc">
+                <source>Configure tickets create form fields</source>
+            </trans-unit>
+
+            <trans-unit id="widget.title.ns_helpdesk">
+                <source>NS Help Desk - Widget</source>
+            </trans-unit>
+            <trans-unit id="widget.ext_title">
+                <source>HelpDesk</source>
+            </trans-unit>
+            <trans-unit id="googlecaptcha_required">
+                <source>Google Captcha Is Required!</source>
+            </trans-unit>
+            <trans-unit id="google_captcha_key_required">
+                <source>Please add Site-Key for Google reCaptcha</source>
+            </trans-unit>
+
+            <trans-unit id="sorry">
+                <source>Sorry!</source>
+            </trans-unit>
+            <trans-unit id="noconstantline1">
+                <source>No Extension Template available for this Page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline2">
+                <source>Please go the Template Module and create new extension Template for this page.</source>
+            </trans-unit>
+            <trans-unit id="noconstantline3">
+                <source>Please click here</source>
+            </trans-unit>
+            <trans-unit id="templatelinkText">
+                <source>Template</source>
+            </trans-unit>
+            <trans-unit id="ns_helpdesk_globalSettings">
+                <source>Global Settings</source>
+            </trans-unit>
+
+            <trans-unit id="helpdesk.salutation">
+                <source>Hello %s,</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.noanytickets">
+                <source>No any tickets found for you!</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.end.salutation">
+                <source>Have a great day!</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.opps">
+                <source>Opps!</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.notloginticket">
+                <source><![CDATA[Please <a href="%s">login</a> to see your tickets! If you have not registered yet <a href="%s">click here</a>!]]> </source>
+            </trans-unit>
+            <trans-unit id="helpdesk.form.emailError">
+                <source>Please enter valid email address.</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.alert.title">
+                <source>Perfect!</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.alert.msg">
+                <source>Your configuration settings has been saved successfully.</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.field.required">
+                <source>This field is required</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.desc_validation">
+                <source>Your description should be %s char. long</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail_validation">
+                <source>Please enter valid email address</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.name_validation">
+                <source>Your name should be %s char. long</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.salutaion">
+                <source>Hey</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.startingLine">
+                <source>Please find ticket details below</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.sentBy">
+                <source>Sent by</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.subject">
+                <source>Ticket Subject</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.desc">
+                <source>Ticket Description</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.create.notlogin">
+                <source><![CDATA[Please <a href="%s">login</a> to create a new ticket! If you have not registered yet <a href="%s">click here</a>!]]></source>
+            </trans-unit>
+            <trans-unit id="helpdesk.search">
+                <source>Search ticket</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.field.allowedline">
+                <source>Allowed file extension(s) : %s. Max Upload size %s </source>
+            </trans-unit>
+            <trans-unit id="helpdesk.nocomments">
+                <source>No any comments for this ticket.</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.close.ticket.mail.subject">
+                <source>Ticket is closed by your Representative/Admin</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.reopened.ticket.mail.subject">
+                <source>Ticket is reopened by your Representative/Admin</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.ticketId">
+                <source>Ticket ID</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.ticket">
+                <source>Ticket</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.close.ticket.user.mail.subject">
+                <source>The ticket is closed by Visitor</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.reopened.ticket.user.mail.subject">
+                <source>The ticket is reopened by Visitor</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.ticket.rating">
+                <source>Rating</source>
+            </trans-unit>
+            <trans-unit id="time.now">
+                <source>Now</source>
+            </trans-unit>
+            <trans-unit id="time.min.ago">
+                <source>minute ago</source>
+            </trans-unit>
+            <trans-unit id="time.hours.ago">
+                <source>hours ago</source>
+            </trans-unit>
+            <trans-unit id="time.days.ago">
+                <source>days ago</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.ticket.close.message">
+                <source>Your ticket has been closed!</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.ticket.reopen.message">
+                <source>Your ticket has been reopened!</source>
+            </trans-unit>
+            <trans-unit id="scheduler.storagePid">
+                <source>Storage PID</source>
+            </trans-unit>
+            <trans-unit id="scheduler.day">
+                <source>How old ticket is closed(day in integer value)?</source>
+            </trans-unit>
+            <trans-unit id="scheduler.error.empty.day">
+                <source>Day field is required!</source>
+            </trans-unit>
+            <trans-unit id="scheduler.error.empty.storagePid">
+                <source>Storage PID field is required!</source>
+            </trans-unit>
+            <trans-unit id="scheduler.error.less.than.day">
+                <source>Day must be greater than or equal to 5</source>
+            </trans-unit>
+            <trans-unit id="scheduler.error.only.int.day">
+                <source>Day must be integer value</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.confirm_validation">
+                <source>Confirm password should be same as password</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.add_sitekey">
+                <source>This form required fill the GoogleRecaptcha</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.field.invalidfile">
+                <source>File(s) you have uploaded contains invalid extension. Please re-upload files with valid extensions. </source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.selectedItems">
+                <source>item(s) uploaded</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.thankyou">
+                <source>Thank You!</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.thankyouforchoose">
+                <source>Thank you for choosing us!</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.rateus">
+                <source>Please rate us!</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.dropfile">
+                <source>Drop files to upload, or</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.browse">
+                <source>BROWSE</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.add.comment">
+                <source>Add comment</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.notifystatus.user.email">
+                <source>Your ticket has been %s by the Administrator.</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.notifystatus.admin.email">
+                <source>Ticket has been %s by</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.see.ticket.detail.email">
+                <source><![CDATA[Do you want to see your ticket details then please <a href="%s">click here</a>.]]></source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.mail.admin.sentBy.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.title">
+                <source>Helpdesk</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.display">
+                <source>Display</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.display.type.ticketSubmission">
+                <source>Ticket Submission(Forms)</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.display.type.list">
+                <source>Ticket Listing</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.form.type">
+                <source>Form Type</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.form.type.1">
+                <source>Form</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.form.type.2">
+                <source>Quick Popup</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.list.itemperpage">
+                <source>Item Per Page</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.list.listPageId">
+                <source>List Page ID</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.list.ticketCreatePage">
+                <source>Ticket Create Page ID</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.plugin.display.type.userCreate">
+                <source>User Registration</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.formgroupError">
+                <source>Please Set Usergroup from Form Configuration.</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.username">
+                <source>Username</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.firstName">
+                <source>First Name</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.lastName">
+                <source>Last Name</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.email">
+                <source>Email</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.password">
+                <source>Password</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.confirmPassword">
+                <source>Confirm Password</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.userRegistration.field.register">
+                <source>Register</source>
+            </trans-unit>
+            <trans-unit id="nshelpdesk.clear">
+                <source>Clear Attachments</source>
+            </trans-unit>
+                
+        </body>
+	</file>
+</xliff>

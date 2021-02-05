@@ -1,0 +1,214 @@
+plugin.tx_nshelpdesk_helpdesk {
+    view {
+        templateRootPaths {
+            0 = EXT:ns_helpdesk/Resources/Private/Templates/
+            1 = {$plugin.tx_nshelpdesk_helpdesk.view.templateRootPath}
+        }
+
+        partialRootPaths {
+            0 = EXT:ns_helpdesk/Resources/Private/Partials/
+            1 = {$plugin.tx_nshelpdesk_helpdesk.view.partialRootPath}
+        }
+
+        layoutRootPaths {
+            0 = EXT:tx_nshelpdesk/Resources/Private/Layouts/
+            1 = {$plugin.tx_nshelpdesk_helpdesk.view.layoutRootPath}
+        }
+    }
+
+    persistence {
+        storagePid = {$plugin.tx_nshelpdesk_helpdesk.storagePid.storagePid}
+    }
+
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+
+    settings {
+        formConf {
+            namefield {
+                include = {$plugin.tx_nshelpdesk_helpdesk.formConf.namefield.include}
+                label = {$plugin.tx_nshelpdesk_helpdesk.formConf.namefield.label}
+                placeholder = {$plugin.tx_nshelpdesk_helpdesk.formConf.namefield.placeholder}
+                required = {$plugin.tx_nshelpdesk_helpdesk.formConf.namefield.required}
+            }
+
+            emailfield {
+                include = {$plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.include}
+                label = {$plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.label}
+                placeholder = {$plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.placeholder}
+                required = {$plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.required}
+            }
+
+            subjectfield {
+                include = {$plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.include}
+                label = {$plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.label}
+                placeholder = {$plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.placeholder}
+                required = {$plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.required}
+            }
+
+            textareafield {
+                include = {$plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.include}
+                label = {$plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.label}
+                placeholder = {$plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.placeholder}
+                required = {$plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.required}
+                minChar = {$plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.minChar}
+            }
+            submitBtn {
+                label = {$plugin.tx_nshelpdesk_helpdesk.formConf.submitBtn.submitLabel}
+            }
+        }
+
+        defaultAssigneeId = {$plugin.tx_nshelpdesk_helpdesk.commonSettings.defaultAssigneeId}
+        notify {
+            email {
+                adminMail = {$plugin.tx_nshelpdesk_helpdesk.notify.email.adminMail}
+                adminName = {$plugin.tx_nshelpdesk_helpdesk.notify.email.adminName}
+            }
+
+            adminNotify = {$plugin.tx_nshelpdesk_helpdesk.notify.adminNotify}
+        }
+        loginPage = {$plugin.tx_nshelpdesk_helpdesk.loginPage}
+        imageTypes = {$plugin.tx_nshelpdesk_helpdesk.imageTypes}
+        imageMaxSize = {$plugin.tx_nshelpdesk_helpdesk.imageMaxSize}
+    }
+}
+
+# Module configuration
+module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1 {
+    view {
+        templateRootPaths {
+            0 = EXT:ns_helpdesk/Resources/Private/Backend/Templates/
+            1 = {$module.tx_nshelpdesk_helpdesk.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:ns_helpdesk/Resources/Private/Backend/Partials/
+            1 = {$module.tx_nshelpdesk_helpdesk.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:ns_helpdesk/Resources/Private/Backend/Layouts/
+            1 = {$module.tx_nshelpdesk_helpdesk.view.layoutRootPath}
+        }
+    }
+    persistence {
+        storagePid = {$plugin.tx_nshelpdesk_helpdesk.storagePid.storagePid}
+    }
+    settings {
+        notify {
+            email {
+                adminMail = {$plugin.tx_nshelpdesk_helpdesk.notify.email.adminMail}
+                adminName = {$plugin.tx_nshelpdesk_helpdesk.notify.email.adminName}
+            }
+            adminNotify = {$plugin.tx_nshelpdesk_helpdesk.notify.adminNotify}
+        }
+        imageTypes = {$plugin.tx_nshelpdesk_helpdesk.imageTypes}
+        imageMaxSize = {$plugin.tx_nshelpdesk_helpdesk.imageMaxSize}
+    }
+}
+
+page {
+    includeCSS {
+        fontawsome = EXT:ns_helpdesk/Resources/Public/Css/font-awesome.css
+        nshelpdeskmain = EXT:ns_helpdesk/Resources/Public/Css/ns-helpdesk.css
+        nsconfigcss = EXT:ns_helpdesk/Resources/Public/Css/configuration.css
+        sweet = EXT:ns_helpdesk/Resources/Public/Vendor/Sweet/sweetalert2.min.css
+    }
+
+    includeJSFooter {
+        nshelpdeskmain = EXT:ns_helpdesk/Resources/Public/JavaScript/nshelpdesk.js
+        nshelpdeskmain.defer = 1
+        ckeditorjs = EXT:ns_helpdesk/Resources/Public/JavaScript/tinymce/tinymce.min.js
+        ckeditorjs.defer = 1
+        sweet = EXT:ns_helpdesk/Resources/Public/Vendor/Sweet/sweetalert2.all.min.js
+    }
+
+    includeJSLibs {
+        nshelpdeskjquery = EXT:ns_helpdesk/Resources/Public/JavaScript/Jquery.js
+        nshelpdeskjquery.if.isTrue = {$plugin.tx_nshelpdesk_helpdesk.includeJSLibrary.helpdeskJqueryLib}
+    }
+
+    footerData {
+        110 = TEXT
+        110.value (
+        <script type="text/javascript">
+            if(typeof jQuery == 'undefined'){
+                    console.log('Please include Jquery library first');
+              }
+        </script>
+        )
+    }
+}
+
+lib {
+    getBeAvatar = TEXT
+    getBeAvatar {
+        value = Hello
+    }
+}
+
+listAction = PAGE
+listAction {
+    typeNum = 741852
+    config {
+        disableAllHeaderCode = 1
+        additionalHeaders = Content-type:application/json
+        xhtml_cleaning = 0
+        admPanel = 0
+    }
+
+    10 = USER
+    10 < styles.content.get
+    10 {
+        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
+        extensionName = NsHelpdesk
+        pluginName = Helpdesk
+        vendorName = NITSAN
+        controller = Tickets
+        switchableControllerActions {
+            Tickets {
+                1 = list
+            }
+        }
+
+        stdWrap.trim = 1
+        select {
+            where = list_type = "nshelpdesk_helpdesk"
+        }
+
+        renderObj < tt_content.list.20.nshelpdesk_helpdesk
+    }
+}
+
+createTicketAction < listAction
+createTicketAction {
+    typeNum = 15021994
+    10 {
+        controller = Tickets
+        switchableControllerActions {
+            Tickets {
+                1 = create
+            }
+        }
+    }
+}
+
+closeTicketAction < listAction
+closeTicketAction {
+    typeNum = 15021995
+    10 {
+        controller = Tickets
+        switchableControllerActions {
+            Tickets {
+                1 = closeTicket
+                2 = reopenTicket
+            }
+        }
+    }
+}
+
+# Includes Login Configuration
+[compatVersion =< 9.5.0]
+    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_helpdesk/Configuration/TypoScript/Login/setup8.typoscript">
+[else]
+    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_helpdesk/Configuration/TypoScript/Login/setup.typoscript">
+[end]

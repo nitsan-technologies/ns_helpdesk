@@ -1,0 +1,175 @@
+{namespace ns=NITSAN\NsHelpdesk\ViewHelpers}
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default"/>
+<f:section name="content">
+    <f:if condition="{isShow}">
+        <f:then>
+            <div class="ns_helpdesk-main-container container">
+                <div class="row">
+                    <div class="col-12 ns_helpdesk--top">
+                        <div class="ns_helpdesk--top-left"></div>
+                        <div class="ns_helpdesk--top-right">
+                            <ul>
+                                <li>
+                                    <form class="ns_helpdesk--search-form">
+                                        <div class="input-group">
+                                            <input name="sword" id="sword" type="text" class="form-control"
+                                                   placeholder="{f:translate(key: 'helpdesk.search')}">
+                                            <div class="input-group-prepend">
+                                                <button class="btn" onclick="getTicketsList(); return false;">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17.707" height="16.956"
+                                                         viewBox="0 0 17.707 16.956">
+                                                        <g id="Group_33" data-name="Group 33"
+                                                           transform="translate(-0.485 -0.506)">
+                                                            <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(0.485 0.506)" fill="none" stroke="#fff" stroke-width="2">
+                                                                <circle cx="7.5" cy="7.5" r="7.5" stroke="none"/>
+                                                                <circle cx="7.5" cy="7.5" r="6.5" fill="none"/>
+                                                            </g>
+                                                            <line id="Line_122" data-name="Line 122" x2="4.112" y2="4.112" transform="translate(13.373 12.642)" fill="none"
+                                                                  stroke="#fff" stroke-width="2"/>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </li>
+                                <li>
+                                    <f:if condition="{backend}">
+                                        <f:then>
+                                            <f:link.typolink parameter="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
+                                                <f:translate key="newticket"/>
+                                            </f:link.typolink>
+                                            <f:variable name="salName" value="{f:if(condition:'{userDetails.realName}',then:userDetails.realName,else: userDetails.username)}" />
+                                        </f:then>
+                                        <f:else>
+                                            <f:link.typolink parameter="{settings.list.createPageId}" class="c-btn c-btn-secondary"><f:translate key="newticket"/></f:link.typolink>
+                                            <f:variable name="salName" value="{f:if(condition:'{userDetails.first_name}',then:userDetails.first_name,else: userDetails.username)}" />
+                                        </f:else>
+                                    </f:if>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <aside class="col-lg-3 col-md-8">
+                        <f:form action="list">
+                            <f:if condition="{statusList}">
+                                <f:render section="statusFilter" arguments="{statusList: statusList}"/>
+                            </f:if>
+                        </f:form>
+                    </aside>
+                    <f:if condition="{tickets}">
+                        <f:then>
+                            <f:link.action action="list" pageType="741852" id="ajaxFilter"/>
+                            <article class="col-lg-9 col-md-8">
+                                <div class="ns_helpdesk--tickets">
+                                    <f:for each="{tickets}" as="ticket">
+                                        <f:link.action action="show" class="ns_helpdesk--ticket" arguments="{tickets:ticket}">
+                                            <div class="ns_helpdesk--ticket-headline">
+                                                <h3>{ticket.ticketSubject}</h3>
+                                                <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
+                                            </div>
+                                            <div class="ns_helpdesk--ticket-text">
+                                                <f:format.html>{ticket.ticketText -> f:format.crop(maxCharacters: '250')}</f:format.html>
+                                            </div>
+                                            <div class="ns_helpdesk--ticket-list">
+                                                <ul>
+                                                    <li>
+                                                        <f:translate key="postedon"/>: {ticket.ticketPostDate -> f:format.date(format:'j')}<sup>{ticket.ticketPostDate -> f:format.date(format:'S')}</sup> {ticket.ticketPostDate -> f:format.date(format:'M Y - H:i A')}
+                                                    </li>
+                                                    <li>
+                                                        <f:translate key="assignedto"/> : {f:if(condition: ticket.assigneeId.realName, then: ticket.assigneeId.realName, else: ticket.assigneeId.username)}
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </f:link.action>
+                                    </f:for>
+                                    <f:if condition="{backend}">
+                                        <f:then>
+                                            <f:render partial="FrontEnd/Pagination" arguments="{_all}"/>
+                                        </f:then>
+                                        <f:else>
+                                            <f:render partial="FrontEnd/Pagination" arguments="{_all}"/>
+                                        </f:else>
+                                    </f:if>
+                                </div>
+                            </article>
+                        </f:then>
+                        <f:else>
+                            <article class="col-lg-9 col-md-8">
+                                <div class="ns_helpdesk--tickets">
+                                    <div class="ns-helpdesk-alert ns-helpdesk-alert-info">
+                                        <h4 class="ns-helpdesk-alert-heading"><f:translate key="helpdesk.salutation" arguments="{name: '{salName -> f:format.case(mode: \'capital\')}'}" /></h4>
+                                        <p><f:translate key="helpdesk.noanytickets" /></p>
+                                        <hr>
+                                        <p><f:translate key="helpdesk.end.salutation" /></p>
+                                    </div>
+                                </div>
+                            </article>
+                        </f:else>
+                    </f:if>
+                </div>
+            </div>
+        </f:then>
+        <f:else>
+            <div class="ns_helpdesk-main-container container">
+                <div class="row">
+                    <div class="col-12 ns_helpdesk--top">
+                        <div class="ns_helpdesk--top-left"></div>
+                        <div class="ns_helpdesk--top-right"></div>
+                    </div>
+                    <aside class="col-lg-3 col-md-8">
+                        <f:if condition="{statusList}">
+                            <div class="ns_helpdesk--filter-item">
+                                <div class="ns_helpdesk--filter-title">
+                                    <h4>
+                                        <f:translate key="tr.status"/>
+                                    </h4>
+                                </div>
+                                <div class="ns_helpdesk--filter-content disabled">
+                                    <f:for each="{statusList}" as="status" iteration="i">
+                                        <div class="c-control c-checkbox">
+                                            <input type="checkbox" class="c-control-input">
+                                            <label class="c-control-label" for="status-{status.uid}">{status.statusTitle}</label>
+                                        </div>
+                                    </f:for>
+                                </div>
+                            </div>
+                        </f:if>
+                    </aside>
+                    <article class="col-lg-9 col-md-8">
+                        <div class="ns_helpdesk--tickets">
+                            <div class="ns-helpdesk-alert ns-helpdesk-alert-info">
+                                <h4 class="ns-helpdesk-alert-heading"><f:translate key="helpdesk.opps" /></h4>
+                                <p><f:format.raw><f:translate key="helpdesk.notloginticket" arguments="{0:'{f:uri.page(pageUid: \'{settings.loginPage}\')}', 1:'{f:uri.page(pageUid: \'{settings.registrationPage}\')}'}" /></f:format.raw></p>
+                                <hr>
+                                <p><f:translate key="helpdesk.end.salutation" /></p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </f:else>
+    </f:if>
+</f:section>
+<f:section name="statusFilter">
+    <div class="ns_helpdesk--filter-item">
+        <div class="ns_helpdesk--filter-title">
+            <h4>
+                <f:translate key="tr.status"/>
+            </h4>
+        </div>
+        <div class="ns_helpdesk--filter-content">
+            <f:for each="{statusList}" as="status" iteration="i">
+                <div class="c-control c-checkbox">
+                    <input type="checkbox" class="c-control-input"
+                           onclick="return getTicketsList()"
+                           name="tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[ticketStatus]"
+                           id="status-{status.uid}" value="{status.uid}" {f:if(condition:'{x}=={status.uid}', then: 'checked') -> f:for(each: '{statusChecked}', as:'x', iteration: 'i')}>
+                    <label class="c-control-label" for="status-{status.uid}">{status.statusTitle}</label>
+                </div>
+            </f:for>
+        </div>
+    </div>
+</f:section>
+</html>

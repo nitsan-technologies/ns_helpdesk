@@ -1,0 +1,31 @@
+<html lang="en" data-namespace-typo3-fluid="true" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers">
+<f:layout name="Default" />
+<f:section name="content">
+	<div class="container">
+		<div class="ns-form-wrapper">
+			<f:render partial="FormErrors" arguments="{_all}"/>
+			<f:if condition="{userDetails.ses_userid}">
+				<f:then>
+					<div class="nshelpdesk-success-msg create-form-msg">
+						<p><f:format.raw>{settings.popoupMessage -> f:format.nl2br()}</f:format.raw></p>
+					</div>
+					<f:form action="create" name="newTickets" object="{newTickets}" enctype="multipart/form-data" class="ticketGenerationForm" pageType="15021994">
+						<f:render partial="Tickets/FormFields" arguments="{_all}" />
+						<div class="ns-form-group">
+							<f:form.submit class="nsbtn ns-btn" value="{settings.formConf.submitBtn.label}" />
+						</div>
+					</f:form>
+				</f:then>
+				<f:else>
+					<div class="ns-helpdesk-alert ns-helpdesk-alert-info">
+						<h4 class="ns-helpdesk-alert-heading"><f:translate key="helpdesk.opps" /></h4>
+						<p><f:format.raw><f:translate key="helpdesk.create.notlogin" arguments="{0:'{f:uri.page(pageUid: \'{settings.loginPage}\')}', 1:'{f:uri.page(pageUid: \'{settings.registrationPage}\')}'}" /></f:format.raw></p>
+						<hr>
+						<p><f:translate key="helpdesk.end.salutation" /></p>
+					</div>
+				</f:else>
+			</f:if>
+		</div>
+	</div>
+</f:section>
+</html>

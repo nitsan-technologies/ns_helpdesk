@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
+		<header/>
+		<body>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets">
+				<source>Tickets</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_subject">
+				<source>Ticket Subject</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_text">
+				<source>Ticket Text</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_post_date">
+				<source>Ticket Post Date</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_status">
+				<source>Ticket Status</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_type">
+				<source>Ticket Type</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.assignee_id">
+				<source>Assignee (Backend Users)</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.user_id">
+				<source>Website Users</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee">
+				<source>Default Assignee</source>
+			</trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_tickets.attachment">
+                <source>Attachment</source>
+            </trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee.ticket_type">
+				<source>Ticket Type</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_defaultassignee.assignee_id">
+				<source>Assignee</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus">
+				<source>Ticket Status</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus.status_title">
+				<source>Status Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_ticketstatus.status_color">
+				<source>Status Color</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes">
+				<source>Ticket Types</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes.type_title">
+				<source>Type Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickettypes.type_color">
+				<source>Type Color</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments">
+				<source>Comments</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.comment">
+				<source>Comment</source>
+			</trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_comments.ticket_id">
+                <source>Ticket</source>
+            </trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_comments.user">
+                <source>User</source>
+            </trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_comments.assignee">
+                <source>Assignee</source>
+            </trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.ticket_id">
+				<source>Ticket Id</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_comments.user_id">
+				<source>Website Users</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_quickreply">
+				<source>Quick Reply</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_quickreply.quick_text">
+				<source>Quick Text</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_helpdesk_helpdesk.name">
+				<source>Helpdesk</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_helpdesk_helpdesk.description">
+				<source>Create an individual ticket system</source>
+			</trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_tickets.comment">
+                <source>Comment</source>
+            </trans-unit>
+            <trans-unit id="tx_nshelpdesk_domain_model_comments.attachment">
+                <source>Attachments</source>
+            </trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.selectfeuser">
+				<source>Select User</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.slug">
+				<source>Slug</source>
+			</trans-unit>
+			<trans-unit id="tx_nshelpdesk_domain_model_tickets.ticket_rating">
+				<source>Ticket Ratings</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

@@ -1,0 +1,16 @@
+routeEnhancers:
+  TicketSystem:
+    type: Extbase
+    extension: NsHelpdesk
+    plugin: Helpdesk
+    routes:
+      - routePath: '/{ticket-sub}'
+        _controller: 'Tickets::show'
+        _arguments:
+          ticket-sub: tickets
+    defaultController: 'Tickets::list'
+    aspects:
+      ticket-sub:
+        type: PersistedAliasMapper
+        tableName: tx_nshelpdesk_domain_model_tickets
+        routeFieldName: slug

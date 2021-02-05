@@ -1,0 +1,79 @@
+<f:if condition="{totalpage} > 1">
+	<ul class="pagination">
+		<f:if condition="{previous}">
+			<f:then>
+				<li class="page-nav">
+					<f:link.action action="list" arguments="{pageNo:previous}" class="page-prev">
+						<svg xmlns="http://www.w3.org/2000/svg" width="6.791" height="10.754" viewBox="0 0 6.791 10.754">
+							<path id="Path_155" data-name="Path 155" d="M6105.337,1129.333l-4.67,4.67,4.67,4.67" transform="translate(-6099.253 -1128.626)" fill="none" stroke="#f49700" stroke-width="2"/>
+						</svg>
+					</f:link.action>
+				</li>
+			</f:then>
+			<f:else>
+				<li class="page-nav">
+					<a class="page-prev disabled" href="javascript:;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="6.791" height="10.754" viewBox="0 0 6.791 10.754">
+							<path id="Path_155" data-name="Path 155" d="M6105.337,1129.333l-4.67,4.67,4.67,4.67" transform="translate(-6099.253 -1128.626)" fill="none" stroke="#f49700" stroke-width="2"/>
+						</svg>
+					</a>
+				</li>
+			</f:else>
+		</f:if>
+		
+		<f:for each="{pages}" as="page" iteration="it">
+			<f:if condition="{it.isFirst}">
+				<f:if condition= "1 < {page}">
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:1}" >1</f:link.action>
+					</li>
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:page}" >...</f:link.action>
+					</li>
+				</f:if>
+			</f:if>
+			<f:if condition="{page}=={curpage}">
+				<f:then>
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:page}" class="active"><span>{page}</span></f:link.action>
+					</li>
+				</f:then>
+				<f:else>
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:page}" >{page}</f:link.action>
+					</li>
+				</f:else>
+			</f:if>
+			<f:if condition="{it.isLast}">
+				<f:if condition="{page}<{totalpage}">
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:page}">...</f:link.action>
+					</li>
+					<li class="page-item">
+						<f:link.action action="list" arguments="{pageNo:totalpage}">{totalpage}</f:link.action>
+					</li>
+				</f:if>
+			</f:if>
+		</f:for>
+		<f:if condition="{next}">
+			<f:then>
+				<li class="page-nav">
+					<f:link.action action="list" arguments="{pageNo:next}" class="page-next">
+						<svg xmlns="http://www.w3.org/2000/svg" width="6.791" height="10.754" viewBox="0 0 6.791 10.754">
+							<path id="Path_154" data-name="Path 154" d="M6100.667,1129.333l4.67,4.67-4.67,4.67" transform="translate(-6099.96 -1128.626)" fill="none" stroke="#f49700" stroke-width="2"/>
+						</svg>
+					</f:link.action>
+				</li>
+			</f:then>
+			<f:else>
+				<li class="page-nav">
+					<a class="page-next disabled" href="javascript:;">
+						<svg xmlns="http://www.w3.org/2000/svg" width="6.791" height="10.754" viewBox="0 0 6.791 10.754">
+							<path id="Path_154" data-name="Path 154" d="M6100.667,1129.333l4.67,4.67-4.67,4.67" transform="translate(-6099.96 -1128.626)" fill="none" stroke="#f49700" stroke-width="2"/>
+						</svg>
+					</a>
+				</li>
+			</f:else>
+		</f:if>
+	</ul>
+</f:if>

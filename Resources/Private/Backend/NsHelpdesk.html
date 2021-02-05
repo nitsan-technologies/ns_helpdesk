@@ -1,0 +1,38 @@
+<table class='table table-striped table-hover typo3-extension-list no-footer'>
+    <thead>
+        <tr>
+            <th colspan='2'>
+                <f:translate key="nshelpdesk.plugin.title" extensionName="ns_helpdesk" /><br />
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <th><f:translate key="nshelpdesk.plugin.display" extensionName="ns_helpdesk" /></th>
+            <td>
+                <f:switch expression="{flexformData.switchableControllerActions}">
+                    <f:case value="Tickets->new;Tickets->create">
+                        <f:translate key="nshelpdesk.plugin.display.type.ticketSubmission" extensionName="ns_helpdesk" />
+                    </f:case>
+                    <f:case value="Tickets->list;Tickets->show;Tickets->closeTicket;Tickets->reopenTicket">
+                        <f:translate key="nshelpdesk.plugin.display.type.list" extensionName="ns_helpdesk" />
+                    </f:case>
+                </f:switch>
+            </td>
+        </tr>
+        <f:if condition="{flexformData.switchableControllerActions} == 'Tickets->list;Tickets->show;Tickets->closeTicket;Tickets->reopenTicket'">
+            <tr>
+                <th><f:translate key="nshelpdesk.plugin.list.listPageId" extensionName="ns_helpdesk" /></th>
+                <td>
+                    {flexformData.settings.listPageId}
+                </td>
+            </tr>
+            <tr>
+                <th><f:translate key="nshelpdesk.plugin.list.ticketCreatePage" extensionName="ns_helpdesk" /></th>
+                <td>
+                    {flexformData.settings.list.createPageId}
+                </td>
+            </tr>
+        </f:if>
+    </tbody>
+</table>

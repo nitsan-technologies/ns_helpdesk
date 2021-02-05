@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
+		<header/>
+		<body>
+            <trans-unit id="nshelpdesk.cat_ticketassign">
+                <source>Ticket Assignment</source>
+            </trans-unit>
+			<trans-unit id="nshelpdesk.cat_administrator">
+				<source>Admin Mail Config</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.cat_storage">
+				<source>Global Storage PID</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.adminEmail">
+				<source>Admin Email</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.adminName">
+				<source>Admin Name</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.storagePid">
+				<source>Storage ID</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.cat_jslib">
+				<source>Include JS Library</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.enable_jquery">
+				<source>Enable JQuery</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.loginPage">
+				<source>Login Page ID</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.registrationPage">
+				<source>Registration Page ID</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.cat_popup_appearance">
+				<source>Popup Appearance</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.cat_popup_settings">
+				<source>Popup Settings</source>
+			</trans-unit>
+			<trans-unit id="leftbottom">
+				<source>Left Bottom</source>
+			</trans-unit>
+			<trans-unit id="rightbottom">
+				<source>Right Bottom</source>
+			</trans-unit>
+			<trans-unit id="leftside">
+				<source>Left Sidebar</source>
+			</trans-unit>
+			<trans-unit id="rightside">
+				<source>Right Sidebar</source>
+			</trans-unit>
+			<trans-unit id="popuplayout">
+				<source>Popup Layout</source>
+			</trans-unit>
+			<trans-unit id="popuptitle">
+				<source>Popup Title</source>
+			</trans-unit>
+			<trans-unit id="titlebar">
+				<source>Popup Titlebar Text</source>
+			</trans-unit>
+			<trans-unit id="popupcolor">
+				<source>Popup Color</source>
+			</trans-unit>
+
+			<trans-unit id="nameinclude">
+				<source>Name Field - Include?</source>
+			</trans-unit>
+			<trans-unit id="namelabel">
+				<source>Name Field - Label</source>
+			</trans-unit>
+			<trans-unit id="nameplaceholder">
+				<source>Name Field - Placeholder</source>
+			</trans-unit>
+			<trans-unit id="namerequired">
+				<source>Name Field - Required?</source>
+			</trans-unit>
+
+			<trans-unit id="emailinclude">
+				<source>Email Field - Include?</source>
+			</trans-unit>
+			<trans-unit id="emaillabel">
+				<source>Email Field - Label</source>
+			</trans-unit>
+			<trans-unit id="emailplaceholder">
+				<source>Email Field - Placeholder</source>
+			</trans-unit>
+			<trans-unit id="emailrequired">
+				<source>Email Field - Required?</source>
+			</trans-unit>
+
+			<trans-unit id="textareainclude">
+				<source>Description - Include?</source>
+			</trans-unit>
+			<trans-unit id="textarealabel">
+				<source>Description - Label</source>
+			</trans-unit>
+			<trans-unit id="textareaplaceholder">
+				<source>Description - Placeholder</source>
+			</trans-unit>
+			<trans-unit id="textarearequired">
+				<source>Description - Required?</source>
+			</trans-unit>
+
+			<trans-unit id="subjectinclude">
+				<source>Subject - Include?</source>
+			</trans-unit>
+			<trans-unit id="subjectlabel">
+				<source>Subject - Label</source>
+			</trans-unit>
+			<trans-unit id="subjectplaceholder">
+				<source>Subject - Placeholder</source>
+			</trans-unit>
+			<trans-unit id="subjectrequired">
+				<source>Subject - Required?</source>
+			</trans-unit>
+
+			<trans-unit id="catinclude">
+				<source>Categories - Include?</source>
+			</trans-unit>
+			<trans-unit id="catlabel">
+				<source>Categories - Label</source>
+			</trans-unit>
+			<trans-unit id="attachmentinclude">
+				<source>Attachment - Include?</source>
+			</trans-unit>
+			<trans-unit id="attachmentlabel">
+				<source>Attachment - Label</source>
+			</trans-unit>
+			<trans-unit id="captchainclude">
+				<source>Google reCaptcha - Include?</source>
+			</trans-unit>
+			<trans-unit id="captchaKey">
+				<source>Site-key:You should defined SiteKey for render Google reCaptcha in your form</source>
+			</trans-unit>
+			<trans-unit id="submitlabel">
+				<source>Submit Button - Label</source>
+			</trans-unit>
+			<trans-unit id="cat_fullform">
+				<source>Ticket Submit Form</source>
+			</trans-unit>
+			<trans-unit id="captchalang">
+				<source>Google reCaptcha Language</source>
+			</trans-unit>
+			<trans-unit id="cat_user_registration">
+				<source>User Registration Form</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.defaultFeGroup">
+				<source>Assign Default FE Group</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.minchar">
+				<source>Min Character</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.cat_googleCaptcha">
+				<source>Google reCaptcha</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.notifyAdmin">
+				<source>Notify Admin via email: If it is checked then notify Admin to each ticket create.</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.maxsize">
+				<source>Maximum upload size: Specify the maximum size of upload files, in number of MB's. Default is 1 MB.</source>
+			</trans-unit>
+			<trans-unit id="nshelpdesk.filetype">
+				<source>Allowed image types: Specify the list of acceptable file extensions for the front end user images. Default is jpg,jpeg,png,svg.</source>
+			</trans-unit>
+			<trans-unit id="defaultAssigneeId">
+				<source>Default Assignee ID</source>
+			</trans-unit>
+			
+		</body>
+	</file>
+</xliff>

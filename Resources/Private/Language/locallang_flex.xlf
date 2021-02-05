@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
+        <header/>
+        <body>
+            <trans-unit id="globalSettings">
+                <source>Plugin Settings</source>
+            </trans-unit>
+            <trans-unit id="display.mode">
+                <source>Select View</source>
+            </trans-unit>
+            <trans-unit id="list">
+                <source>List View</source>
+            </trans-unit>
+            <trans-unit id="ticket_submission">
+                <source>Ticket Submission(Forms)</source>
+            </trans-unit>
+            <trans-unit id="form.fullform">
+                <source>Submission Form</source>
+            </trans-unit>
+            <trans-unit id="helpdeks.ticketCreatePageId">
+                <source>Ticket create page ID</source>
+            </trans-unit>
+            <trans-unit id="globalSettings">
+                <source>General</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.mailTab">
+                <source>Visitors/Admin Mail Settings</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.mail.visitorsSubject">
+                <source>Visitors email subject</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.mail.adminSubject">
+                <source>Admin email subject</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.popup.popupMessage">
+                <source>Success Message (To show after visitor submit the Popup or form).</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.mail.body">
+                <source>Email body Message</source>
+            </trans-unit>
+            <trans-unit id="helpdesk.listPageId">
+                <source>List Page Id</source>
+            </trans-unit>
+
+        </body>
+    </file>
+</xliff>

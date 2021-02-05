@@ -1,0 +1,17 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  dashboard.widget.nshelpdesk:
+    class: 'NITSAN\NsHelpdesk\Widgets\NsHelpdeskWidget'
+    tags:
+      - name: dashboard.widget
+        identifier: 'nshelpdeskwid1'
+        groupNames: 'general'
+        title: 'Helpdesk'
+        description: 'Display General information from your HelpDesk Reports'
+        iconIdentifier: 'content-widget-text'
+        height: 'medium'
+        width: 'medium'

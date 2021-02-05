@@ -1,0 +1,94 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    <div class="tx-ns-helpdesk ns_helpdesk-main">
+        <div class="container">
+            <div class="ns-form-wrapper">
+            <f:flashMessages/>
+
+            <div class="login-fail-message">
+                <f:if condition="{messageKey}">
+                    <h4>
+                        <f:render partial="RenderLabelOrMessage" arguments="{key: '{messageKey}_header'}"/>
+                    </h4>
+                    <p>
+                        <f:render partial="RenderLabelOrMessage" arguments="{key: '{messageKey}_message'}"/>
+                    </p>
+                </f:if>
+            </div>
+            <f:if condition="{onSubmit}">
+                <f:then>
+                    <f:form target="_top" fieldNamePrefix="" action="login" onsubmit="{onSubmit}" class="login-form">
+                        <f:render section="content" arguments="{_all}"/>
+                    </f:form>
+                </f:then>
+                <f:else>
+                    <f:form target="_top" fieldNamePrefix="" action="login" class="login-form">
+                        <f:render section="content" arguments="{_all}"/>
+                    </f:form>
+                </f:else>
+            </f:if>
+
+            <f:if condition="{settings.showForgotPassword}">
+                <div class="forgot-password-link">
+                    <f:link.action action="recovery" controller="PasswordRecovery">
+                        <f:render partial="RenderLabelOrMessage" arguments="{key: 'forgot_header'}"/>
+                    </f:link.action>
+                </div>
+            </f:if>
+
+            <f:section name="content">
+                <fieldset>
+                    <div class="ns-form-group">
+                        <label><f:translate key="username"/></label>
+                        <f:form.textfield name="user" class="form-control"/>
+                    </div>
+                    <div class="ns-form-group">
+                        <label><f:translate key="password"/></label>
+                        <f:form.password name="pass" data="{rsa-encryption: ''}" class="form-control" />
+                    </div>
+
+                    <f:if condition="{permaloginStatus} > -1">
+                        <div>
+                            <label>
+                                <f:translate id="permalogin"/>
+                                <f:if condition="{permaloginStatus} == 1">
+                                    <f:then>
+                                        <f:form.hidden name="permalogin" value="0" additionalAttributes="{disabled: 'disabled'}"/>
+                                        <f:form.checkbox name="permalogin" id="permalogin" value="1" checked="checked"/>
+                                    </f:then>
+                                    <f:else>
+                                        <f:form.hidden name="permalogin" value="0"/>
+                                        <f:form.checkbox name="permalogin" id="permalogin" value="1"/>
+                                    </f:else>
+                                </f:if>
+                            </label>
+                        </div>
+                    </f:if>
+
+                    <div class="ns-form-group">
+                        <f:form.submit value="{f:translate(key: 'login')}" name="submit" class="nsbtn ns-btn"/>
+                    </div>
+
+                    <div class="felogin-hidden">
+                        <f:form.hidden name="logintype" value="login"/>
+                        <f:form.hidden name="pid" value="{storagePid}"/>
+                        <f:if condition="{redirectURL}!=''">
+                            <f:form.hidden name="redirect_url" value="{redirectURL}" />
+                        </f:if>
+                        <f:if condition="{referer}!=''">
+                            <f:form.hidden name="referer" value="{referer}" />
+                        </f:if>
+                        <f:if condition="{redirectReferrer}!=''">
+                            <f:form.hidden name="redirectReferrer" value="off" />
+                        </f:if>
+                        <f:if condition="{noRedirect}!=''">
+                            <f:form.hidden name="noredirect" value="1" />
+                        </f:if>
+
+                        {extraHidden}
+                    </div>
+                </fieldset>
+            </f:section>
+        </div>
+        </div>
+    </div>
+</html>

@@ -1,0 +1,11 @@
+plugin.tx_felogin_login {
+    templateFile = EXT:ns_helpdesk/Resources/Private/Templates/Login/Templates/Login/Login.html
+    view {
+        templateRootPaths {
+            10 = EXT:ns_helpdesk/Resources/Private/Templates/Login/Templates/
+        }
+        partialRootPaths {
+            10 = EXT:ns_helpdesk/Resources/Private/Templates/Login/Partials/
+        }
+    }
+}

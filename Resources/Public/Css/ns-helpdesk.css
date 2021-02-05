@@ -1,0 +1,1378 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900&display=swap');
+.tx-ns-helpdesk {
+    font-size: 14px;
+}
+
+.tx-ns-helpdesk {
+    font-family: 'Roboto', sans-serif;
+}
+
+::-moz-selection { /* Code for Firefox */
+    color: #fff;
+    background: #333;
+}
+::selection {
+    color: #fff;
+    background: #333;
+}
+
+.tx-ns-helpdesk .form-control::-webkit-input-placeholder {
+    color: #bdbdbd;
+    opacity: 0.5;
+}
+
+.tx-ns-helpdesk .form-control:-moz-placeholder {
+    color: #bdbdbd;
+    opacity: 0.5;
+}
+
+.tx-ns-helpdesk .form-control::-moz-placeholder {
+    color: #bdbdbd;
+    opacity: 0.5;
+}
+
+.tx-ns-helpdesk .form-control:-ms-input-placeholder {
+    color: #bdbdbd;
+    opacity: 0.5;
+}
+
+.tx-ns-helpdesk .form-control::placeholder {
+    color: #bdbdbd;
+    opacity: 0.5;
+}
+
+.tx-ns-helpdesk label {
+    font-weight: 400;
+}
+
+.tx-ns-helpdesk a {
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+a, a:focus {
+    outline: none;
+}
+
+a:hover {
+    color: #000;
+    text-decoration: none;
+}
+
+.c-btn {
+    color: #222;
+    border: 1px solid #DBDFE4;
+    padding: 10px 15px 8px;
+    border-radius: 0;
+    min-width: 100px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.c-btn:hover,
+.c-btn-primary {
+    background-color: #333;
+    color: #fff;
+}
+
+.c-btn:focus,
+.btn:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+.c-btn-secondary {
+    background-color: #777;
+    color: #fff;
+}
+
+.c-btn-large {
+    min-width: 1px;
+}
+
+.c-hidden {
+    display: none;
+}
+
+.ns_helpdesk-main {
+    padding: 15px 0 20px;
+}
+
+.ns_helpdesk--top {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.ns_helpdesk--top ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+}
+.ns_helpdesk--top ul li {
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+.ns_helpdesk--top-right ul li:last-child {
+    margin-right: 0;
+}
+.ns_helpdesk--top.ns_helpdesk--top__listing {
+    display: block;
+}
+.ns_helpdesk--search-form .btn {
+    background-color: #111;
+    color: #fff;
+}
+
+.ns_helpdesk--search-form .form-control {
+    height: calc(1.5em + .75rem + 9px);
+    border: 1px solid #DBDFE4;
+    border-radius: 0;
+    max-width: 174px;
+}
+
+.form-control:focus {
+    color: #777;
+    border-color: #111;
+    outline: 0;
+    box-shadow: none;
+}
+
+.ns_helpdesk--filter-item {
+    border: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.ns_helpdesk--filter-title {
+    background-color: #333;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+}
+
+.ns_helpdesk--filter-title h4 {
+    margin-bottom: 0;
+    font-size: 20px;
+}
+
+.ns_helpdesk--filter-content {
+    padding: 25px 25px 7px;
+}
+
+.c-control {
+    position: relative;
+    display: block;
+    min-height: 1.8rem;
+    padding-left: 2.5rem;
+    font-size: 18px;
+    margin-bottom: 18px;
+}
+
+.c-control-label::after {
+    position: absolute;
+    top: 0;
+    left: -2.6rem;
+    width: 1.7rem;
+    height: 1.7rem;
+    display: block;
+    content: "";
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 50%;
+}
+.c-control-input {
+    position: absolute;
+    z-index: -1;
+    opacity: 0;
+}
+.c-control-label {
+    position: relative;
+    margin-bottom: 0;
+    vertical-align: top;
+    text-transform: capitalize;
+}
+.c-control-label::before {
+    position: absolute;
+    top: 0.1rem;
+    left: -2.5rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: block;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: #adb5bd solid 1px;
+    transition: background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.c-checkbox .c-control-label::before,
+.c-control-input:focus:not(:checked)~.c-control-label::before {
+    border-color: #DBDFE4;
+    border-radius: 0;
+}
+
+.c-control-input:focus~.c-control-label::before {
+    box-shadow: none;
+}
+
+.c-control-input:checked~.c-control-label::before {
+    color: #fff;
+    border-color: #DBDFE4;
+    background-color: transparent;
+}
+
+.c-checkbox .c-control-input:checked~.c-control-label::after {
+    background-image: url('../images/tick.svg');
+
+}
+
+.ns_helpdesk--ticket {
+    background-color: #F6FAFF;
+    border: 1px solid #DBDFE4;
+    padding: 30px;
+    margin-bottom: 30px;
+    display: block;
+    color: #333;
+    box-shadow: 3px 3px 9px rgba(0,0,0,0);
+}
+
+.ns_helpdesk--ticket:hover {
+    color: #333;
+    box-shadow: 3px 3px 9px rgba(0,0,0,0.1);
+}
+
+.ns_helpdesk--ticket-headline {
+    position: relative;
+    margin-bottom: 20px;
+    padding-right: 100px;
+}
+
+.ns_helpdesk--ticket-headline h3 {
+    font-size: 20px;
+}
+
+.tag {
+    background-color: #333;
+    color: #fff;
+    padding: 5px 18px 4px;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.tag.tag-red {
+    background-color: #FB1563;
+}
+
+.tag.tag-green {
+    background-color: #18CB7D;
+}
+
+.tag.tag-gray {
+    background-color: #B0B8C1;
+}
+
+.ns_helpdesk--ticket-headline .tag {
+    position: absolute;
+    right: 0;
+    top: -4px;
+}
+
+.ns_helpdesk--ticket-headline .ns_helpdesk--ticket-list {
+    padding-top: 4px;
+}
+
+.ns_helpdesk--ticket-text {
+    margin-bottom: 30px;
+}
+
+.ns_helpdesk--ticket-list ul {
+    padding: 0;
+    margin: 0;
+    display: block;
+}
+
+.ns_helpdesk--ticket-list ul li {
+    font-size: 14px;
+    list-style: none;
+    position: relative;
+    padding: 0;
+    margin-bottom: 2px;
+    color: #B0B8C1;
+}
+
+.ns_helpdesk--ticket-list ul li:first-child {
+    padding-left: 0;
+}
+
+.ns_helpdesk--ticket-list ul li:last-child {
+    padding-right: 0;
+}
+
+.ns_helpdesk--ticket-list ul li:last-child::before {
+    display: none;
+}
+
+.pagination {
+    display: block;
+    padding-left: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.pagination li {
+    border: 1px solid #9CA9B8;
+}
+
+.pagination li svg path {
+    stroke: #000;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+.pagination .page-item, .pagination .page-nav {
+    line-height: normal;
+    text-align: center;
+    padding: 0;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+}
+
+.pagination .page-nav a.disabled {
+    color: #9ca9b8;
+    cursor: default;
+    pointer-events: none;
+}
+
+.pagination .page-item a, .pagination .page-nav a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    font-size: 14px;
+    padding: 4px;
+    background-color: #fff;
+    color: #333;
+}
+
+.pagination .page-item a:hover, .pagination .page-item a.active, .pagination .page-nav a:hover, .pagination .page-nav a.active {
+    background-color: #333;
+    color: #fff;
+}
+.pagination .page-nav a:hover svg path {
+    stroke: #fff;
+}
+
+.ns_helpdesk--ticket-detail .ns_helpdesk--ticket-headline {
+    margin-bottom: 0;
+}
+
+.ns_helpdesk--ticket-detail .ns_helpdesk--ticket {
+    box-shadow: none;
+}
+
+.ticket-detail-desc {
+    margin-bottom: 46px;
+}
+
+.ticket-detail-desc h3 {
+    font-size: 21px;
+    margin-bottom: 20px;
+}
+
+.ticket-attachment {
+    margin-bottom: 40px;
+}
+
+.ticket-attachment h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #B0B8C1;
+}
+
+.ticket-attachment ul {
+    padding: 0;
+    display: flex;
+}
+.ticket-attachment ul li{
+    padding: 0;
+    list-style: none;
+    margin-right: 10px;
+}
+
+.ticket-comments h3 {
+    margin-bottom: 30px;
+    font-size: 20px;
+    color: #293B51;
+}
+
+.ticket-comment {
+    margin-bottom: 30px;
+    padding-left: 70px;
+    position: relative;
+}
+
+.ticket-comment.ticket-comment--right {
+    padding-left: 0;
+    padding-right: 70px;
+}
+
+.ticket-comment.ticket-comment--right .ticket-comment-avatar {
+    left: auto;
+    right: 0;
+}
+
+.ticket-comment.ticket-comment--right .ticket-comment-info {
+    justify-content: flex-end;
+}
+
+.ticket-comment-textarea textarea {
+    border: 1px solid #DBDFE4;
+    padding: 15px;
+    resize: none;
+    text-align: left;
+    width: 100%;
+}
+
+.ticket-comment-textarea textarea:focus {
+    outline: 0;
+    border-color: #293B51;
+}
+
+.ticket-comment-avatar {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.ticket-comment-avatar img {
+    border-radius: 50%;
+    display: inline-block;
+    width: 46px;
+    height: 46px;
+}
+
+.ticket-comment-desc {
+    background-color: #F6FAFF;
+    border: 1px solid #DBDFE4;
+    padding: 25px;
+    margin-bottom: 15px;
+}
+
+.ticket-comment-info {
+    list-style: none;
+    padding: 0;
+    display: flex;
+}
+
+.ticket-comment-info li {
+    padding: 0;
+    color: #B0B8C1;
+}
+
+.ticket-comment-info li:not(:last-child) {
+    margin-right: 30px;
+}
+
+.ticket-buttons {
+    margin-bottom: 30px;
+}
+
+/*Form CSS*/
+.tx-ns-helpdesk .container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.tx-ns-helpdesk textarea {
+    height: 100px;
+    width: 100%;
+    resize: none;
+}
+
+.tx-ns-helpdesk textarea:focus, .tx-ns-helpdesk textarea:active {
+    box-shadow: none;
+    outline: none;
+}
+
+.tx-ns-helpdesk .ns-form-wrapper {
+    max-width: 800px;
+    background-color: #F6F8FB;
+    margin: 50px auto 30px;
+    width: 100%;
+    display: block;
+    padding: 30px 20px;
+}
+.tx-ns-helpdesk .ns-form-wrapper .ns-form-group , .tx-ns-helpdesk .ns-helpdesk-popup .ns-form-group {
+    margin-bottom: 1rem;
+    margin-left: 0;
+    margin-right: 0;
+}
+.tx-ns-helpdesk .ns-form-wrapper input:not([type='file']), .tx-ns-helpdesk .ns-form-wrapper textarea, .tx-ns-helpdesk .ns-form-wrapper select {
+    display: block;
+    width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.tx-ns-helpdesk .ns-form-wrapper .error-msg-red {
+    display: inline-block;
+    font-weight: 600;
+    margin: 0 0 5px;
+    width: 100%;
+    font-family: inherit;
+    font-size: 14px;
+    color: red;
+}
+
+.tx-ns-helpdesk .ns-form-wrapper .error-msg {
+    display: none;
+}
+.tx-ns-helpdesk .ns-form-wrapper .has-error {
+    position: relative;
+}
+.tx-ns-helpdesk .ns-form-wrapper .error-msg p {
+    margin: 0;
+    color: #FFFFFF;
+}
+.tx-ns-helpdesk .ns-form-wrapper .error-msg::after {
+    background-color: #ee0101;
+    border-bottom: 0;
+    border-right: 0;
+    bottom: -5px;
+    content: "";
+    height: 10px;
+    position: absolute;
+    right: 10px;
+    width: 10px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.tx-ns-helpdesk .ns-form-wrapper .userCreateForm .error-msg::after {
+    border-bottom: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    bottom: -6px;
+}
+.tx-ns-helpdesk .ns-form-wrapper .userCreateForm .googlecaptcha .error-msg::after {
+    transform: rotate(225deg);
+}
+.tx-ns-helpdesk .ns-form-group .nsbtn.ns-btn {
+    background-color: #f18a2d;
+    color: #FFFFFF;
+    box-shadow: none;
+    cursor: pointer;
+    min-width: 105px;
+    padding-top: 8px;
+    width: auto !important;
+    outline: medium none;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    border: 1px solid #f18a2d;
+}
+.tx-ns-helpdesk .nsbtn.ns-btn:hover {
+    background-color: #f17a2d;
+}
+/*End of CSS Form*/
+@media(min-width:576px) {
+
+}
+
+@media(min-width:768px) {
+    .ns_helpdesk-main {
+        padding: 20px 0 30px;
+    }
+    .pagination {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: right;
+    }
+
+}
+
+@media(min-width:992px) {
+
+}
+
+@media(min-width:768px) and (max-width:992px) {
+
+}
+
+@media(min-width:1200px) {
+    html, body {
+        font-size: 16px;
+    }
+}
+
+
+/*File Upload CSS*/
+.nsuploadbtn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 8px 24px;
+    font-size: 13px;
+    line-height: 1.52857143;
+    border-radius: 3px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.cusfileupload-wrap {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+.custom-file-upload {
+    margin-bottom: 5px;
+}
+.cusfileupload-wrap label span{
+    font-size: 16px;
+    margin-right: 15px;
+    color: #999999;
+}
+.custom-file-upload input.inputfile {
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+.cusfileupload-wrap .btn-file-upload{
+    border-radius: 3px;
+    padding: 5px 15px 4px;
+}
+.cusfileupload-wrap .custom-file-upload{
+    margin-bottom: 5px;
+}
+.cusfileupload-wrap .btn-file-upload {
+    border-radius: 3px;
+    padding: 5px 15px 4px;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    background-color: #33c3f0;
+}
+.btn-file-upload:hover,
+.btn-file-upload:focus{
+    background-color: #0792bd;
+    color: #fff;
+}
+.cusfileupload-wrap label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+}
+.custom-file-upload label .icon-file-upload{
+    background-image: url("../images/icon-file-upload.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    height: 33px;
+    margin-right: 15px;
+    position: relative;
+    top: 12px;
+    width: 40px;
+}
+
+.custom-file-upload label {
+    border: 2px dashed #999999;
+    cursor: pointer;
+    padding: 25px 0 30px;
+    text-align: center;
+    width: 100%;
+    border-radius: 6px;
+}
+.inputfile + label * {
+    pointer-events: none;
+}
+ .custom-file-upload label span{
+    font-weight: 300;
+    font-size: 15px;
+}
+.cusfileupload-wrap label span {
+    font-size: 16px;
+    margin-right: 15px;
+    color: #999999;
+}
+.cusfileupload-wrap .btn-file-upload {
+    font-weight: 400;
+}
+.ns-helpdesk-alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+.ns-helpdesk-alert {
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+.ns-helpdesk-alert h4.ns-helpdesk-alert-heading{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+.ns-helpdesk-alert-danger, .ns-helpdesk-alert-danger > h4.ns-helpdesk-alert-heading {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.tx-ns-helpdesk .add-comment-btn {
+margin-top: 10px;
+}
+
+button.disabled {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+button.disabled:hover {
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+.screenshot-group{
+    display: none;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.screenshot-block{
+    display: inline-block;
+    padding-left: 0;
+    text-align: center;
+    padding-right: 10px;
+    max-width: 115px;
+}
+.screenshot-block span{
+    display: block;
+    padding-top: 10px;
+    color: #999;
+    font-family: "Open Sans",Helvetica,Arial,sans-serif;
+    font-size: 12px;
+}
+.ns_helpdesk--filter-content.disabled {
+    position: relative;
+}
+.ns_helpdesk--filter-content.disabled::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background: #000000;
+    opacity: 0.1;
+}
+.c-btn.c-btn-secondary {
+    font-size: 16px;
+}
+a.ns_helpdesk--ticket.unread {
+    position: relative;
+}
+a.ns_helpdesk--ticket.unread::after {
+    content: '';
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: red;
+}
+span.mandatory {
+    color: red;
+}
+.tx-ns-helpdesk .error-msg {
+    display: none;
+}
+.tx-ns-helpdesk .has-error {
+    position: relative;
+}
+.tx-ns-helpdesk .error-msg {
+    background: #ee0101 none repeat scroll 0 0;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
+    color: #fff !important;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: normal;
+    margin: 0;
+    min-width: 120px;
+    padding: 4px 10px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    z-index: 999;
+    top: -8px;
+}
+.tx-ns-helpdesk .userCreateForm .error-msg {
+    padding: 0px 10px;
+    top: -10px;
+}
+.tx-ns-helpdesk .error-msg p {
+    margin: 0;
+}
+.tx-ns-helpdesk .error-msg::after {
+    background-color: #ee0101;
+    border-bottom: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+    bottom: -6px;
+    content: "";
+    height: 10px;
+    position: absolute;
+    right: 10px;
+    width: 10px;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/*Popup CSS*/
+.ns-helpdesk-popup input {
+    display: block;
+    width: 100% !important;
+    padding: .375rem .75rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.ns-helpdesk-popup .ns-helpdesk-popup-group {
+    margin-bottom: 20px;
+}
+
+.ns-helpdesk-popup .popup-email-error {
+    padding-top:5px;
+    padding-bottom:5px;
+    display: none;
+}
+
+.nshelpdesk-alert-wrap {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 999;
+    position: fixed;
+    top:0;
+    left: 0;
+    background-color: rgba(0,0,0,0.3);
+    display:none;
+}
+.nshelpdesk-popup-btn {
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 8px;
+    position: fixed;
+    right: 20px;
+    bottom:0;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    max-width: 200px;
+    display: block;
+    width: 100%;
+    font-size: 14px;
+    line-height: 18px;
+}
+.nshelpdesk-popup-box.left-bottom {
+    right: auto;
+    left: 20px;
+}
+
+.nshelpdesk-popup-btn.left-bottom {
+    right: auto;
+    left: 25px;
+}
+.nshelpdesk-popup-btn.sidebar-left {
+    left: 0;
+    width: 180px;
+    bottom: auto;
+    top: 50%;
+    transform: rotate(90deg) translate(-70px,74px);
+}
+.nshelpdesk-popup-box.sidebar-left {
+    left: -300px;
+    height: auto;
+    transform: translateY(-50%);
+    top: 50%;
+    bottom: auto;
+}
+.nshelpdesk-popup-btn.sidebar-left.active {
+    left: 362px;
+}
+
+.nshelpdesk-popup-btn.sidebar-right {
+    right: 0;
+    width: 180px;
+    bottom: auto;
+    top: 50%;
+    transform: rotate(90deg) translate(10px,-74px);
+    border-radius: 0 0 4px 4px;
+}
+.nshelpdesk-popup-box.sidebar-right {
+    right: -300px;
+    height: auto;
+    transform: translateY(-50%);
+    top: 50%;
+    bottom: auto;
+}
+.nshelpdesk-popup-btn.sidebar-right.active {
+    right: 300px;
+}
+.nshelpdesk-popup-btn:after{
+    content: "\f077";
+    font-family: 'FontAwesome', serif;
+    right: 8px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.nshelpdesk-popup-box {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 18px;
+    max-width: 300px;
+    position: fixed;
+    right: 5px;
+    bottom: 100%;
+    min-height: 260px;
+    max-height: 685px;
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0, 0.4);
+    box-shadow: 0 0 3px rgba(0,0,0, 0.4);
+    overflow: hidden;
+    display: block;
+    z-index: 99999;
+    background: #fff;
+    border-radius: 4px;
+    transition: bottom,0.3s,ease,0s;
+}
+.nshelpdesk-popup-box.active {
+    bottom: 60px;
+}
+.nshelpdesk-popup-box.sidebar-left.active {
+    left: 0;
+}
+.nshelpdesk-popup-header h5{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fff;
+    margin:0;
+    display: inline-block;
+    font-weight: 400;
+}
+.nshelpdesk-popup-content {
+    padding: 10px 15px;
+    position: relative;
+    height: 89%;
+}
+.nshelpdesk-popup-box h4,.nshelpdesk-popup-box sp{
+    font-size: 14px;
+    line-height: 18px;
+    color: #333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+}
+.nshelpdesk-popup-btn-group {
+    border: solid 1px #ccc;
+    border-radius: 4px;
+}
+.nshelpdesk-popup-label-btn {
+    display: inline-block;
+    padding: 6px 6px 6px 7px;
+    position: relative;
+    cursor: pointer;
+}
+.nshelpdesk-popup-label-btn:hover {
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+.nshelpdesk-popup-label-btn:active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.125);
+}
+.nshelpdesk-popup-label-btn+ .nshelpdesk-popup-label-btn {
+    border-left: solid 1px #ccc;
+}
+.nshelpdesk-popup-label-btn input[type="radio"]{
+    font-size: 14px;
+    color: #333;
+    -webkit-appearance: none;
+    position: absolute;
+}
+.popup-link-box {
+    position: relative
+}
+.popup-link {
+    border: none;
+    background-color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(44,45,48,.3);
+    border-radius: 4px;
+    padding: 4px 9px;
+    color: #2c2d30;
+    font-size: 13px;
+    display: inline-block;
+    text-decoration: none;
+}
+.popup-comment {
+    padding: 10px 0;
+    display: block;
+    position: relative;
+}
+.popup-comment textarea {
+    height: 100px;
+    border-radius: 4px;
+    border: solid 1px #ccc;
+}
+.nshelpdesk-popup-header {
+    border-radius: 4px 4px 0 0;
+    padding: 8px;
+    position: relative;
+}
+.nshelpdesk-popup-header .popup-close {
+    color: #fff;
+    font-size:  16px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+}
+.submit-block {
+    display: inline-block;
+    width: 100%;
+    position: relative;
+}
+.submit-block input[type="submit"] {
+    border-radius: 4px;
+    padding: 8px;
+    position: relative;
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    float: right;
+    box-shadow: none ;
+    cursor: pointer;
+}
+.submit-block input[type="submit"]:active {
+    box-shadow: inset 0 3px 5px rgba(0,0,0,0.125) !important;
+}
+.nshelpdesk-popup-btn.sidebar-right:after {
+    content: "\f078";
+}
+.nshelpdesk-popup-btn.active:after {
+    content:"\f00d";
+}
+.nshelpdesk-popup-box.sidebar-right.active {
+    right: 0;
+}
+.nshelpdesk-popup-box.sidebar-left.active {
+    bottom: auto;
+}
+.nshelpdesk-popup-box.sidebar-right.active {
+    bottom: auto;
+}
+@media(min-width: 768px){
+    .nshelpdesk-popup-box {
+        max-width: 360px;
+        width: 100%;
+        right: 25px;
+    }
+    .nshelpdesk-popup-box.sidebar-left {
+        left: -360px;
+        transition: left,0.3s,ease,0s;
+    }
+    .nshelpdesk-popup-box.sidebar-right {
+        right: -360px;
+        transition: right,0.3s,ease,0s;
+    }
+    .nshelpdesk-popup-box.sidebar-right.active {
+        right: 0;
+    }
+    .nshelpdesk-popup-btn.sidebar-right.active {
+        right: 360px;
+    }
+    .nshelpdesk-popup-box.left-bottom {
+        left: 25px;
+    }
+    .nshelpdesk-popup-btn {
+        max-width: 250px;
+    }
+    .nshelpdesk-popup-label-btn {
+        padding: 8px 8px 8px 11px;
+    }
+    .popup-link {
+        padding: 4px 12px;
+    }
+}
+.gcaptcha.error-msg {
+    right: auto;
+    top: auto;
+    margin-top: 10px;
+}
+.userCreateForm .gcaptcha.error-msg {
+    right: auto;
+    top: 75px !important;
+    left: 160px;
+}
+
+.gcaptcha.error-msg::after {
+    top: -6px;
+    left: 25px;
+    right: auto;
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+
+}
+.loader-wraper {
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.5);
+    z-index: 2;
+}
+.loader-mail {
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.loader-mail img {
+    height: 70px;
+    width: 70px;
+}
+.nshelpdesk-success-msg.create-form-msg {
+    text-align: center;
+    font-size: 25px;
+    line-height: 1.8em;
+}
+
+.modal-backdrop {
+    background-color: #22262A;
+}
+
+.modal-backdrop.show {
+    opacity: 0.92;
+}
+
+.ns_helpdesk-modal {
+    text-align: center;
+    padding-right: 0 !important;
+}
+
+.ns_helpdesk-modal .modal-title {
+    font-weight: 700;
+    color: orange;
+}
+
+.ns_helpdesk-modal .modal-header {
+    display: block;
+    position: relative;
+    padding: 1.4rem 1rem 1rem;
+}
+
+.ns_helpdesk-modal .modal-header .close {
+    position: absolute;
+    top: 4px;
+    right: 8px;
+    padding: 5px;
+    margin: 0;
+    opacity: 1;
+}
+
+.modal-body__content {
+    line-height: 1.8;
+}
+
+.ns_helpdesk-modal .modal-footer {
+    -ms-flex-pack: center;
+    justify-content: center;
+    padding: 0 1rem 2rem;
+    border-top: 0;
+}
+
+/* Rating Star Widgets Style */
+.rating-stars ul {
+    display: block;
+    list-style-type:none;
+    padding:0;
+    margin-bottom: 1.2rem;
+
+    -moz-user-select:none;
+    -webkit-user-select:none;
+}
+
+.rating-stars ul > li.star {
+    display:inline-block;
+    vertical-align: top;
+    margin: 0 5px;
+}
+
+.rating-stars ul > li.star > svg {
+    cursor: pointer;
+}
+
+/* Idle State of the stars */
+.rating-stars ul > li.star > svg,
+.rating-stars ul > li.star > svg path {
+    font-size:2.5em;
+    color: #DBDFE4;
+    fill: #DBDFE4;
+}
+
+/* Hover state of the stars */
+.rating-stars ul > li.star.hover > svg,
+.rating-stars ul > li.star.hover > svg path {
+    color: #9F9F9F;
+    fill: #9F9F9F;
+}
+
+/* Selected state of the stars */
+.rating-stars ul > li.star.selected > svg,
+.rating-stars ul > li.star.selected > svg path {
+    color: #464646;
+    fill: #464646;
+}
+
+.c-btn.c-btn-info {
+    background-color: #46b8da;
+    color: #fff;
+}
+.tx-ns-helpdesk .ns-form-wrapper input[readonly] {
+    background-color: #e9e9e9;
+    cursor: not-allowed;
+}
+.ns-backup-table-block-wrap .badge {
+    padding: .35em .6em;
+    font-size: 90%;
+}
+.nshelpdesk-success-msg {
+    display: none;
+}
+
+@media(min-width:576px) {
+    .ns_helpdesk--filter-item {
+        margin-bottom: 30px;
+    }
+    .ns_helpdesk--ticket {
+        padding: 30px;
+        margin-bottom: 30px;
+    }
+    .ns_helpdesk--ticket-text {
+        margin-bottom: 30px;
+    }
+    .ns_helpdesk--ticket-list ul {
+        display: flex;
+    }
+    .ns_helpdesk--ticket-list ul li {
+        padding: 0 30px;
+        margin-bottom: 0;
+    }
+    .ns_helpdesk--ticket-list ul li::before {
+        content: '';
+        height: 100%;
+        width: 1px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: #B0B8C1;
+    }
+
+    .ns_helpdesk--ticket-list ul li:first-child {
+        padding-left: 0;
+    }
+
+    .ns_helpdesk--ticket-list ul li:last-child {
+        padding-right: 0;
+    }
+
+    .ns_helpdesk--ticket-list ul li:last-child::before {
+        display: none;
+    }
+}
+@media(min-width:768px) {
+    .ns_helpdesk--top.ns_helpdesk--top__listing {
+        display: flex;
+    }
+    .ns_helpdesk-main {
+        padding: 20px 0 30px;
+    }
+    .pagination {
+        margin-top: 50px;
+        margin-bottom: 30px;
+        text-align: right;
+    }
+
+}
+@media(min-width:1200px) {
+    html, body {
+        font-size: 16px;
+    }
+    .c-btn-large {
+        min-width: 255px;
+    }
+    .pagination .page-item, .pagination .page-nav {
+        margin-left: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+.ns_helpdesk--filter-content .c-checkbox .c-control-label{
+    cursor: pointer;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+.ns_helpdesk--filter-content .c-checkbox .c-control-label:hover {
+    color: #F49700;
+}
+
+@media(max-width:767px) { 
+    .nshelpdesk-popup-box {
+        max-width: 345px;
+    }
+    .nshelpdesk-popup-box.right-bottom {
+        right: 20px;
+    }
+    .nshelpdesk-popup-box .nshelpdesk-popup-content {
+        overflow-y: auto;
+    }
+    .nshelpdesk-popup-box .nshelpdesk-popup-form {
+        padding-bottom: 20px;
+    }
+}
+
+.tx-ns-helpdesk .btn-file-clear, .ns_helpdesk-main-container .btn-file-clear {
+    display: none;
+}
