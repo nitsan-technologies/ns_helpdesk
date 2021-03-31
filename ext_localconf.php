@@ -42,8 +42,3 @@ $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['proc
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['ns_helpdesk'] =
     'NITSAN\\NsHelpdesk\\Hooks\\PageLayoutView';
-
-if (TYPO3_MODE=='BE') {
-    $pageRenderer = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-    $pageRenderer->loadRequireJsModule('TYPO3/CMS/NsHelpdesk/Main');
-}

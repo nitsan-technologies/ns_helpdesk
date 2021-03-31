@@ -14,16 +14,11 @@ namespace NITSAN\NsHelpdesk\Controller;
 use NITSAN\NsHelpdesk\NsTemplate\ExtendedTemplateService;
 use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateConstantEditorModuleFunctionController;
 use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateModuleController;
-use NITSAN\NsHelpdesk\Property\TypeConverter\UploadedFileReferenceConverter;
-use NITSAN\NsHelpdesk\Utility\UserUtility;
-use TYPO3\CMS\Core\Exception;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Domain\Model\FrontendUser;
 use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extbase\Property\PropertyMappingConfiguration;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
 
 /**
@@ -149,7 +144,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         parent::initializeAction();
 
         $this->ticketStatusRepository->getFromAll();
-        
+
         if (version_compare(TYPO3_branch, '10.0', '>=')) {
             $extConfig = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'];
         } else {
@@ -209,7 +204,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $typeChecked = $req['ticketTypes'];
         $sword = $req['sword'];
         $settings = $this->settings;
-       
+
         //Search criteria...
         if ($statusChecked) {
             $filterData['ticket_status'] = $statusChecked; // Search by Ticket Status like close, new, etc..
@@ -250,7 +245,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             // For the Front End User
             if ($this->feUser) {
                 $assign['isShow'] = 1;
-                if(isset($this->feUser['uid'])){
+                if (isset($this->feUser['uid'])) {
                     $filterData['userid'] =  $this->feUser['uid'];
                 }
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
@@ -315,7 +310,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($settings['defaultAssigneeId']) {
             $assignee = $backendUserRepository->findByUid($settings['defaultAssigneeId']);
             $newTickets->setAssigneeId($assignee);
-        } 
+        }
 
         //Create slug from the subject first...
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($newTickets->getTicketSubject())));

@@ -79,14 +79,14 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
     protected function initialize_editor($pageId, $template_uid = 0)
     {
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-
-        if ($pageId > 0) {
-            $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId)->get();
+        $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId)->get();
+        // Get the row of the first VISIBLE template of the page. whereclause like the frontend.
+        $this->templateRow = $this->templateService->ext_getFirstTemplate($pageId, $template_uid);
+        if (!is_array($this->templateRow)) {
             if ($rootlineUtility[0]['is_siteroot']) {
                 $pageId = $rootlineUtility[0]['uid'];
             }
         }
-        // Get the row of the first VISIBLE template of the page. whereclause like the frontend.
         $this->templateRow = $this->templateService->ext_getFirstTemplate($pageId, $template_uid);
         // IF there was a template...
         if (is_array($this->templateRow)) {
