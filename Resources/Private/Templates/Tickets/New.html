@@ -4,7 +4,7 @@
 	<div class="container">
 		<div class="ns-form-wrapper">
 			<f:render partial="FormErrors" arguments="{_all}"/>
-			<f:if condition="{userDetails.ses_userid}">
+			<f:if condition="{userDetails.uid} > 0">
 				<f:then>
 					<div class="nshelpdesk-success-msg create-form-msg">
 						<p><f:format.raw>{settings.popoupMessage -> f:format.nl2br()}</f:format.raw></p>

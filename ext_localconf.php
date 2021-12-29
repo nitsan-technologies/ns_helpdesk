@@ -3,15 +3,20 @@ defined('TYPO3_MODE') || die('Access denied.');
 $_EXTKEY = 'ns_helpdesk';
 call_user_func(
     function ($_EXTKEY) {
+        if (version_compare(TYPO3_branch, '10.0', '>=')) {
+            $ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
+        } else {
+            $ticketsController = 'Tickets';
+        }
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
             'NITSAN.NsHelpdesk',
             'Helpdesk',
             [
-                    'Tickets' => 'list, show, new, create, closeTicket, reopenTicket',
+                    $ticketsController => 'list, show, new, create, closeTicket, reopenTicket',
                 ],
                 // non-cacheable actions
                 [
-                    'Tickets' => 'list, show, create, closeTicket, reopenTicket',
+                    $ticketsController => 'list, show, create, closeTicket, reopenTicket',
                 ]
         );
 

@@ -25,13 +25,18 @@ if (TYPO3_MODE === 'BE') {
             }
         }
     }
+    if (version_compare(TYPO3_branch, '10.0', '>=')) {
+        $ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
+    } else {
+        $ticketsController = 'Tickets';
+    }
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'NITSAN.NsHelpdesk',
         'nitsan', // Make module a submodule of 'nitsan'
         'helpdeskmi1', // Submodule key
         '', // Position
         [
-            'Tickets' => 'dashboard, list, show, premiumExtension, saveConfiguration, getConstants, saveConstant, closeTicket, reopenTicket',
+            $ticketsController => 'dashboard, list, show, premiumExtension, saveConfiguration, getConstants, saveConstant, closeTicket, reopenTicket',
         ],
         [
             'access' => 'user,group',

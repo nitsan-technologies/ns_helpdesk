@@ -108,6 +108,7 @@ module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1 {
 
 page {
     includeCSS {
+        bootstrap = EXT:ns_helpdesk/Resources/Public/Vendor/bootstrap4.3.1.min.css
         fontawsome = EXT:ns_helpdesk/Resources/Public/Css/font-awesome.css
         nshelpdeskmain = EXT:ns_helpdesk/Resources/Public/Css/ns-helpdesk.css
         nsconfigcss = EXT:ns_helpdesk/Resources/Public/Css/configuration.css

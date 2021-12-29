@@ -79,6 +79,7 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
     protected function initialize_editor($pageId, $template_uid = 0)
     {
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
+
         $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId)->get();
         // Get the row of the first VISIBLE template of the page. whereclause like the frontend.
         $this->templateRow = $this->templateService->ext_getFirstTemplate($pageId, $template_uid);
@@ -142,8 +143,18 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                     $this->initialize_editor($this->id, $template_uid);
                 }
             }
-            if (empty($this->pObj)) {
-                $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (empty($this->pObj)) {
+                    $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
+                    $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+                    $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
+                    $moduleTemplateFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Template\ModuleTemplateFactory::class);
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController($iconFactory,$pageRenderer,$uriBuilder,$moduleTemplateFactory);
+                }
+            } else {
+                if (empty($this->pObj)) {
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
+                }
             }
             $this->pObj->MOD_SETTINGS = BackendUtility::getModuleData($this->pObj->MOD_MENU, GeneralUtility::_GP('SET'), 'web_ts');
             // Resetting the menu (stop)

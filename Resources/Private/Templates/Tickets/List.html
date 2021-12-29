@@ -60,7 +60,6 @@
                     </aside>
                     <f:if condition="{tickets}">
                         <f:then>
-                            <f:link.action action="list" pageType="741852" id="ajaxFilter"/>
                             <article class="col-lg-9 col-md-8">
                                 <div class="ns_helpdesk--tickets">
                                     <f:for each="{tickets}" as="ticket">
@@ -94,6 +93,7 @@
                                     </f:if>
                                 </div>
                             </article>
+                            <f:link.action action="list" pageType="741852" id="ajaxFilter"/>
                         </f:then>
                         <f:else>
                             <article class="col-lg-9 col-md-8">

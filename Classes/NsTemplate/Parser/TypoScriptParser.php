@@ -24,7 +24,6 @@ use TYPO3\CMS\Core\TypoScript\ExtendedTemplateService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Utility\MathUtility;
 use TYPO3\CMS\Core\Utility\PathUtility;
-use TYPO3\CMS\Core\Utility\StringUtility;
 use TYPO3\CMS\Frontend\Configuration\TypoScript\ConditionMatching\ConditionMatcher as FrontendConditionMatcher;
 
 /**
@@ -1022,7 +1021,17 @@ class TypoScriptParser
             $readableFileName = rtrim($readableFilePrefix, '/') . '/' . $fileObject->getFilename();
             $content .= LF . '### @import \'' . $readableFileName . '\' begin ###' . LF;
             // Check for allowed files
-            if (!GeneralUtility::verifyFilenameAgainstDenyPattern($fileObject->getFilename())) {
+            $notvalid = false;
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($fileObject->getFilename())) {
+                    $notvalid = true;
+                }
+            } else {
+                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($fileObject->getFilename())) {
+                    $notvalid = true;
+                }
+            }
+            if ($notvalid) {
                 $content .= self::typoscriptIncludeError('File "' . $readableFileName . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
                 $includedFiles[] = $fileObject->getPathname();
@@ -1093,7 +1102,17 @@ class TypoScriptParser
         if ((string)$filename !== '') {
             // Must exist and must not contain '..' and must be relative
             // Check for allowed files
-            if (!GeneralUtility::verifyFilenameAgainstDenyPattern($absfilename)) {
+            $notvalid = false;
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (!GeneralUtility::makeInstance(\TYPO3\CMS\Core\Resource\Security\FileNameValidator::class)->isValid($absfilename)) {
+                    $notvalid = true;
+                }
+            } else {
+                if (!GeneralUtility::verifyFilenameAgainstDenyPattern($absfilename)) {
+                    $notvalid = true;
+                }
+            }
+            if ($notvalid) {
                 $newString .= self::typoscriptIncludeError('File "' . $filename . '" was not included since it is not allowed due to fileDenyPattern.');
             } else {
                 $fileExists = false;
@@ -1105,7 +1124,7 @@ class TypoScriptParser
                         $absfilename = substr($absfilename, 0, -4) . '.typoscript';
                         if (@file_exists($absfilename)) {
                             trigger_error('The TypoScript file ' . $filename . ' was renamed to .typoscript extension.'
-                                . ' Update your "<INCLUDE_TYPOSCRIPT" statements.', E_USER_DEPRECATED);
+                                          . ' Update your "<INCLUDE_TYPOSCRIPT" statements.', E_USER_DEPRECATED);
                             $fileExists = true;
                         }
                     }

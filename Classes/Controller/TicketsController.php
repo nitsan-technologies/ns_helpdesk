@@ -117,6 +117,61 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     protected $userDetails;
 
+    /*
+     * Inject helpdeskRepository
+     *
+     * @param \NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository $helpdeskRepository
+     * @return void
+     */
+    public function injectHelpdeskRepository(\NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository $helpdeskRepository)
+    {
+        $this->helpdeskRepository = $helpdeskRepository;
+    }
+
+    /*
+    * Inject ticketsRepository
+    *
+    * @param \NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository $ticketsRepository
+    * @return void
+    */
+    public function injectTicketsRepository(\NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository $ticketsRepository)
+    {
+        $this->ticketsRepository = $ticketsRepository;
+    }
+
+    /*
+    * Inject ticketStatusRepository
+    *
+    * @param \NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository $ticketStatusRepository
+    * @return void
+    */
+    public function injectTicketStatusRepository(\NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository $ticketStatusRepository)
+    {
+        $this->ticketStatusRepository = $ticketStatusRepository;
+    }
+
+    /*
+   * Inject frontendUserRepository
+   *
+   * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $frontendUserRepository
+   * @return void
+   */
+    public function injectFrontendUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $frontendUserRepository)
+    {
+        $this->frontendUserRepository = $frontendUserRepository;
+    }
+
+    /*
+    * Inject persistenceManager
+    *
+    * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
+    * @return void
+    */
+    public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
+    {
+        $this->persistenceManager = $persistenceManager;
+    }
+
     /**
      * Initializes this object
      *
