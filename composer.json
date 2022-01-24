@@ -20,7 +20,7 @@
     }
   },
   "replace": {
-    "nitsan/ns-helpdesk": "self.version"
+    "typo3-ter/ns-helpdesk": "self.version"
   },
   "config": {
     "vendor-dir": ".Build/vendor/",
