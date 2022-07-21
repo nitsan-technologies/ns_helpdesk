@@ -37,12 +37,15 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         $constraints = [];
         if ($filterData) {
             if ($filterData['userid']) {
+                $filterData['backendUser'] = isset($filterData['backendUser']) ? $filterData['backendUser'] : '';
                 if ($filterData['backendUser']) {
                     $constraints[] = $query->equals('assignee_id', $filterData['userid']);
                 } else {
                     $constraints[] = $query->equals('user_id', $filterData['userid']);
                 }
             }
+            $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
+            $filterData['sword'] = isset($filterData['sword']) ? $filterData['sword'] : '';
             if ($filterData['ticket_status']) {
                 $constraints[] = $query->in('ticket_status', $filterData['ticket_status']);
             }
