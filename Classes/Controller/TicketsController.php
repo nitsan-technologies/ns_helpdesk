@@ -201,11 +201,15 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $this->ticketStatusRepository->getFromAll();
 
         if (version_compare(TYPO3_branch, '10.0', '>=')) {
+            $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] : '';
             $extConfig = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'];
         } else {
+            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] : '';
             $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']);
         }
-        $this->pid = $extConfig['globalStorage'];
+        if($extConfig){
+            $this->pid = $extConfig['globalStorage'];
+        }
 
         //Set USER ..
         if (TYPO3_MODE === 'BE') {
@@ -255,6 +259,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         //Disabled Query settings and storage page..
         $req = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1');
+        $req['ticketStatus'] = isset($req['ticketStatus']) ? $req['ticketStatus'] : '';
+        $req['ticketTypes'] = isset($req['ticketTypes']) ? $req['ticketTypes'] : '';
+        $req['sword'] = isset($req['sword']) ? $req['sword'] : '';
+
         $statusChecked = $req['ticketStatus'];
         $typeChecked = $req['ticketTypes'];
         $sword = $req['sword'];
@@ -271,8 +279,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->beUser) {
             //Check isAdmin user or not... True portion is for the Admin User and False is
             if ($this->beUser['admin']==1) {
+                $filterData = isset($filterData) ? $filterData : '';
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
             } else {
+                $filterData = isset($filterData) ? $filterData : '';
                 $filterData['userid'] =  $this->beUser['uid'];
                 $filterData['backendUser'] = 1;
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
@@ -309,7 +319,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         $statusList = $this->ticketStatusRepository->findAll();
-
+        $tickets = isset($tickets) ? $tickets : '';
         $assign['tickets'] = $tickets;
         $assign['statusList'] = $statusList;
         $assign['statusChecked'] = $statusChecked;
@@ -602,6 +612,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         } else {
             $mail->setBody($emailBody, 'text/html');
         }
+        $variables['user']['attachment'] = isset($variables['user']['attachment']) ? $variables['user']['attachment'] : '';
         if ($variables['user']['attachment']) {
             if (count($variables['user']['attachment']) > 0) {
                 foreach ($variables['user']['attachment'] as $at) {
@@ -636,7 +647,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     {
         $rating = (int)GeneralUtility::_GP('rating');
         $status = $this->ticketStatusRepository->findByUid(2);
-        $fromBackend = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'];
+        $fromBackend = isset(GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend']) ? GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'] : '';
         $tickets->setTicketStatus($status);
         $tickets->setTicketRating($rating);
 
@@ -692,7 +703,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function reopenTicketAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
     {
         $status = $this->ticketStatusRepository->findByUid(3);
-        $fromBackend = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'];
+        $fromBackend = isset(GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend']) ? GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'] : '';
         $adminName = $this->settings['notify']['email']['adminName'];
         $adminEmail = $this->settings['notify']['email']['adminMail'];
 

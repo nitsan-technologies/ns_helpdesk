@@ -33,6 +33,11 @@ class LoadAssetsViewHelper extends AbstractViewHelper
     {
         $css ='';
 
+        $settings['buttonstyle'] = isset($settings['buttonstyle']) ? $settings['buttonstyle'] : '';
+        $settings['buttonbg'] = isset($settings['buttonbg']) ? $settings['buttonbg'] : '';
+        $settings['fontstyle'] = isset($settings['fontstyle']) ? $settings['fontstyle'] : '';
+        $settings['buttoncolor'] = isset($settings['buttoncolor']) ? $settings['buttoncolor'] : '';
+        $settings['popupSettings']['popupcolor'] = isset($settings['popupSettings']['popupcolor']) ? $settings['popupSettings']['popupcolor'] : '';
         $css .= '
         .nsbtn.btn-' . $settings['buttonstyle'] . ' {
             background-color:' . $settings['buttonbg'] . ';

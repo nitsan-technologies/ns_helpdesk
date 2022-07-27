@@ -197,7 +197,7 @@ class TemplateService
     protected $nextLevel = 0;
 
     /**
-     * The Page UID of the root page
+     * The Fieldgroup UID of the root page
      *
      * @var int
      */
@@ -290,7 +290,7 @@ class TemplateService
     protected $frames = [];
 
     /**
-     * Contains mapping of Page id numbers to MP variables.
+     * Contains mapping of Fieldgroup id numbers to MP variables.
      * This is not used anymore, and will be removed in TYPO3 v10.0.
      *
      * @var string
@@ -866,11 +866,11 @@ class TemplateService
         // For backend analysis (Template Analyzer) provide the order of added constants/config template IDs
         $this->clearList_const[] = $templateID;
         $this->clearList_setup[] = $templateID;
-        if (trim($row['sitetitle'] ?? null)) {
+        if (trim($row['sitetitle'] ?? '')) {
             $this->sitetitle = $row['sitetitle'];
         }
         // If the template record is a Rootlevel record, set the flag and clear the template rootLine (so it starts over from this point)
-        if (trim($row['root'] ?? null)) {
+        if (trim($row['root'] ?? '')) {
             $this->rootId = $pid;
             $this->rootLine = [];
         }
@@ -1132,6 +1132,9 @@ class TemplateService
         // if this is a template of type "default content rendering", also see if other extensions have added their TypoScript that should be included after the content definitions
         if (in_array($identifier, $GLOBALS['TYPO3_CONF_VARS']['FE']['contentRenderingTemplates'], true)) {
             $subrow['config'] .= $GLOBALS['TYPO3_CONF_VARS']['FE']['defaultTypoScript_setup.']['defaultContentRendering'];
+            if(!isset($GLOBALS['TYPO3_CONF_VARS']['FE']['defaultTypoScript_constants.']['defaultContentRendering'])){
+                $GLOBALS['TYPO3_CONF_VARS']['FE']['defaultTypoScript_constants.']['defaultContentRendering'] = '';
+            }
             $subrow['constants'] .= $GLOBALS['TYPO3_CONF_VARS']['FE']['defaultTypoScript_constants.']['defaultContentRendering'];
         }
         return $subrow;
@@ -1320,11 +1323,11 @@ class TemplateService
     }
 
     /**
-     * Loads Page TSconfig until the outermost template record and parses the configuration - if TSFE.constants object path is found it is merged with the default data in here!
+     * Loads Fieldgroup TSconfig until the outermost template record and parses the configuration - if TSFE.constants object path is found it is merged with the default data in here!
      *
      * @param array $constArray Constants array, default input.
      * @return array Constants array, modified
-     * @todo Apply caching to the parsed Page TSconfig. This is done in the other similar functions for both frontend and backend. However, since this functions works for BOTH frontend and backend we will have to either write our own local caching function or (more likely) detect if we are in FE or BE and use caching functions accordingly. Not having caching affects mostly the backend modules inside the "Template" module since the overhead in the frontend is only seen when TypoScript templates are parsed anyways (after which point they are cached anyways...)
+     * @todo Apply caching to the parsed Fieldgroup TSconfig. This is done in the other similar functions for both frontend and backend. However, since this functions works for BOTH frontend and backend we will have to either write our own local caching function or (more likely) detect if we are in FE or BE and use caching functions accordingly. Not having caching affects mostly the backend modules inside the "Template" module since the overhead in the frontend is only seen when TypoScript templates are parsed anyways (after which point they are cached anyways...)
      */
     protected function mergeConstantsFromPageTSconfig($constArray)
     {
@@ -1332,7 +1335,7 @@ class TemplateService
         // Setting default configuration:
         $TSdataArray[] = $GLOBALS['TYPO3_CONF_VARS']['BE']['defaultPageTSconfig'];
         for ($a = 0; $a <= $this->outermostRootlineIndexWithTemplate; $a++) {
-            if (trim($this->absoluteRootLine[$a]['tsconfig_includes'])) {
+            if (trim((string)$this->absoluteRootLine[$a]['tsconfig_includes'])) {
                 $includeTsConfigFileList = GeneralUtility::trimExplode(
                     ',',
                     $this->absoluteRootLine[$a]['tsconfig_includes'],
@@ -1349,7 +1352,7 @@ class TemplateService
         /** @var Parser\TypoScriptParser $parseObj */
         $parseObj = GeneralUtility::makeInstance(Parser\TypoScriptParser::class);
         $parseObj->parse($userTS);
-        if (is_array($parseObj->setup['TSFE.']['constants.'])) {
+        if (array_key_exists('TSFE.', $parseObj->setup)) {
             ArrayUtility::mergeRecursiveWithOverrule($constArray, $parseObj->setup['TSFE.']['constants.']);
         }
 
@@ -1649,7 +1652,7 @@ class TemplateService
      * Initializes the automatically created MPmap coming from the "config.MP_mapRootPoints" setting
      * Can be called many times with overhead only the first time since then the map is generated and cached in memory.
      *
-     * @param int $pageId Page id to return MPvar value for.
+     * @param int $pageId Fieldgroup id to return MPvar value for.
      * @return string
      * @see initMPmap_create()
      * @todo Implement some caching of the result between hits. (more than just the memory caching used here)
@@ -1674,7 +1677,7 @@ class TemplateService
                 $this->initMPmap_create($p, $initMParray);
             }
         }
-        // Finding MP var for Page ID:
+        // Finding MP var for Fieldgroup ID:
         if ($pageId) {
             if (is_array($this->MPmap[$pageId]) && !empty($this->MPmap[$pageId])) {
                 return implode(',', $this->MPmap[$pageId]);
@@ -1814,6 +1817,7 @@ class TemplateService
      */
     protected function getTypoScriptFrontendController()
     {
+        $GLOBALS['TSFE'] = isset($GLOBALS['TSFE']) ? $GLOBALS['TSFE'] : '';
         return $GLOBALS['TSFE'];
     }
 
