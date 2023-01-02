@@ -37,9 +37,9 @@
                                 <li>
                                     <f:if condition="{backend}">
                                         <f:then>
-                                            <f:link.typolink parameter="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
+                                            <a href="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
                                                 <f:translate key="newticket"/>
-                                            </f:link.typolink>
+                                            </a>
                                             <f:variable name="salName" value="{f:if(condition:'{userDetails.realName}',then:userDetails.realName,else: userDetails.username)}" />
                                         </f:then>
                                         <f:else>
