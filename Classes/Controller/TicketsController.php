@@ -232,6 +232,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
         $customerReview = $this->ticketsRepository->getCustomerReview();
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         $assign = [
             'action' => 'dashboard',
             'pid' => $this->pid,
@@ -243,7 +247,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'closeTicket' => $closeTicket,
             'isBackendUser' => $this->isBackendUser,
             'customerReview' => $customerReview,
-            'userDetail' => $this->beUser
+            'userDetail' => $this->beUser,
+            'bootstrapVariable' => $bootstrapVariable
 
         ];
         $this->view->assignMultiple($assign);
@@ -317,12 +322,16 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $assign['userDetails'] = $this->feUser;
             }
         }
-
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         $statusList = $this->ticketStatusRepository->findAll();
         $tickets = isset($tickets) ? $tickets : '';
         $assign['tickets'] = $tickets;
         $assign['statusList'] = $statusList;
         $assign['statusChecked'] = $statusChecked;
+        $assign['bootstrapVariable'] = $bootstrapVariable;
         $this->view->assignMultiple($assign);
     }
 
@@ -342,6 +351,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->beUser) {
             $assign['backend'] = 1;
         }
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
+        $assign['bootstrapVariable'] = $bootstrapVariable;
         $this->view->assignMultiple($assign);
     }
 
@@ -516,9 +530,14 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function getConstantsAction()
     {
         $menu = GeneralUtility::_GP('cat');
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         $assign = [
             'action' => $menu,
-            'constant' => $this->constants
+            'constant' => $this->constants,
+            'bootstrapVariable' => $bootstrapVariable
         ];
         $this->view->assignMultiple($assign);
     }
