@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Controller;
 
 /***
@@ -11,15 +12,19 @@ namespace NITSAN\NsHelpdesk\Controller;
  *  (c) 2020
  *
  ***/
-use NITSAN\NsHelpdesk\NsTemplate\ExtendedTemplateService;
-use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateConstantEditorModuleFunctionController;
-use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateModuleController;
+use TYPO3\CMS\Core\Http\ApplicationType;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\Inject as inject;
-use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
-use TYPO3\CMS\Extbase\Domain\Repository\BackendUserRepository;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository;
+use NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository;
+use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
+use NITSAN\NsHelpdesk\Domain\Repository\BackendUserRepository;
+use NITSAN\NsHelpdesk\Domain\Repository\FrontendUserRepository;
+use NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
+use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 
 /**
  * TicketsController
@@ -58,119 +63,63 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @var array
      */
     protected $allConfig = null;
-    /**
-     * @var TypoScriptTemplateModuleController
-     */
-    protected $pObj;
 
     /**
-     * helpdeskRepository
-     *
-     * @var \NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository
-     * @inject
+     * HelpdeskRepository
      */
     protected $helpdeskRepository = null;
 
     /**
-     * ticketsRepository
-     *
-     * @var \NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository
-     * @inject
+     * TicketsRepository
      */
     protected $ticketsRepository = null;
 
     /**
-     * ticketStatusRepository
-     *
-     * @var \NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository
-     * @inject
+     * TicketStatusRepository
      */
     protected $ticketStatusRepository = null;
 
     /**
-     * assigneeRepository
-     *
-     * @var \NITSAN\NsHelpdesk\Domain\Repository\DefaultAssigneeRepository
-     * @inject
+     * DefaultAssigneeRepository
      */
     protected $assigneeRepository = null;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
-     * @inject
+     * FrontendUserRepository
+     *
      */
     protected $frontendUserRepository;
 
     /**
-     *
+     * BackendUserRepository
      */
     protected $backendUserRepository;
+
     /**
-     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
-     * @inject
+     * PersistenceManager
      */
     protected $persistenceManager;
 
     /**
      * @var array
-     *
      */
     protected $userDetails;
 
-    /*
-     * Inject helpdeskRepository
-     *
-     * @param \NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository $helpdeskRepository
-     * @return void
-     */
-    public function injectHelpdeskRepository(\NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository $helpdeskRepository)
-    {
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        PersistenceManager $persistenceManager,
+        FrontendUserRepository $frontendUserRepository,
+        TicketsRepository $ticketsRepository,
+        TicketStatusRepository $ticketStatusRepository,
+        HelpdeskRepository $helpdeskRepository
+    ) {
+        $this->persistenceManager = $persistenceManager;
+        $this->frontendUserRepository = $frontendUserRepository;
+        $this->ticketsRepository = $ticketsRepository;
+        $this->ticketStatusRepository = $ticketStatusRepository;
         $this->helpdeskRepository = $helpdeskRepository;
     }
 
-    /*
-    * Inject ticketsRepository
-    *
-    * @param \NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository $ticketsRepository
-    * @return void
-    */
-    public function injectTicketsRepository(\NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository $ticketsRepository)
-    {
-        $this->ticketsRepository = $ticketsRepository;
-    }
-
-    /*
-    * Inject ticketStatusRepository
-    *
-    * @param \NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository $ticketStatusRepository
-    * @return void
-    */
-    public function injectTicketStatusRepository(\NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository $ticketStatusRepository)
-    {
-        $this->ticketStatusRepository = $ticketStatusRepository;
-    }
-
-    /*
-   * Inject frontendUserRepository
-   *
-   * @param \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $frontendUserRepository
-   * @return void
-   */
-    public function injectFrontendUserRepository(\TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository $frontendUserRepository)
-    {
-        $this->frontendUserRepository = $frontendUserRepository;
-    }
-
-    /*
-    * Inject persistenceManager
-    *
-    * @param \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager
-    * @return void
-    */
-    public function injectPersistenceManager(\TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager $persistenceManager)
-    {
-        $this->persistenceManager = $persistenceManager;
-    }
 
     /**
      * Initializes this object
@@ -180,13 +129,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function initializeObject()
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-        $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-        $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
-        $this->allConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        // $this->allConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $this->config = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $this->config = $this->config['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $this->backendUserRepository = $objectManager->get(BackendUserRepository::class);
+        $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
     }
 
     /**
@@ -200,20 +146,14 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         $this->ticketStatusRepository->getFromAll();
 
-        if (version_compare(TYPO3_branch, '10.0', '>=')) {
-            $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] : '';
-            $extConfig = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'];
-        } else {
-            $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] : '';
-            $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']);
-        }
-        if($extConfig){
+        $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] : '';
+        $extConfig = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'];
+        if($extConfig) {
             $this->pid = $extConfig['globalStorage'];
         }
 
         //Set USER ..
-        if (TYPO3_MODE === 'BE') {
-            $this->setConfiguration();
+        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->userDetails = $this->beUser = $GLOBALS['BE_USER']->user;
         } else {
             $this->userDetails = $this->feUser = $GLOBALS['TSFE']->fe_user->user;
@@ -223,19 +163,21 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action dashboard
      *
-     * @return void
      */
     public function dashboardAction()
     {
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            $view = $this->initializeModuleTemplate($this->request);
+        } else {
+            $view = $this->view;
+        }
         $totalTickets = $this->ticketsRepository->countAll();
         $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
         $customerReview = $this->ticketsRepository->getCustomerReview();
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+        $bootstrapVariable = 'data-bs';
+        $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
         $assign = [
             'action' => 'dashboard',
             'pid' => $this->pid,
@@ -248,22 +190,36 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'isBackendUser' => $this->isBackendUser,
             'customerReview' => $customerReview,
             'userDetail' => $this->beUser,
-            'bootstrapVariable' => $bootstrapVariable
+            'bootstrapVariable' => $bootstrapVariable,
+            'isBackend' => $isBackend
 
         ];
-        $this->view->assignMultiple($assign);
+        $view->assignMultiple($assign);
+
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            return $view->renderResponse();
+        } else {
+            return $this->htmlResponse();
+        }
     }
 
     /**
      * action list
      *
-     * @return void
      */
     public function listAction()
     {
-
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            $view = $this->initializeModuleTemplate($this->request);
+        } else {
+            $view = $this->view;
+        }
+        $filterData = [];
+        $getData = $this->request->getQueryParams();
+        $postData = $this->request->getParsedBody();
+        $requestData = array_merge((array)$getData, (array)$postData);
         //Disabled Query settings and storage page..
-        $req = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1');
+        $req = isset($requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']) ? $requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1'] : [];
         $req['ticketStatus'] = isset($req['ticketStatus']) ? $req['ticketStatus'] : '';
         $req['ticketTypes'] = isset($req['ticketTypes']) ? $req['ticketTypes'] : '';
         $req['sword'] = isset($req['sword']) ? $req['sword'] : '';
@@ -272,7 +228,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $typeChecked = $req['ticketTypes'];
         $sword = $req['sword'];
         $settings = $this->settings;
-
+        $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
         //Search criteria...
         if ($statusChecked) {
             $filterData['ticket_status'] = $statusChecked; // Search by Ticket Status like close, new, etc..
@@ -284,15 +240,12 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->beUser) {
             //Check isAdmin user or not... True portion is for the Admin User and False is
             if ($this->beUser['admin']==1) {
-                $filterData = isset($filterData) ? $filterData : '';
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
             } else {
-                $filterData = isset($filterData) ? $filterData : '';
                 $filterData['userid'] =  $this->beUser['uid'];
                 $filterData['backendUser'] = 1;
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
             }
-
             // Assign Modal Classes for the code optimisation..
             $modal_classes = [
                 'singleModalClass' => 'nsDeleteTicket',
@@ -322,27 +275,35 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $assign['userDetails'] = $this->feUser;
             }
         }
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+        $bootstrapVariable = 'data-bs';
         $statusList = $this->ticketStatusRepository->findAll();
         $tickets = isset($tickets) ? $tickets : '';
         $assign['tickets'] = $tickets;
         $assign['statusList'] = $statusList;
         $assign['statusChecked'] = $statusChecked;
         $assign['bootstrapVariable'] = $bootstrapVariable;
-        $this->view->assignMultiple($assign);
+        $assign['isBackend'] = $isBackend;
+        $view->assignMultiple($assign);
+
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            return $view->renderResponse();
+        } else {
+            return $this->htmlResponse();
+        }
     }
 
     /**
      * action show
      *
      * @param \NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets
-     * @return void
      */
     public function showAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
     {
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            $view = $this->initializeModuleTemplate($this->request);
+        } else {
+            $view = $this->view;
+        }
         $assign = [
             'action' => 'list',
             'tickets' => $tickets,
@@ -351,18 +312,22 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         if ($this->beUser) {
             $assign['backend'] = 1;
         }
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+        $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
+        $bootstrapVariable = 'data-bs';
         $assign['bootstrapVariable'] = $bootstrapVariable;
-        $this->view->assignMultiple($assign);
+        $assign['isBackend'] = $isBackend;
+        $view->assignMultiple($assign);
+
+        if (ApplicationType::fromRequest($this->request)->isBackend()) {
+            return $view->renderResponse();
+        } else {
+            return $this->htmlResponse();
+        }
     }
 
     /**
      * action new
      *
-     * @return void
      */
     public function newAction()
     {
@@ -372,6 +337,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'userDetails' => $this->feUser
         ];
         $this->view->assignMultiple($assign);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -383,8 +350,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function createAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $newTickets)
     {
         $settings = $this->settings;
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-        $backendUserRepository = $objectManager->get(BackendUserRepository::class);
+        $backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
 
         if ($settings['defaultAssigneeId']) {
             $assignee = $backendUserRepository->findByUid($settings['defaultAssigneeId']);
@@ -393,9 +359,9 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         //Create slug from the subject first...
         $slug = preg_replace('/[^a-z0-9]+/i', '-', trim(strtolower($newTickets->getTicketSubject())));
-
         //Check slug availability...
         $isSlugAvail = $this->ticketsRepository->getSlug($slug);
+        $data = [];
         if (count($isSlugAvail) > 0) {
             foreach ($isSlugAvail as $row) {
                 $data[] = $row->getSlug();
@@ -405,6 +371,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 while (in_array(($slug . '-' . ++$count), $data));
                 $slug = $slug . '-' . $count;
             }
+        }
+        // set Ticket Status
+        if($newTickets->getTicketStatus() == null) {
+            $ticketStatus =$this->ticketStatusRepository->findAll()[0];
+            $newTickets->setTicketStatus($ticketStatus);
         }
         //set Ticket Slug
         $newTickets->setSlug($slug);
@@ -465,7 +436,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $sendDetails['tickets'] = $newTickets;
             $this->sendMailNotification($sendDetails, 'Admin/AdminNotify');
         }
-
         $response = [
             'code' => 200,
             'status' => 'success'
@@ -479,90 +449,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $sender = $sendingDetails['sender'];
         $receiver = $sendingDetails['receiver'];
         $this->sendTemplateEmail([$receiver['email'] => $receiver['name']], [$sender['email'] => $sender['name']], $sendingDetails['email_subject'], $template, $sendingDetails);
-    }
-
-    /*
-     * Api configuration
-     */
-    private function setConfiguration()
-    {
-        $extKey =  $this->request->getControllerExtensionKey();
-
-        //Links for the All Dashboard VIEW from API...
-        $sidebarUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=DashboardRightSidebar';
-        $dashboardSupportUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=DashboardSupport';
-        $generalFooterUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=GeneralFooter';
-        $premiumExtensionUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=PremiumExtension';
-
-        $this->helpdeskRepository->deleteOldApiData();
-        $checkApiData = $this->helpdeskRepository->checkApiData();
-        if (!$checkApiData) {
-            $this->sidebarData = $this->helpdeskRepository->curlInitCall($sidebarUrl);
-            $this->dashboardSupportData = $this->helpdeskRepository->curlInitCall($dashboardSupportUrl);
-            $this->generalFooterData = $this->helpdeskRepository->curlInitCall($generalFooterUrl);
-            $this->premiumExtensionData = $this->helpdeskRepository->curlInitCall($premiumExtensionUrl);
-
-            $data = [
-                'right_sidebar_html' => $this->sidebarData,
-                'support_html'=> $this->dashboardSupportData,
-                'footer_html' => $this->generalFooterData,
-                'premuim_extension_html' => $this->premiumExtensionData,
-                'extension_key' => $extKey,
-                'last_update' => date('Y-m-d')
-            ];
-            $this->helpdeskRepository->insertNewData($data);
-        } else {
-            $this->sidebarData = $checkApiData['right_sidebar_html'];
-            $this->dashboardSupportData = $checkApiData['support_html'];
-            $this->premiumExtensionData = $checkApiData['premuim_extension_html'];
-        }
-
-        //GET CONSTANTs
-        $this->constantObj->init($this->pObj);
-        $this->constants = $this->constantObj->main();
-    }
-
-    /**
-     * action formsSettings
-     *
-     * @return void
-     */
-    public function getConstantsAction()
-    {
-        $menu = GeneralUtility::_GP('cat');
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign = [
-            'action' => $menu,
-            'constant' => $this->constants,
-            'bootstrapVariable' => $bootstrapVariable
-        ];
-        $this->view->assignMultiple($assign);
-    }
-
-    /**
-     * action saveConstant
-     *
-     * @return void
-     */
-    public function saveConstantAction()
-    {
-        //TYPO3 Defeault alert for the save constants..
-        $this->saveMessage();
-        return true;
-    }
-
-    public function saveMessage()
-    {
-        $alertTitle = translate::translate('helpdesk.alert.title', 'NsHelpdesk');
-        $alertMsg = translate::translate('helpdesk.alert.msg', 'NsHelpdesk');
-        $this->addFlashMessage(
-            $alertMsg,
-            $alertTitle,
-            \TYPO3\CMS\Core\Messaging\AbstractMessage::OK
-        );
     }
 
     /**
@@ -607,11 +493,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         array $variables = []
     ) {
         /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailView = $this->objectManager->get('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+        $emailView = GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
 
-        /*For use of Localize value */
-        $extensionName = $this->request->getControllerExtensionName();
-        $emailView->getRequest()->setControllerExtensionName($extensionName);
         /*For use of Localize value */
         $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
         $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPaths']['0']);
@@ -620,17 +503,13 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $emailView->setTemplatePathAndFilename($templatePathAndFilename);
         $emailView->assignMultiple($variables);
         $emailBody = $emailView->render();
-        /** @var $message \TYPO3\CMS\Core\Mail\MailMessage */
-        $mail = $this->objectManager->get('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+
+        $mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
 
         /*Mail*/
         $mail->setTo($recipient)->setFrom($sender)->setSubject($subject);
         // HTML Email
-        if (version_compare(TYPO3_branch, '10.0', '>=')) {
-            $mail->html($emailBody);
-        } else {
-            $mail->setBody($emailBody, 'text/html');
-        }
+        $mail->html($emailBody);
         $variables['user']['attachment'] = isset($variables['user']['attachment']) ? $variables['user']['attachment'] : '';
         if ($variables['user']['attachment']) {
             if (count($variables['user']['attachment']) > 0) {
@@ -645,28 +524,18 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * Returns a built URI by buildUri
-     *
-     * @param int $uid The uid to use for building link
-     * @return string The link
-     */
-    private function buildUri($uid)
-    {
-        $uri = $this->uriBuilder->reset()->setTargetPageUid($uid)->build();
-        $uri = $this->addBaseUriIfNecessary($uri);
-        return $uri;
-    }
-
-    /**
      * @param  \NITSAN\NsHelpdesk\Domain\Model\Tickets  $tickets
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
      */
     public function closeTicketAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
     {
-        $rating = (int)GeneralUtility::_GP('rating');
+        $getData = $this->request->getQueryParams();
+        $postData = $this->request->getParsedBody();
+        $requestData = array_merge((array)$getData, (array)$postData);
+        $rating = (int)(isset($requestData['rating']) ? $requestData['rating'] : 0);
         $status = $this->ticketStatusRepository->findByUid(2);
-        $fromBackend = isset(GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend']) ? GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'] : '';
+        $fromBackend = isset($requestData['fromBackend']) ? $requestData['fromBackend'] : '';
         $tickets->setTicketStatus($status);
         $tickets->setTicketRating($rating);
 
@@ -721,8 +590,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function reopenTicketAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
     {
+        $getData = $this->request->getQueryParams();
+        $postData = $this->request->getParsedBody();
+        $requestData = array_merge((array)$getData, (array)$postData);
         $status = $this->ticketStatusRepository->findByUid(3);
-        $fromBackend = isset(GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend']) ? GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1')['fromBackend'] : '';
+        $fromBackend = isset($requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']['fromBackend']) ? $requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']['fromBackend'] : '';
         $adminName = $this->settings['notify']['email']['adminName'];
         $adminEmail = $this->settings['notify']['email']['adminMail'];
 
@@ -768,21 +640,17 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         exit();
     }
 
-    /**
-     * action premiumExtension
-     *
-     * @return void
-     */
-    public function premiumExtensionAction()
-    {
-        $assign = [
-            'action' => 'premiumExtension',
-            'premiumExdata' => $this->premiumExtensionData
-        ];
-        $this->view->assignMultiple($assign);
-    }
     public function getFrontendTicketUrl($ticket)
     {
         return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesk[action]' => 'show', 'tx_nshelpdesk_helpdesk[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesk[tickets]' => $ticket])->build();
+    }
+
+    /**
+     * Generates the action menu
+     */
+    protected function initializeModuleTemplate(
+        ServerRequestInterface $request
+    ): ModuleTemplate {
+        return $this->moduleTemplateFactory->create($request);
     }
 }

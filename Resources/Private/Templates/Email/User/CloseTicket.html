@@ -380,15 +380,15 @@
 							<tr>
 								<td class="textContent" style="padding: 0px 36px;" valign="top">
 									<f:if condition="{tickets.userId.FirstName}">
-										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" /> {tickets.userId.FirstName} {tickets.userId.LastName}</h4>
+										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" extensionName="ns_helpdesk" /> {tickets.userId.FirstName} {tickets.userId.LastName}</h4>
 									</f:if>
-									<p><f:translate key="nshelpdesk.notifystatus.user.email" arguments="{0:tstatus}" /></p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" />:</strong></p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.ticketId" />:</strong> {tickets.uid} </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.ticket" />:</strong> {tickets.ticketSubject} </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" />:</strong></p>
+									<p><f:translate key="nshelpdesk.notifystatus.user.email" arguments="{0:tstatus}" extensionName="ns_helpdesk" /></p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" extensionName="ns_helpdesk" />:</strong></p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.ticketId" extensionName="ns_helpdesk" />:</strong> {tickets.uid} </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.ticket" extensionName="ns_helpdesk" />:</strong> {tickets.ticketSubject} </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
 									<p>{tickets.ticketText -> f:format.nl2br()}</p>
-									<p><f:format.raw><f:translate key="nshelpdesk.see.ticket.detail.email" arguments="{0:ticketUrl}" /></f:format.raw></p>
+									<p><f:format.raw><f:translate key="nshelpdesk.see.ticket.detail.email" arguments="{0:ticketUrl}" extensionName="ns_helpdesk" /></f:format.raw></p>
 								</td>
 							</tr>
 							</tbody>

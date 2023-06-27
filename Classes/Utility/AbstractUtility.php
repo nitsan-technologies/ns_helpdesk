@@ -1,11 +1,11 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Utility;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
 
@@ -40,7 +40,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 abstract class AbstractUtility
 {
-
     /**
      * @return BackendUserAuthentication
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -60,15 +59,6 @@ abstract class AbstractUtility
     }
 
     /**
-     * @return DatabaseConnection
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
-
-    /**
      * @return array
      * @SuppressWarnings(PHPMD.Superglobals)
      */
@@ -84,8 +74,8 @@ abstract class AbstractUtility
      */
     protected static function getExtensionConfiguration()
     {
-        $configVariables = self::getTypo3ConfigurationVariables();
-        return unserialize($configVariables['EXT']['extConf']['bit_hrsproject']);
+        $configVariables = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('backend');
+        return $configVariables;
     }
 
     /**
@@ -119,7 +109,7 @@ abstract class AbstractUtility
      */
     protected static function getContentObject()
     {
-        return self::getObjectManager()->get(ContentObjectRenderer::class);
+        return GeneralUtility::makeInstance(ContentObjectRenderer::class);
     }
 
     /**
@@ -127,14 +117,7 @@ abstract class AbstractUtility
      */
     protected static function getConfigurationManager()
     {
-        return self::getObjectManager()->get(ConfigurationManager::class);
+        return GeneralUtility::makeInstance(ConfigurationManager::class);
     }
 
-    /**
-     * @return ObjectManager
-     */
-    protected static function getObjectManager()
-    {
-        return GeneralUtility::makeInstance(ObjectManager::class);
-    }
 }

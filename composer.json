@@ -7,12 +7,12 @@
     "TYPO3 CMS",
     "Helpdesk",
     "NITSAN",
-    "T3Terminal",
+    "T3Planet",
     "Support"
   ],
   "authors": [],
   "require": {
-     "typo3/cms-core": "^8.0  || ^9.0 || ^10.0  || ^11.0 "
+     "typo3/cms-core": "^12"
   },
   "autoload": {
     "psr-4": {

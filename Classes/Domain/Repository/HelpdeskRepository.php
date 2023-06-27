@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
@@ -57,6 +58,6 @@ class HelpdeskRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->where(
                 $queryBuilder->expr()->comparison('last_update', '<', 'DATE_SUB(NOW() , INTERVAL 1 DAY)')
             )
-            ->execute();
+            ->executeQuery();
     }
 }

@@ -381,13 +381,13 @@
 							<tr>
 								<td class="textContent" style="padding: 0px 36px;" valign="top">
 									<f:if condition="{mailSettings.adminName}">
-										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" /> {mailSettings.adminName}</h4>
+										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" extensionName="ns_helpdesk" /> {mailSettings.adminName}</h4>
 									</f:if>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" />:</strong></p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy" />:</strong> {user.submitter_name}</p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy.email" />:</strong> <f:link.email email="{user.submitter_email}" /> </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.subject" />:</strong> {user.ticket_subject} </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" />:</strong></p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" extensionName="ns_helpdesk" />:</strong></p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy" extensionName="ns_helpdesk" />:</strong> {user.submitter_name}</p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy.email" extensionName="ns_helpdesk" />:</strong> <f:link.email email="{user.submitter_email}" /> </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.subject" extensionName="ns_helpdesk" />:</strong> {user.ticket_subject} </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
 									<p>{user.description -> f:format.nl2br()}</p>
 								</td>
 							</tr>

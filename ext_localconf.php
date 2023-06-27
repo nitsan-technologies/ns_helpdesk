@@ -1,43 +1,50 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied.');
+
+defined('TYPO3') || die('Access denied.');
 $_EXTKEY = 'ns_helpdesk';
-call_user_func(
-    function ($_EXTKEY) {
-        if (version_compare(TYPO3_branch, '10.0', '>=')) {
-            $ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
-        } else {
-            $ticketsController = 'Tickets';
-        }
-        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'NITSAN.NsHelpdesk',
-            'Helpdesk',
-            [
-                    $ticketsController => 'list, show, new, create, closeTicket, reopenTicket',
-                ],
-                // non-cacheable actions
-                [
-                    $ticketsController => 'list, show, create, closeTicket, reopenTicket',
-                ]
-        );
 
-        $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
 
-        $icon = [
-            'ns_helpdesk-plugin-helpdesk'
-            , 'module-nshelpdesk'
-            , 'parent-module-nshelpdesk'
-        ];
-
-        foreach ($icon as $value) {
-            $iconRegistry->registerIcon(
-                $value,
-                \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-                ['source' => 'EXT:ns_helpdesk/Resources/Public/Icons/' . $value . '.svg']
-            );
-        }
-    },
-    'ns_helpdesk'
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'NsHelpdesk',
+    'HelpdeskList',
+    [
+        $ticketsController => 'list, show, closeTicket, reopenTicket',
+    ],
+    // non-cacheable actions
+    [
+        $ticketsController => 'list, show, closeTicket, reopenTicket',
+    ]
 );
+
+\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+    'NsHelpdesk',
+    'HelpdeskTicket',
+    [
+        $ticketsController => 'new, create, quickPopupTicket',
+    ],
+    // non-cacheable actions
+    [
+        $ticketsController => 'new, create, quickPopupTicket',
+    ]
+);
+
+$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+
+$icon = [
+    'ns_helpdesk-plugin-helpdesk'
+    , 'module-nshelpdesk'
+    , 'parent-module-nshelpdesk'
+];
+
+foreach ($icon as $value) {
+    $iconRegistry->registerIcon(
+        $value,
+        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        ['source' => 'EXT:ns_helpdesk/Resources/Public/Icons/' . $value . '.svg']
+    );
+}
+
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['NsHelpdesk'] = [
     'NITSAN\NsHelpdesk\ViewHelpers',
 ];
@@ -45,5 +52,4 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['NsHelpdesk'] = [
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['ns_helpdesk'] =
     \NITSAN\NsHelpdesk\Hooks\DataHandler::class;
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['ns_helpdesk'] =
-    'NITSAN\\NsHelpdesk\\Hooks\\PageLayoutView';
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['security.backend.enforceContentSecurityPolicy'] = false;

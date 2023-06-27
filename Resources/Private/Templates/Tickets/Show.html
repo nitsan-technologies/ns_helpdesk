@@ -2,6 +2,17 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 <f:section name="content">
+    <f:if condition="{isBackend}">
+        <f:then>
+            <f:be.pageRenderer
+                includeRequireJsModules="{
+                    0:'TYPO3/CMS/NsHelpdesk/Jquery',    
+                    2:'TYPO3/CMS/NsHelpdesk/Datatables',
+                    3:'TYPO3/CMS/NsHelpdesk/nshelpdesk'
+                }"
+            />
+        </f:then>
+    </f:if>
     <div class="ns_helpdesk-main-container container">
         <div class="row">
             <div class="col-12 ns_helpdesk--top">
@@ -10,10 +21,10 @@
                         <li>
                             <f:if condition="{settings.listPageId}">
                                 <f:then>
-                                        <f:link.typolink parameter="{settings.listPageId}" class="c-btn c-btn-primary c-btn-large"><f:translate key="backlist" /></f:link.typolink>
+                                        <f:link.typolink parameter="{settings.listPageId}" class="c-btn c-btn-primary c-btn-large"><f:translate key="backlist" extensionName="ns_helpdesk" /></f:link.typolink>
                                 </f:then>
                                 <f:else>
-                                        <f:link.action action="list" class="c-btn c-btn-primary c-btn-large"><f:translate key="backlist" /></f:link.action>
+                                        <f:link.action action="list" class="c-btn c-btn-primary c-btn-large"><f:translate key="backlist" extensionName="ns_helpdesk" /></f:link.action>
                                 </f:else>
                             </f:if>
                         </li>
@@ -25,13 +36,13 @@
                             <f:if condition="{tickets.ticketStatus.uid}==2">
                                 <f:then>
                                     <f:if condition="{backend} || {userDetails}">
-                                        <f:link.action action="reopenTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" /></f:link.action>
+                                        <f:link.action action="reopenTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" extensionName="ns_helpdesk"/></f:link.action>
                                     </f:if>
                                 </f:then>
                                 <f:else>
                                     <f:if condition="{backend}">
                                         <f:then><f:link.action action="closeTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-secondary modal-btn-close"><f:translate key="closetickets" /></f:link.action></f:then>
-                                        <f:else><a href="javascript:;" class="c-btn c-btn-secondary" data-toggle="modal" data-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:else>
+                                        <f:else><a href="javascript:;" class="c-btn c-btn-secondary" data-bs-toggle="modal" data-bs-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:else>
                                     </f:if>
                                 </f:else>
                             </f:if>
@@ -46,15 +57,15 @@
                             <div class="ns_helpdesk--ticket-list">
                                 <ul>
                                     <li>
-                                        <f:translate key="postedon" />: {tickets.ticketPostDate -> f:format.date(format:'j')}<sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - H:i A')}
+                                        <f:translate key="postedon" extensionName="ns_helpdesk" />: {tickets.ticketPostDate -> f:format.date(format:'j')}<sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - H:i A')}
                                     </li>
                                     <f:if condition="{tickets.ticketType}">
                                         <li>
-                                            <f:translate key="tr.type" />: {tickets.ticketType.typeTitle}
+                                            <f:translate key="tr.type" extensionName="ns_helpdesk" />: {tickets.ticketType.typeTitle}
                                         </li>
                                     </f:if>
                                     <li>
-                                        <f:translate key="assignedto"/> : {f:if(condition: tickets.assigneeId.realName, then: tickets.assigneeId.realName, else: tickets.assigneeId.userName)}
+                                        <f:translate key="assignedto" extensionName="ns_helpdesk" /> : {f:if(condition: tickets.assigneeId.realName, then: tickets.assigneeId.realName, else: tickets.assigneeId.userName)}
                                     </li>
                                 </ul>
                             </div>
@@ -68,7 +79,7 @@
                                 <h3>{tickets.ticketSubject}</h3>
                             </f:if>
                             <f:if condition="{tickets.ticketText}">
-                                <f:format.html>{tickets.ticketText}</f:format.html>
+                                <f:format.raw>{tickets.ticketText}</f:format.raw>
                             </f:if>
                         </div>
                     </div>
@@ -80,7 +91,7 @@
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle"><f:translate key="nshelpdesk.thankyou" /></h5>
+                    <h5 class="modal-title" id="exampleModalLongTitle"><f:translate key="nshelpdesk.thankyou" extensionName="ns_helpdesk" /></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" width="17.414" height="17.414" viewBox="0 0 17.414 17.414"><g id="Group_37" data-name="Group 37" transform="translate(-1166.793 -389.793)"><line id="Line_125" data-name="Line 125" x2="16" y2="16" transform="translate(1167.5 390.5)" fill="none" stroke="#b0b8c1" stroke-width="2"/><line id="Line_126" data-name="Line 126" x1="16" y2="16" transform="translate(1167.5 390.5)" fill="none" stroke="#b0b8c1" stroke-width="2"/></g></svg>
@@ -89,7 +100,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="modal-body__content">
-                        <p><f:translate key="nshelpdesk.thankyouforchoose" /> <br><f:translate key="nshelpdesk.rateus" /></p>
+                        <p><f:translate key="nshelpdesk.thankyouforchoose" /> <br><f:translate key="nshelpdesk.rateus" extensionName="ns_helpdesk" /></p>
                         <!-- Rating Stars Box -->
                         <div class='rating-stars text-center'>
                             <ul id='stars'>

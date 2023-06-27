@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Utility;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,7 +35,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BackendUtility extends AbstractUtility
 {
-
     /**
      * Check if backend user is admin
      *
@@ -130,12 +130,8 @@ class BackendUtility extends AbstractUtility
      */
     public static function getModuleUrl($moduleName, $urlParameters = [])
     {
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-            return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
-        } else {
-            return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
-        }
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
     }
 
     /**
@@ -147,7 +143,7 @@ class BackendUtility extends AbstractUtility
     public static function getCurrentParameters($getParameters = [])
     {
         if (empty($getParameters)) {
-            $getParameters = GeneralUtility::_GET();
+            $getParameters = $_GET;
         }
         $parameters = [];
         $ignoreKeys = [
@@ -169,8 +165,11 @@ class BackendUtility extends AbstractUtility
      */
     public static function getPidFromBackendPage($returnUrl = '')
     {
+        $getData = $_GET;
+        $postData = $_POST;
+        $requestData = array_merge((array)$getData, (array)$postData);
         if (empty($returnUrl)) {
-            $returnUrl = GeneralUtility::_GP('returnUrl');
+            $returnUrl = $requestData['returnUrl'];
         }
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);

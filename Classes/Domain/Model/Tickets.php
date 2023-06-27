@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
 /***
@@ -16,7 +17,6 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
  */
 class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * ticketSubject
      *
@@ -50,14 +50,14 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * assigneeId
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\BackendUser
+     * @var \NITSAN\NsHelpdesk\Domain\Model\BackendUser
      */
     protected $assigneeId = null;
 
     /**
      * userId
      *
-     * @var \TYPO3\CMS\Extbase\Domain\Model\FrontendUser
+     * @var \NITSAN\NsHelpdesk\Domain\Model\FrontendUser
      */
     protected $userId = null;
 
@@ -162,7 +162,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the assigneeId
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\BackendUser $assigneeId
+     * @return \NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId
      */
     public function getAssigneeId()
     {
@@ -172,10 +172,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the assigneeId
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\BackendUser $assigneeId
+     * @param \NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId
      * @return void
      */
-    public function setAssigneeId(\TYPO3\CMS\Extbase\Domain\Model\BackendUser $assigneeId)
+    public function setAssigneeId(\NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId)
     {
         $this->assigneeId = $assigneeId;
     }
@@ -183,7 +183,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the userId
      *
-     * @return \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userId
+     * @return \NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId
      */
     public function getUserId()
     {
@@ -193,10 +193,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the userId
      *
-     * @param \TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userId
+     * @param \NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId
      * @return void
      */
-    public function setUserId(\TYPO3\CMS\Extbase\Domain\Model\FrontendUser $userId)
+    public function setUserId(\NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId)
     {
         $this->userId = $userId;
     }

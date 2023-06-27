@@ -33,7 +33,9 @@ $(document).ready(function () {
         }
     });
 });
-
+$('.field-info-trigger').on('click', function(){
+    $(this).parents('.form-group').find('.field-info-text').slideToggle();
+});
 //Ticket Create Form
 $(document).on('submit', '.ticketGenerationForm', function (event) {
     if (validateHelpdeskFields(this)) {

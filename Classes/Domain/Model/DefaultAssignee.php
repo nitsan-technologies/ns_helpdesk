@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
 /***
@@ -16,7 +17,6 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
  */
 class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * ticketType
      *
@@ -36,7 +36,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     *
     * @var bool
     */
-    protected $isDefault = 0;
+    protected $isDefault;
 
     /**
      * Returns the ticketType

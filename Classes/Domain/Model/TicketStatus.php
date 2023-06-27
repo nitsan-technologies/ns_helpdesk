@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
 /***
@@ -16,7 +17,6 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
  */
 class TicketStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * statusTitle
      *

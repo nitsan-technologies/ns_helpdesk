@@ -74,6 +74,9 @@ plugin.tx_nshelpdesk_helpdesk {
     }
 }
 
+plugin.tx_nshelpdesk_helpdesklist < plugin.tx_nshelpdesk_helpdesk
+plugin.tx_nshelpdesk_helpdeskticket < plugin.tx_nshelpdesk_helpdesk
+
 # Module configuration
 module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1 {
     view {
@@ -106,6 +109,9 @@ module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1 {
     }
 }
 
+module.tx_nshelpdesk.settings < module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1.settings
+module.tx_nshelpdesk.view < module.tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1.view
+
 page {
     includeCSS {
         bootstrap = EXT:ns_helpdesk/Resources/Public/Vendor/bootstrap4.3.1.min.css
@@ -117,7 +123,6 @@ page {
     includeJSFooter {
         nshelpdeskmain = EXT:ns_helpdesk/Resources/Public/JavaScript/nshelpdesk.js
         nshelpdeskmain.defer = 1
-        ckeditorjs = EXT:ns_helpdesk/Resources/Public/JavaScript/tinymce/tinymce.min.js
         ckeditorjs.defer = 1
     }
 
@@ -155,10 +160,9 @@ listAction {
         admPanel = 0
     }
 
-    10 = USER
+    10 = EXTBASEPLUGIN
     10 < styles.content.get
     10 {
-        userFunc = TYPO3\CMS\Extbase\Core\Bootstrap->run
         extensionName = NsHelpdesk
         pluginName = Helpdesk
         vendorName = NITSAN
@@ -171,23 +175,42 @@ listAction {
 
         stdWrap.trim = 1
         select {
-            where = list_type = "nshelpdesk_helpdesk"
+             where = list_type = "nshelpdesk_helpdesklist"
         }
 
-        renderObj < tt_content.list.20.nshelpdesk_helpdesk
+        renderObj < tt_content.list.20.nshelpdesk_helpdesklist
     }
 }
 
-createTicketAction < listAction
+createTicketAction = PAGE
 createTicketAction {
     typeNum = 15021994
+    config {
+        disableAllHeaderCode = 1
+        additionalHeaders = Content-type:application/json
+        xhtml_cleaning = 0
+        admPanel = 0
+    }
+
+    10 = EXTBASEPLUGIN
+    10 < styles.content.get
     10 {
+        extensionName = NsHelpdesk
+        pluginName = Helpdesk
+        vendorName = NITSAN
         controller = Tickets
         switchableControllerActions {
             Tickets {
                 1 = create
             }
         }
+
+        stdWrap.trim = 1
+        select {
+            where = list_type = "nshelpdesk_helpdeskticket"
+        }
+
+        renderObj < tt_content.list.20.nshelpdesk_helpdeskticket
     }
 }
 
@@ -206,8 +229,4 @@ closeTicketAction {
 }
 
 # Includes Login Configuration
-[compatVersion =< 9.5.0]
-    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_helpdesk/Configuration/TypoScript/Login/setup8.typoscript">
-[else]
-    <INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_helpdesk/Configuration/TypoScript/Login/setup.typoscript">
-[end]
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_helpdesk/Configuration/TypoScript/Login/setup.typoscript">

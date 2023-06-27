@@ -2,6 +2,17 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:layout name="Default"/>
 <f:section name="content">
+    <f:if condition="{isBackend}">
+        <f:then>
+            <f:be.pageRenderer
+                includeRequireJsModules="{
+                    0:'TYPO3/CMS/NsHelpdesk/Jquery',
+                    1:'TYPO3/CMS/NsHelpdesk/Datatables',
+                    7:'TYPO3/CMS/NsHelpdesk/nshelpdesk'
+                }"
+            />
+        </f:then>
+    </f:if>
     <f:if condition="{isShow}">
         <f:then>
             <div class="ns_helpdesk-main-container container">
@@ -69,7 +80,7 @@
                                                 <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
                                             </div>
                                             <div class="ns_helpdesk--ticket-text">
-                                                <f:format.html>{ticket.ticketText -> f:format.crop(maxCharacters: '250')}</f:format.html>
+                                                <f:format.raw>{ticket.ticketText -> f:format.crop(maxCharacters: 50)}</f:format.raw>
                                             </div>
                                             <div class="ns_helpdesk--ticket-list">
                                                 <ul>

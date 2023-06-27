@@ -1,0 +1,42 @@
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <!--
+            ################################
+              SHEET General Settings
+            ################################
+        -->
+        <sDEF>
+            <ROOT>
+                <sheetTitle>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:globalSettings</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.listPageId>
+                            <label>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:helpdesk.listPageId</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                            </config>
+                    </settings.listPageId>
+                    <settings.list.createPageId>
+                            <label>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:helpdeks.ticketCreatePageId</label>
+                            <config>
+                                <type>group</type>
+                                <internal_type>db</internal_type>
+                                <allowed>pages</allowed>
+                                <size>1</size>
+                                <maxitems>1</maxitems>
+                                <minitems>1</minitems>
+                            </config>
+                    </settings.list.createPageId>
+                </el>
+            </ROOT>
+        </sDEF>
+    </sheets>
+</T3DataStructure>

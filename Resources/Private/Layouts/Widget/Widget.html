@@ -1,13 +1,15 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/widget.css', extensionName: 'ns_helpdesk')}" media="all">
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/configuration.css', extensionName: 'ns_helpdesk')}" media="all">
 <div class="widget-content-title"><span><f:translate key="widget.title.ns_helpdesk" extensionName="ns_helpdesk" /></span></div>
 <div class="widget-content-main">
 	<f:render section="main" optional="true" />
 </div>
 <div class="widget-content-footer">
 	<div class="top-btn-group">
-		<a class="btn btn-info" onclick="top.goToModule('nitsan_NsHelpdeskHelpdeskmi1',0,'&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[action]=dashboard&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[controller]=Tickets'); return false;" href="#"><f:translate key="dashboard" extensionName="ns_helpdesk" /></a>
-		<a class="btn btn-warning" onclick="top.goToModule('nitsan_NsHelpdeskHelpdeskmi1',0,'&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[action]=list&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[controller]=Tickets'); return false;" href="#"><f:translate key="nav.tickets" extensionName="ns_helpdesk" /></a>
-		<a class="btn btn-success" onclick="top.goToModule('nitsan_NsHelpdeskHelpdeskmi1',0,'&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[action]=getConstants&tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[controller]=Tickets&cat=ns_helpdesk_globalSettings'); return false;" href="#"><f:translate key="ns_helpdesk_globalSettings" extensionName="ns_helpdesk" /></a>
+		<a class="btn btn-info" href="#" data-dispatch-action="TYPO3.ModuleMenu.showModule" data-dispatch-args-list="nitsan_nshelpdeskmodule_dashboard"><f:translate key="dashboard" extensionName="ns_helpdesk" /></a>
+		<a class="btn btn-warning"  href="#" data-dispatch-action="TYPO3.ModuleMenu.showModule" data-dispatch-args-list="nitsan_nshelpdeskmodule_dashboard"><f:translate key="nav.tickets" extensionName="ns_helpdesk" /></a>
+		<a class="btn btn-success"  href="#" data-dispatch-action="TYPO3.ModuleMenu.showModule" data-dispatch-args-list="nitsan_nshelpdeskmodule_configuration"><f:translate key="ns_helpdesk_globalSettings" extensionName="ns_helpdesk" /></a>
 	</div>
 </div>
 </html>

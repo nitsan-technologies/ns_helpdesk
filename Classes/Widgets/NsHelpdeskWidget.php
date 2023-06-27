@@ -15,12 +15,14 @@
 
 namespace NITSAN\NsHelpdesk\Widgets;
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
-use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
-use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
+use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
+use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
 
 /**
  * Concrete TYPO3 information widget
@@ -29,17 +31,9 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
  *
  * There are no options available for this widget
  */
-class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
+class NsHelpdeskWidget implements WidgetInterface, RequestAwareWidgetInterface
 {
-    /**
-     * @var WidgetConfigurationInterface
-     */
-    private $configuration;
-
-    /**
-     * @var StandaloneView
-     */
-    private $view;
+    private ServerRequestInterface $request;
 
     /**
      * @var array
@@ -47,13 +41,18 @@ class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
     private $options;
 
     public function __construct(
-        WidgetConfigurationInterface $configuration,
-        StandaloneView $view,
+        private  WidgetConfigurationInterface $configuration,
+        protected  ?StandaloneView $view = null,
         array $options = []
     ) {
         $this->configuration = $configuration;
         $this->view = $view;
         $this->options = $options;
+    }
+
+    public function setRequest(ServerRequestInterface $request): void
+    {
+        $this->request = $request;
     }
 
     public function renderWidgetContent(): string
@@ -67,9 +66,9 @@ class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
         $totalTickets = $queryBuilder
             ->count('uid')
             ->from('tx_nshelpdesk_domain_model_tickets')
-            ->execute()
-            ->fetchColumn(0);
-
+            ->executeQuery()
+            ->fetchOne();
+        
         //Total New tickets
         $totalNewTickets = $queryBuilder
             ->count('uid')
@@ -77,8 +76,8 @@ class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
             ->where(
                 $queryBuilder->expr()->eq('ticket_status', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         //Total closed tickets
         $totalClosedTickets = $queryBuilder
@@ -87,43 +86,43 @@ class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
             ->where(
                 $queryBuilder->expr()->eq('ticket_status', $queryBuilder->createNamedParameter(2, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total4Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(4, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total3Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(3, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total2Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(2, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total1Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
         $totalAvg = ($total5Ratings * 5 + $total4Ratings * 4 + $total3Ratings * 3 + $total2Ratings * 2 + $total1Ratings * 1);
 
         $totalRatings = 0;
@@ -142,5 +141,10 @@ class NsHelpdeskWidget implements WidgetInterface, AdditionalCssInterface
     public function getCssFiles(): array
     {
         return ['EXT:ns_helpdesk/Resources/Public/Css/backend/ns-helpdesk.css'];
+    }
+
+    public function getOptions(): array
+    {
+        return $this->options;
     }
 }

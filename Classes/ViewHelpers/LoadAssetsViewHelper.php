@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\ViewHelpers;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;

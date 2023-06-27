@@ -1,6 +1,9 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeRequireJsModules="{0:'TYPO3/CMS/NsHelpdesk/Main'}">
 	<script src="{f:uri.resource(path:'JavaScript/Jquery.js')}"></script>
+	<script src="{f:uri.resource(path:'JavaScript/Jquery.js')}"></script>
+	<script src="{f:uri.resource(path:'JavaScript/tinymce/tinymce.min.js')}"></script>
+	<script src="{f:uri.resource(path:'JavaScript/Fancybox.js')}"></script>
 	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_helpdesk')}" media="all">
 	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_helpdesk')}" media="all">
 	<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_helpdesk')}" media="all">
@@ -22,16 +25,16 @@
 							<ul class="navbar-nav">
 								<li class="nav-item {f:if(condition: '{action}==dashboard', then: 'active')}">
 									<f:link.action action="dashboard" class="nav-link">
-										<em class="fa fa-dashboard" aria-hidden="true"></em><f:translate key="dashboard" /></f:link.action>
+										<em class="fa fa-dashboard" aria-hidden="true"></em><f:translate key="dashboard" extensionName="ns_helpdesk" /></f:link.action>
 								</li>
 								<li class="nav-item {f:if(condition: '{action}==ns_helpdesk_globalSettings', then: 'active')}">
-									<f:link.action action="getConstants" additionalParams="{cat:'ns_helpdesk_globalSettings'}" class="nav-link" additionalAttributes="{data-toggle:'tooltip',data-placement:'bottom'}" title="{f:translate(key: 'ns_helpdesk_globalSettings.desc')}">
-										<em class="fa fas fa-gear" aria-hidden="true"></em><f:translate key="ns_helpdesk_globalSettings" />
+									<f:link.action action="getConstants" additionalParams="{cat:'ns_helpdesk_globalSettings'}" class="nav-link" additionalAttributes="{data-bs-toggle:'tooltip',data-placement:'bottom'}" title="{f:translate(key: 'ns_helpdesk_globalSettings.desc')}">
+										<em class="fa fas fa-gear" aria-hidden="true"></em><f:translate key="ns_helpdesk_globalSettings" extensionName="ns_helpdesk" />
 									</f:link.action>
 								</li>
 								<li class="nav-item {f:if(condition: '{action}==list', then: 'active')}">
-									<f:link.action action="list" class="nav-link" additionalAttributes="{data-toggle:'tooltip',data-placement:'bottom'}" title="{f:translate(key: 'nav.tickets.desc')}">
-										<em class="fa fa-ticket" aria-hidden="true"></em><f:translate key="nav.tickets" />
+									<f:link.action action="list" class="nav-link" additionalAttributes="{data-bs-toggle:'tooltip',data-placement:'bottom'}" title="{f:translate(key: 'nav.tickets.desc')}">
+										<em class="fa fa-ticket" aria-hidden="true"></em><f:translate key="nav.tickets" extensionName="ns_helpdesk" />
 									</f:link.action>
 								</li>
 							</ul>
