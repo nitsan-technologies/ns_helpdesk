@@ -1,11 +1,19 @@
 <?php
 
 defined('TYPO3') || die('Access denied.');
+
+use NITSAN\NsHelpdesk\Hooks\DataHandler;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use NITSAN\NsHelpdesk\Controller\TicketsController;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+
 $_EXTKEY = 'ns_helpdesk';
 
-$ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
+$ticketsController = TicketsController::class;
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'NsHelpdesk',
     'HelpdeskList',
     [
@@ -17,7 +25,7 @@ $ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
     ]
 );
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'NsHelpdesk',
     'HelpdeskTicket',
     [
@@ -29,7 +37,7 @@ $ticketsController = \NITSAN\NsHelpdesk\Controller\TicketsController::class;
     ]
 );
 
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
 
 $icon = [
     'ns_helpdesk-plugin-helpdesk'
@@ -40,7 +48,7 @@ $icon = [
 foreach ($icon as $value) {
     $iconRegistry->registerIcon(
         $value,
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        SvgIconProvider::class,
         ['source' => 'EXT:ns_helpdesk/Resources/Public/Icons/' . $value . '.svg']
     );
 }
@@ -50,6 +58,6 @@ $GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['NsHelpdesk'] = [
 ];
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['ns_helpdesk'] =
-    \NITSAN\NsHelpdesk\Hooks\DataHandler::class;
+    DataHandler::class;
 
 $GLOBALS['TYPO3_CONF_VARS']['SYS']['features']['security.backend.enforceContentSecurityPolicy'] = false;

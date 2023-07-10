@@ -2,6 +2,8 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Repository;
 
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
 /***
  *
  * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
@@ -15,6 +17,6 @@ namespace NITSAN\NsHelpdesk\Domain\Repository;
 /**
  * The repository for Ticket Categories
  */
-class DefaultAssigneeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class DefaultAssigneeRepository extends Repository
 {
 }

@@ -2,8 +2,11 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Repository;
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /***
  *
@@ -18,16 +21,16 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The repository for Tickets
  */
-class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class TicketsRepository extends Repository
 {
     /**
      * @var array<non-empty-string, 'ASC'|'DESC'>
      */
-    protected $defaultOrderings = ['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
+    protected $defaultOrderings = ['crdate' => QueryInterface::ORDER_DESCENDING];
 
     public function getFromAll()
     {
-        $querySettings = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
@@ -90,12 +93,6 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function getCustomerReview()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
-        $totalTickets = $queryBuilder
-            ->count('uid')
-            ->from('tx_nshelpdesk_domain_model_tickets')
-            ->executeQuery()
-            ->fetchOne();
-
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5, \PDO::PARAM_INT))
@@ -130,12 +127,12 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             )
             ->executeQuery()
             ->fetchOne();
-        $totalAvg = ($total5Ratings * 5 + $total4Ratings * 4 + $total3Ratings * 3 + $total2Ratings * 2 + $total1Ratings * 1);
-
-        $totalRatings = 0;
-        if ($totalAvg > 0) {
-            $totalRatings = $totalAvg / ($total5Ratings + $total4Ratings + $total3Ratings + $total2Ratings + $total1Ratings);
-        }
-        return $totalRatings;
+        return [
+            'total5Ratings' => $total5Ratings,
+            'total4Ratings' => $total4Ratings,
+            'total3Ratings' => $total3Ratings,
+            'total2Ratings' => $total2Ratings,
+            'total1Ratings' => $total1Ratings
+        ];
     }
 }

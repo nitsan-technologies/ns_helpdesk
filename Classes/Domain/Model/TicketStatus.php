@@ -2,6 +2,8 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /***
  *
  * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
@@ -15,28 +17,28 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
 /**
  * TicketStatus
  */
-class TicketStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class TicketStatus extends AbstractEntity
 {
     /**
      * statusTitle
      *
      * @var string
      */
-    protected $statusTitle = '';
+    protected string $statusTitle = '';
 
     /**
      * statusColor
      *
      * @var string
      */
-    protected $statusColor = '';
+    protected string $statusColor = '';
 
     /**
      * Returns the statusTitle
      *
      * @return string $statusTitle
      */
-    public function getStatusTitle()
+    public function getStatusTitle(): string
     {
         return $this->statusTitle;
     }
@@ -47,7 +49,7 @@ class TicketStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $statusTitle
      * @return void
      */
-    public function setStatusTitle($statusTitle)
+    public function setStatusTitle(string $statusTitle)
     {
         $this->statusTitle = $statusTitle;
     }
@@ -57,7 +59,7 @@ class TicketStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $statusColor
      */
-    public function getStatusColor()
+    public function getStatusColor(): string
     {
         return $this->statusColor;
     }
@@ -68,7 +70,7 @@ class TicketStatus extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $statusColor
      * @return void
      */
-    public function setStatusColor($statusColor)
+    public function setStatusColor(string $statusColor)
     {
         $this->statusColor = $statusColor;
     }

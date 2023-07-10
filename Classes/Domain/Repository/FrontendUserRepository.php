@@ -2,7 +2,9 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Repository;
 
-class FrontendUserRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+use TYPO3\CMS\Extbase\Persistence\Repository;
+
+class FrontendUserRepository extends Repository
 {
     public function findByUserId($uid)
     {

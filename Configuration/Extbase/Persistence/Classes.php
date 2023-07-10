@@ -2,11 +2,15 @@
 
 declare(strict_types=1);
 
+use NITSAN\NsHelpdesk\Domain\Model\BackendUser;
+use NITSAN\NsHelpdesk\Domain\Model\FrontendUser;
+use NITSAN\NsHelpdesk\Domain\Model\FrontendUserGroup;
+
 return [
-    \NITSAN\NsHelpdesk\Domain\Model\FrontendUser::class => [
+    FrontendUser::class => [
         'tableName' => 'fe_users',
     ],
-    \NITSAN\NsHelpdesk\Domain\Model\BackendUser::class => [
+    BackendUser::class => [
         'tableName' => 'be_users',
         'properties' => [
             'userName' => [
@@ -44,7 +48,7 @@ return [
             ],
         ],
     ],
-    \NITSAN\NsHelpdesk\Domain\Model\FrontendUserGroup::class => [
+    FrontendUserGroup::class => [
         'tableName' => 'fe_groups',
     ],
 ];

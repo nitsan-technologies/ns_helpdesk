@@ -11,12 +11,12 @@ class FrontendUser extends AbstractEntity
     /**
     * @var string
     */
-    protected $username = '';
+    protected string $username = '';
 
     /**
      * @var string
      */
-    protected $password = '';
+    protected string $password = '';
 
     /**
      * @var ObjectStorage<FrontendUserGroup>
@@ -27,72 +27,72 @@ class FrontendUser extends AbstractEntity
     /**
      * @var string
      */
-    protected $name = '';
+    protected string $name = '';
 
     /**
      * @var string
      */
-    protected $firstName = '';
+    protected string $firstName = '';
 
     /**
      * @var string
      */
-    protected $middleName = '';
+    protected string $middleName = '';
 
     /**
      * @var string
      */
-    protected $lastName = '';
+    protected string $lastName = '';
 
     /**
      * @var string
      */
-    protected $address = '';
+    protected string $address = '';
 
     /**
      * @var string
      */
-    protected $telephone = '';
+    protected string $telephone = '';
 
     /**
      * @var string
      */
-    protected $fax = '';
+    protected string $fax = '';
 
     /**
      * @var string
      */
-    protected $email = '';
+    protected string $email = '';
 
     /**
      * @var string
      */
-    protected $title = '';
+    protected string $title = '';
 
     /**
      * @var string
      */
-    protected $zip = '';
+    protected string $zip = '';
 
     /**
      * @var string
      */
-    protected $city = '';
+    protected string $city = '';
 
     /**
      * @var string
      */
-    protected $country = '';
+    protected string $country = '';
 
     /**
      * @var string
      */
-    protected $www = '';
+    protected string $www = '';
 
     /**
      * @var string
      */
-    protected $company = '';
+    protected string $company = '';
 
     /**
      * @var ObjectStorage<FileReference>
@@ -100,9 +100,9 @@ class FrontendUser extends AbstractEntity
     protected $image;
 
     /**
-     * @var \DateTime|null
+     * @var \DateTime
      */
-    protected $lastlogin;
+    protected \DateTime $lastlogin;
 
     /**
      * Constructs a new Front-End User
@@ -132,7 +132,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $username
      */
-    public function setUsername($username)
+    public function setUsername(string $username)
     {
         $this->username = $username;
     }
@@ -142,7 +142,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getUsername()
+    public function getUsername(): string
     {
         return $this->username;
     }
@@ -152,7 +152,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $password
      */
-    public function setPassword($password)
+    public function setPassword(string $password)
     {
         $this->password = $password;
     }
@@ -162,7 +162,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getPassword()
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -214,7 +214,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $name
      */
-    public function setName($name)
+    public function setName(string $name)
     {
         $this->name = $name;
     }
@@ -224,7 +224,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -234,7 +234,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $firstName
      */
-    public function setFirstName($firstName)
+    public function setFirstName(string $firstName)
     {
         $this->firstName = $firstName;
     }
@@ -244,7 +244,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getFirstName()
+    public function getFirstName(): string
     {
         return $this->firstName;
     }
@@ -254,7 +254,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $middleName
      */
-    public function setMiddleName($middleName)
+    public function setMiddleName(string $middleName)
     {
         $this->middleName = $middleName;
     }
@@ -264,7 +264,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getMiddleName()
+    public function getMiddleName(): string
     {
         return $this->middleName;
     }
@@ -274,7 +274,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $lastName
      */
-    public function setLastName($lastName)
+    public function setLastName(string $lastName)
     {
         $this->lastName = $lastName;
     }
@@ -284,7 +284,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getLastName()
+    public function getLastName(): string
     {
         return $this->lastName;
     }
@@ -294,7 +294,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $address
      */
-    public function setAddress($address)
+    public function setAddress(string $address)
     {
         $this->address = $address;
     }
@@ -304,7 +304,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
@@ -314,7 +314,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $telephone
      */
-    public function setTelephone($telephone)
+    public function setTelephone(string $telephone)
     {
         $this->telephone = $telephone;
     }
@@ -324,7 +324,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getTelephone()
+    public function getTelephone(): string
     {
         return $this->telephone;
     }
@@ -334,7 +334,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $fax
      */
-    public function setFax($fax)
+    public function setFax(string $fax)
     {
         $this->fax = $fax;
     }
@@ -344,7 +344,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getFax()
+    public function getFax(): string
     {
         return $this->fax;
     }
@@ -354,7 +354,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $email
      */
-    public function setEmail($email)
+    public function setEmail(string $email)
     {
         $this->email = $email;
     }
@@ -364,7 +364,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail(): string
     {
         return $this->email;
     }
@@ -374,7 +374,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(string $title)
     {
         $this->title = $title;
     }
@@ -384,7 +384,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -394,7 +394,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $zip
      */
-    public function setZip($zip)
+    public function setZip(string $zip)
     {
         $this->zip = $zip;
     }
@@ -404,7 +404,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getZip()
+    public function getZip(): string
     {
         return $this->zip;
     }
@@ -414,7 +414,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $city
      */
-    public function setCity($city)
+    public function setCity(string $city)
     {
         $this->city = $city;
     }
@@ -424,7 +424,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getCity()
+    public function getCity(): string
     {
         return $this->city;
     }
@@ -434,7 +434,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $country
      */
-    public function setCountry($country)
+    public function setCountry(string $country)
     {
         $this->country = $country;
     }
@@ -444,7 +444,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getCountry()
+    public function getCountry(): string
     {
         return $this->country;
     }
@@ -454,7 +454,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $www
      */
-    public function setWww($www)
+    public function setWww(string $www)
     {
         $this->www = $www;
     }
@@ -464,7 +464,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getWww()
+    public function getWww(): string
     {
         return $this->www;
     }
@@ -474,7 +474,7 @@ class FrontendUser extends AbstractEntity
      *
      * @param string $company
      */
-    public function setCompany($company)
+    public function setCompany(string $company)
     {
         $this->company = $company;
     }
@@ -484,7 +484,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return string
      */
-    public function getCompany()
+    public function getCompany(): string
     {
         return $this->company;
     }
@@ -524,7 +524,7 @@ class FrontendUser extends AbstractEntity
      *
      * @return \DateTime
      */
-    public function getLastlogin()
+    public function getLastlogin(): \DateTime
     {
         return $this->lastlogin;
     }

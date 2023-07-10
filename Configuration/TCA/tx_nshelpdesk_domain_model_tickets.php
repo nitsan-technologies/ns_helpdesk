@@ -20,7 +20,10 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'ticket_subject,ticket_text,slug',
-        'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_tickets.svg'
+        'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_tickets.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ticket_subject, slug, ticket_text, ticket_post_date, ticket_status, ticket_rating, assignee_id, user_id,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],

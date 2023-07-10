@@ -2,6 +2,12 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
+use NITSAN\NsHelpdesk\Domain\Model\BackendUser;
+use NITSAN\NsHelpdesk\Domain\Model\FrontendUser;
+use NITSAN\NsHelpdesk\Domain\Model\TicketStatus;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use DateTime;
+
 /***
  *
  * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
@@ -15,7 +21,7 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
 /**
  * Tickets
  */
-class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Tickets extends AbstractEntity
 {
     /**
      * ticketSubject
@@ -23,7 +29,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $ticketSubject = '';
+    protected string $ticketSubject = '';
 
     /**
      * ticketText
@@ -31,56 +37,56 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $ticketText = '';
+    protected string $ticketText = '';
 
     /**
      * ticketPostDate
      *
      * @var \DateTime
      */
-    protected $ticketPostDate = null;
+    protected DateTime $ticketPostDate;
 
     /**
      * ticketStatus
      *
-     * @var \NITSAN\NsHelpdesk\Domain\Model\TicketStatus
+     * @var TicketStatus
      */
-    protected $ticketStatus = null;
+    protected TicketStatus $ticketStatus;
 
     /**
      * assigneeId
      *
-     * @var \NITSAN\NsHelpdesk\Domain\Model\BackendUser
+     * @var BackendUser
      */
-    protected $assigneeId = null;
+    protected BackendUser $assigneeId;
 
     /**
      * userId
      *
-     * @var \NITSAN\NsHelpdesk\Domain\Model\FrontendUser
+     * @var FrontendUser
      */
-    protected $userId = null;
+    protected FrontendUser $userId;
 
     /**
      * slug
      *
      * @var string
      */
-    protected $slug = '';
+    protected string $slug = '';
 
     /**
      * ticketRating
      *
      * @var int
      */
-    protected $ticketRating = 0;
+    protected int $ticketRating = 0;
 
     /**
      * Returns the ticketSubject
      *
      * @return string $ticketSubject
      */
-    public function getTicketSubject()
+    public function getTicketSubject(): string
     {
         return $this->ticketSubject;
     }
@@ -91,7 +97,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $ticketSubject
      * @return void
      */
-    public function setTicketSubject($ticketSubject)
+    public function setTicketSubject(string $ticketSubject)
     {
         $this->ticketSubject = $ticketSubject;
     }
@@ -101,7 +107,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $ticketText
      */
-    public function getTicketText()
+    public function getTicketText(): string
     {
         return $this->ticketText;
     }
@@ -112,7 +118,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $ticketText
      * @return void
      */
-    public function setTicketText($ticketText)
+    public function setTicketText(string $ticketText)
     {
         $this->ticketText = $ticketText;
     }
@@ -122,7 +128,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return \DateTime $ticketPostDate
      */
-    public function getTicketPostDate()
+    public function getTicketPostDate(): DateTime
     {
         return $this->ticketPostDate;
     }
@@ -141,9 +147,9 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the ticketStatus
      *
-     * @return \NITSAN\NsHelpdesk\Domain\Model\TicketStatus $ticketStatus
+     * @return TicketStatus $ticketStatus
      */
-    public function getTicketStatus()
+    public function getTicketStatus(): TicketStatus
     {
         return $this->ticketStatus;
     }
@@ -151,10 +157,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the ticketStatus
      *
-     * @param \NITSAN\NsHelpdesk\Domain\Model\TicketStatus $ticketStatus
+     * @param TicketStatus $ticketStatus
      * @return void
      */
-    public function setTicketStatus(\NITSAN\NsHelpdesk\Domain\Model\TicketStatus $ticketStatus)
+    public function setTicketStatus(TicketStatus $ticketStatus)
     {
         $this->ticketStatus = $ticketStatus;
     }
@@ -162,9 +168,9 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the assigneeId
      *
-     * @return \NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId
+     * @return BackendUser $assigneeId
      */
-    public function getAssigneeId()
+    public function getAssigneeId(): BackendUser
     {
         return $this->assigneeId;
     }
@@ -172,10 +178,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the assigneeId
      *
-     * @param \NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId
+     * @param BackendUser $assigneeId
      * @return void
      */
-    public function setAssigneeId(\NITSAN\NsHelpdesk\Domain\Model\BackendUser $assigneeId)
+    public function setAssigneeId(BackendUser $assigneeId)
     {
         $this->assigneeId = $assigneeId;
     }
@@ -183,9 +189,9 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Returns the userId
      *
-     * @return \NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId
+     * @return FrontendUser $userId
      */
-    public function getUserId()
+    public function getUserId(): FrontendUser
     {
         return $this->userId;
     }
@@ -193,10 +199,10 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * Sets the userId
      *
-     * @param \NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId
+     * @param FrontendUser $userId
      * @return void
      */
-    public function setUserId(\NITSAN\NsHelpdesk\Domain\Model\FrontendUser $userId)
+    public function setUserId(FrontendUser $userId)
     {
         $this->userId = $userId;
     }
@@ -206,7 +212,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return string $slug
      */
-    public function getSlug()
+    public function getSlug(): string
     {
         return $this->slug;
     }
@@ -217,7 +223,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $slug
      * @return void
      */
-    public function setSlug($slug)
+    public function setSlug(string $slug)
     {
         $this->slug = $slug;
     }
@@ -227,7 +233,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return int $ticketRating
      */
-    public function getTicketRating()
+    public function getTicketRating(): int
     {
         return $this->ticketRating;
     }
@@ -238,7 +244,7 @@ class Tickets extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param int $ticketRating
      * @return void
      */
-    public function setTicketRating($ticketRating)
+    public function setTicketRating(int $ticketRating)
     {
         $this->ticketRating = $ticketRating;
     }

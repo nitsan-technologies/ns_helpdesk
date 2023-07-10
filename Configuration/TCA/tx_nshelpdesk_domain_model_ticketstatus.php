@@ -20,6 +20,9 @@ return [
         ],
         'searchFields' => 'status_title,status_color',
         'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_ticketstatus.svg',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, status_title, status_color, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],

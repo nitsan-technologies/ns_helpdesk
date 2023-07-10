@@ -36,33 +36,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class BackendUtility extends AbstractUtility
 {
     /**
-     * Check if backend user is admin
-     *
-     * @return bool
-     */
-    public static function isBackendAdmin()
-    {
-        if (isset(self::getBackendUserAuthentication()->user)) {
-            return self::getBackendUserAuthentication()->user['admin'] === 1;
-        }
-        return false;
-    }
-
-    /**
-     * Get property from backend user
-     *
-     * @param string $property
-     * @return string
-     */
-    public static function getPropertyFromBackendUser($property = 'uid')
-    {
-        if (!empty(self::getBackendUserAuthentication()->user[$property])) {
-            return self::getBackendUserAuthentication()->user[$property];
-        }
-        return '';
-    }
-
-    /**
      * Create an URI to edit any record
      *
      * @param string $tableName
@@ -132,31 +105,6 @@ class BackendUtility extends AbstractUtility
     {
         $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
         return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
-    }
-
-    /**
-     * Get all GET/POST params without module name and token
-     *
-     * @param array $getParameters
-     * @return array
-     */
-    public static function getCurrentParameters($getParameters = [])
-    {
-        if (empty($getParameters)) {
-            $getParameters = $_GET;
-        }
-        $parameters = [];
-        $ignoreKeys = [
-            'M',
-            'moduleToken',
-        ];
-        foreach ($getParameters as $key => $value) {
-            if (in_array($key, $ignoreKeys)) {
-                continue;
-            }
-            $parameters[$key] = $value;
-        }
-        return $parameters;
     }
 
     /**

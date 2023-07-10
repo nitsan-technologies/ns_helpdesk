@@ -19,7 +19,6 @@ use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Dashboard\Widgets\WidgetInterface;
-use TYPO3\CMS\Dashboard\Widgets\AdditionalCssInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Dashboard\Widgets\RequestAwareWidgetInterface;
 use TYPO3\CMS\Dashboard\Widgets\WidgetConfigurationInterface;
@@ -68,7 +67,7 @@ class NsHelpdeskWidget implements WidgetInterface, RequestAwareWidgetInterface
             ->from('tx_nshelpdesk_domain_model_tickets')
             ->executeQuery()
             ->fetchOne();
-        
+
         //Total New tickets
         $totalNewTickets = $queryBuilder
             ->count('uid')

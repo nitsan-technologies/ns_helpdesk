@@ -2,6 +2,7 @@
 
 namespace NITSAN\NsHelpdesk\ViewHelpers;
 
+use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
@@ -20,7 +21,7 @@ class LoadAssetsViewHelper extends AbstractViewHelper
         $settings = $this->templateVariableContainer->get('settings');
         $cData = $this->templateVariableContainer->get('cData');
         // Create pageRender instance.
-        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+        $pageRender = GeneralUtility::makeInstance(PageRenderer::class);
         $this->loadResource($pageRender, $settings, $cData);
     }
 

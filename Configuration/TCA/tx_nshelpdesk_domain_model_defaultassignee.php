@@ -20,6 +20,9 @@ return [
         ],
         'searchFields' => '',
         'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_defaultassignee.gif',
+        'security' => [
+            'ignorePageTypeRestriction' => true
+        ],
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_diffsource, hidden, ticket_type, assignee_id, is_default, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],

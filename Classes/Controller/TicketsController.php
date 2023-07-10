@@ -12,24 +12,34 @@ namespace NITSAN\NsHelpdesk\Controller;
  *  (c) 2020
  *
  ***/
+
+use TYPO3\CMS\Core\Mail\MailMessage;
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
+use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use NITSAN\NsHelpdesk\Domain\Model\Tickets;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
+use NITSAN\NsHelpdesk\Domain\Model\TicketStatus;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use NITSAN\NsHelpdesk\Domain\Repository\TicketsRepository;
-use NITSAN\NsHelpdesk\Domain\Repository\HelpdeskRepository;
+use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 use TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager;
 use NITSAN\NsHelpdesk\Domain\Repository\BackendUserRepository;
 use NITSAN\NsHelpdesk\Domain\Repository\FrontendUserRepository;
 use NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
+use NITSAN\NsHelpdesk\Domain\Repository\DefaultAssigneeRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
+use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 
 /**
  * TicketsController
  */
-class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class TicketsController extends ActionController
 {
     protected $templateService;
     protected $constantObj;
@@ -48,62 +58,68 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      *
      * @var array
      */
-    public $config;
+    public array $config;
 
     /**
      * Storage page
      *
      * @var int
      */
-    protected $pid = null;
+    protected int|null $pid = null;
 
     /**
      * Complete Configuration
      *
      * @var array
      */
-    protected $allConfig = null;
-
-    /**
-     * HelpdeskRepository
-     */
-    protected $helpdeskRepository = null;
+    protected array|null $allConfig = null;
 
     /**
      * TicketsRepository
+     *
+     * @var TicketsRepository
      */
-    protected $ticketsRepository = null;
+    protected TicketsRepository $ticketsRepository;
 
     /**
      * TicketStatusRepository
+     *
+     * @var TicketStatusRepository
      */
-    protected $ticketStatusRepository = null;
+    protected TicketStatusRepository $ticketStatusRepository;
 
     /**
      * DefaultAssigneeRepository
+     *
+     * @var DefaultAssigneeRepository
      */
-    protected $assigneeRepository = null;
+    protected DefaultAssigneeRepository $assigneeRepository;
 
     /**
      * FrontendUserRepository
      *
+     * @var FrontendUserRepository
      */
-    protected $frontendUserRepository;
+    protected FrontendUserRepository $frontendUserRepository;
 
     /**
      * BackendUserRepository
+     *
+     * @var BackendUserRepository
      */
-    protected $backendUserRepository;
+    protected BackendUserRepository $backendUserRepository;
 
     /**
      * PersistenceManager
+     *
+     * @var PersistenceManager
      */
-    protected $persistenceManager;
+    protected PersistenceManager $persistenceManager;
 
     /**
      * @var array
      */
-    protected $userDetails;
+    protected array|null $userDetails;
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -111,13 +127,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         FrontendUserRepository $frontendUserRepository,
         TicketsRepository $ticketsRepository,
         TicketStatusRepository $ticketStatusRepository,
-        HelpdeskRepository $helpdeskRepository
     ) {
         $this->persistenceManager = $persistenceManager;
         $this->frontendUserRepository = $frontendUserRepository;
         $this->ticketsRepository = $ticketsRepository;
         $this->ticketStatusRepository = $ticketStatusRepository;
-        $this->helpdeskRepository = $helpdeskRepository;
     }
 
 
@@ -128,8 +142,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     public function initializeObject()
     {
-        $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-        // $this->allConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
         $this->config = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
         $this->config = $this->config['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
         $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
@@ -153,7 +166,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
 
         //Set USER ..
-        if (\TYPO3\CMS\Core\Http\ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
+        if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->userDetails = $this->beUser = $GLOBALS['BE_USER']->user;
         } else {
             $this->userDetails = $this->feUser = $GLOBALS['TSFE']->fe_user->user;
@@ -163,8 +176,9 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action dashboard
      *
+     * @return ResponseInterface
      */
-    public function dashboardAction()
+    public function dashboardAction(): ResponseInterface
     {
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
             $view = $this->initializeModuleTemplate($this->request);
@@ -175,7 +189,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
-        $customerReview = $this->ticketsRepository->getCustomerReview();
+        $customerReviewDetails  = $this->ticketsRepository->getCustomerReview();
+        $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
         $bootstrapVariable = 'data-bs';
         $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
         $assign = [
@@ -206,8 +221,9 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action list
      *
+     * @return ResponseInterface
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
             $view = $this->initializeModuleTemplate($this->request);
@@ -295,9 +311,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action show
      *
-     * @param \NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets
+     * @param Tickets $tickets
+     * @return ResponseInterface
      */
-    public function showAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
+    public function showAction(Tickets $tickets): ResponseInterface
     {
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
             $view = $this->initializeModuleTemplate($this->request);
@@ -328,10 +345,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action new
      *
+     * @return ResponseInterface
      */
-    public function newAction()
+    public function newAction(): ResponseInterface
     {
-        $newTickets = new \NITSAN\NsHelpdesk\Domain\Model\Tickets();
+        $newTickets = GeneralUtility::makeInstance(Tickets::class);
         $assign = [
             'newTickets' => $newTickets,
             'userDetails' => $this->feUser
@@ -344,10 +362,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     /**
      * action create
      *
-     * @param \NITSAN\NsHelpdesk\Domain\Model\Tickets $newTickets
+     * @param Tickets $newTickets
      * @return void
      */
-    public function createAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $newTickets)
+    public function createAction(Tickets $newTickets): void
     {
         $settings = $this->settings;
         $backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
@@ -444,7 +462,14 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         exit();
     }
 
-    public function sendMailNotification($sendingDetails = null, $template = null)
+    /**
+     * sendMailNotification function
+     *
+     * @param array|null $sendingDetails
+     * @param string|null $template
+     * @return void
+     */
+    public function sendMailNotification(array|null $sendingDetails = null, string|null $template = null): void
     {
         $sender = $sendingDetails['sender'];
         $receiver = $sendingDetails['receiver'];
@@ -456,7 +481,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      *
      * @return void
      */
-    public function assignForAll()
+    public function assignForAll(): void
     {
         $this->view->assignMultiple(
             [
@@ -466,7 +491,12 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         );
     }
 
-    public function getMailTemplateDetails()
+    /**
+     * getMailTemplateDetails function
+     *
+     * @return array
+     */
+    public function getMailTemplateDetails(): array
     {
         $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') ? 'https' : 'http';
         return [
@@ -484,6 +514,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @param string $subject subject of the email
      * @param string $templateName template name (UpperCamelCase)
      * @param array $variables variables to be passed to the Fluid view
+     * @return bool
      */
     protected function sendTemplateEmail(
         array $recipient,
@@ -491,20 +522,20 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $subject,
         $templateName,
         array $variables = []
-    ) {
-        /** @var \TYPO3\CMS\Fluid\View\StandaloneView $emailView */
-        $emailView = GeneralUtility::makeInstance('TYPO3\\CMS\\Fluid\\View\\StandaloneView');
+    ): bool {
+        /** @var StandaloneView $emailView */
+        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
 
         /*For use of Localize value */
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(\TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        $templateRootPath = \TYPO3\CMS\Core\Utility\GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPaths']['0']);
+        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPaths']['0']);
 
         $templatePathAndFilename = $templateRootPath . 'Email/' . $templateName . '.html';
         $emailView->setTemplatePathAndFilename($templatePathAndFilename);
         $emailView->assignMultiple($variables);
         $emailBody = $emailView->render();
 
-        $mail = GeneralUtility::makeInstance('TYPO3\\CMS\\Core\\Mail\\MailMessage');
+        $mail = GeneralUtility::makeInstance(MailMessage::class);
 
         /*Mail*/
         $mail->setTo($recipient)->setFrom($sender)->setSubject($subject);
@@ -524,16 +555,19 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * @param  \NITSAN\NsHelpdesk\Domain\Model\Tickets  $tickets
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @param  Tickets  $tickets
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
+     *
+     * @return void
      */
-    public function closeTicketAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
+    public function closeTicketAction(Tickets $tickets): void
     {
         $getData = $this->request->getQueryParams();
         $postData = $this->request->getParsedBody();
         $requestData = array_merge((array)$getData, (array)$postData);
         $rating = (int)(isset($requestData['rating']) ? $requestData['rating'] : 0);
+        /** @var TicketStatus $status */
         $status = $this->ticketStatusRepository->findByUid(2);
         $fromBackend = isset($requestData['fromBackend']) ? $requestData['fromBackend'] : '';
         $tickets->setTicketStatus($status);
@@ -584,15 +618,17 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     }
 
     /**
-     * @param  \NITSAN\NsHelpdesk\Domain\Model\Tickets  $tickets
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
-     * @throws \TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException
+     * @param  Tickets  $tickets
+     * @throws IllegalObjectTypeException
+     * @throws UnknownObjectException
+     * @return void
      */
-    public function reopenTicketAction(\NITSAN\NsHelpdesk\Domain\Model\Tickets $tickets)
+    public function reopenTicketAction(Tickets $tickets): void
     {
         $getData = $this->request->getQueryParams();
         $postData = $this->request->getParsedBody();
         $requestData = array_merge((array)$getData, (array)$postData);
+        /** @var TicketStatus $status */
         $status = $this->ticketStatusRepository->findByUid(3);
         $fromBackend = isset($requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']['fromBackend']) ? $requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']['fromBackend'] : '';
         $adminName = $this->settings['notify']['email']['adminName'];
@@ -642,15 +678,34 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
     public function getFrontendTicketUrl($ticket)
     {
-        return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesk[action]' => 'show', 'tx_nshelpdesk_helpdesk[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesk[tickets]' => $ticket])->build();
+        return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesklist[action]' => 'show', 'tx_nshelpdesk_helpdesklist[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesklist[tickets]' => $ticket])->build();
     }
 
     /**
-     * Generates the action menu
+     * getCustomerReviewRatings function
+     *
+     * @param array $config
+     * @return int
      */
-    protected function initializeModuleTemplate(
-        ServerRequestInterface $request
-    ): ModuleTemplate {
+    public function getCustomerReviewRatings(array $config): int
+    {
+        $totalAvg = ($config['total5Ratings'] * 5 + $config['total4Ratings'] * 4 + $config['total3Ratings'] * 3 + $config['total2Ratings'] * 2 + $config['total1Ratings'] * 1);
+
+        $totalRatings = 0;
+        if ($totalAvg > 0) {
+            $totalRatings = $totalAvg / ($config['total5Ratings'] + $config['total4Ratings'] + $config['total3Ratings'] + $config['total2Ratings'] + $config['total1Ratings']);
+        }
+        return $totalRatings;
+    }
+
+    /**
+     * initializeModuleTemplate
+     *
+     * @param ServerRequestInterface $request
+     * @return ModuleTemplate
+     */
+    protected function initializeModuleTemplate(ServerRequestInterface $request): ModuleTemplate
+    {
         return $this->moduleTemplateFactory->create($request);
     }
 }

@@ -2,6 +2,8 @@
 
 namespace NITSAN\NsHelpdesk\Domain\Model;
 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 /***
  *
  * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
@@ -15,35 +17,35 @@ namespace NITSAN\NsHelpdesk\Domain\Model;
 /**
  * Assignee
  */
-class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class DefaultAssignee extends AbstractEntity
 {
     /**
      * ticketType
      *
      * @var int
      */
-    protected $ticketType = 0;
+    protected int $ticketType = 0;
 
     /**
      * assigneeId
      *
      * @var int
      */
-    protected $assigneeId = 0;
+    protected int $assigneeId = 0;
 
     /**
     * isDefault
     *
     * @var bool
     */
-    protected $isDefault;
+    protected bool $isDefault;
 
     /**
      * Returns the ticketType
      *
      * @return int $ticketType
      */
-    public function getTicketType()
+    public function getTicketType(): int
     {
         return $this->ticketType;
     }
@@ -54,7 +56,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param int $ticketType
      * @return void
      */
-    public function setTicketType($ticketType)
+    public function setTicketType(int $ticketType)
     {
         $this->ticketType = $ticketType;
     }
@@ -64,7 +66,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return int $assigneeId
      */
-    public function getAssigneeId()
+    public function getAssigneeId(): int
     {
         return $this->assigneeId;
     }
@@ -75,7 +77,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param int $assigneeId
      * @return void
      */
-    public function setAssigneeId($assigneeId)
+    public function setAssigneeId(int $assigneeId)
     {
         $this->assigneeId = $assigneeId;
     }
@@ -85,7 +87,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return bool $isDefault
      */
-    public function getIsDefault()
+    public function getIsDefault(): bool
     {
         return $this->isDefault;
     }
@@ -96,7 +98,7 @@ class DefaultAssignee extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param bool $isDefault
      * @return void
      */
-    public function setIsDefault($isDefault)
+    public function setIsDefault(bool $isDefault)
     {
         $this->isDefault = $isDefault;
     }
