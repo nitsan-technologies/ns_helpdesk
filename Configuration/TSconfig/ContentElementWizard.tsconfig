@@ -3,7 +3,7 @@ mod {
 		elements {
 			nshelpdesk_helpdesklist {
 				iconIdentifier = ns_helpdesk-plugin-helpdesk
-				title = List View
+				title = Helpdesk - List View
 				description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
 				tt_content_defValues {
 					CType = list
@@ -12,7 +12,7 @@ mod {
 			}
 			nshelpdesk_helpdeskticket {
 				iconIdentifier = ns_helpdesk-plugin-helpdesk
-				title = Ticket Submission (Forms)
+				title = Helpdesk - Ticket Submission
 				description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
 				tt_content_defValues {
 					CType = list

@@ -24,6 +24,7 @@ return [
         'security' => [
             'ignorePageTypeRestriction' => true
         ],
+        'hideTable' => true
     ],
     'types' => [
         '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, ticket_subject, slug, ticket_text, ticket_post_date, ticket_status, ticket_rating, assignee_id, user_id,--div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],

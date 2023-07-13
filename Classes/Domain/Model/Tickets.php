@@ -51,7 +51,7 @@ class Tickets extends AbstractEntity
      *
      * @var TicketStatus
      */
-    protected TicketStatus $ticketStatus;
+    protected $ticketStatus;
 
     /**
      * assigneeId
@@ -149,7 +149,7 @@ class Tickets extends AbstractEntity
      *
      * @return TicketStatus $ticketStatus
      */
-    public function getTicketStatus(): TicketStatus
+    public function getTicketStatus()
     {
         return $this->ticketStatus;
     }

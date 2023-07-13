@@ -165,7 +165,7 @@
 				<source>Allowed image types: Specify the list of acceptable file extensions for the front end user images. Default is jpg,jpeg,png,svg.</source>
 			</trans-unit>
 			<trans-unit id="defaultAssigneeId">
-				<source>Default Assignee ID</source>
+				<source>Default Assignee ID: BE User ID for Default Assignment</source>
 			</trans-unit>
 			
 		</body>
