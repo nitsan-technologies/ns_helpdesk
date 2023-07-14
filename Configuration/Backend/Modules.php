@@ -1,0 +1,51 @@
+<?php
+
+
+return [
+    'nitsan_module' => [
+        'labels' => 'LLL:EXT:ns_helpdesk/Resources/Private/Language/BackendModule.xlf',
+        'icon' => 'EXT:ns_helpdesk/Resources/Public/Icons/module-nitsan.svg',
+        'iconIdentifier' => 'module-nshelpdesk',
+        'position' => ['after' => 'web'],
+    ],
+    'nitsan_nshelpdeskmodule_configuration' => [
+        'parent' => 'nitsan_module',
+        'position' => ['before' => 'top'],
+        'access' => 'admin,user,group',
+        'path' => '/module/nitsan/NsHelpdeskConfiguration',
+        'icon'   => 'EXT:ns_helpdesk/Resources/Public/Icons/module-nshelpdesk.svg',
+        'labels' => 'LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_helpdesk_conf.xlf',
+        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'extensionName' => 'NsHelpdesk',
+        'routes' => [
+            '_default' => [
+                'target' => \NITSAN\NsHelpdesk\Controller\NsConstantEditorController::class . '::handleRequest',
+            ],
+        ],
+        'moduleData' => [
+            'selectedTemplatePerPage' => [],
+            'selectedCategory' => '',
+        ],
+    ],
+    'nitsan_nshelpdeskmodule_dashboard' => [
+        'parent' => 'nitsan_module',
+        'position' => ['before' => 'top'],
+        'access' => 'user,group',
+        'path' => '/module/nitsan/NsHelpdeskDashboard',
+        'icon' => 'EXT:ns_helpdesk/Resources/Public/Icons/module-nshelpdesk.svg',
+        'labels' => 'LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_helpdesk_dashboard.xlf',
+        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'extensionName' => 'NsHelpdesk',
+        'controllerActions' => [
+            \NITSAN\NsHelpdesk\Controller\TicketsController::class => [
+                'dashboard',
+                'list',
+                'show',
+                'saveConfiguration',
+                'saveConstant',
+                'closeTicket',
+                'reopenTicket',
+            ]
+        ],
+    ],
+];

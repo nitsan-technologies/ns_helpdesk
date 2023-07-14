@@ -343,10 +343,10 @@
 											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="{typo3.systemConfiguration.backend.loginLogo}" width="150" />
 										</f:then>
 										<f:else if="{typo3.systemConfiguration.backend.loginHighlightColor}">
-											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="EXT:backend/Resources/Public/Images/typo3_black.svg" width="150" />
+											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="ns_helpdesk/Resources/Public/images/typo3_black.svg" width="150" />
 										</f:else>
 										<f:else>
-											<img alt="TYPO3 Logo" height="41" src="{normalizedParams}{f:uri.resource(extensionName: 'backend', path: 'Images/typo3_orange.svg')}" width="150" />
+											<img alt="TYPO3 Logo" height="41" src="{normalizedParams}{f:uri.resource(extensionName: 'ns_helpdesk', path: 'images/typo3_orange.svg')}" width="150" />
 										</f:else>
 									</f:if>
 								</td>
@@ -381,14 +381,14 @@
 							<tr>
 								<td class="textContent" style="padding: 0px 36px;" valign="top">
 									<f:if condition="{receiver.name}">
-										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" /> {receiver.name}</h4>
+										<h4><f:translate key="nshelpdesk.mail.admin.salutaion" extensionName="ns_helpdesk" /> {receiver.name}</h4>
 									</f:if>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" />:</strong></p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy" />:</strong> {sender.name}</p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy.email" />:</strong> <f:link.email email="{sender.email}" /> </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.subject" />:</strong> {tickets.ticketSubject} </p>
-									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" />:</strong></p>
-									<p>{tickets.ticketText -> f:format.nl2br()}</p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" extensionName="ns_helpdesk" />:</strong></p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy" extensionName="ns_helpdesk" />:</strong> {sender.name}</p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy.email" extensionName="ns_helpdesk" />:</strong> <f:link.email email="{sender.email}" /> </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.subject" extensionName="ns_helpdesk" />:</strong> {tickets.ticketSubject} </p>
+									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
+									<p>{tickets.ticketText -> f:format.html()}</p>
 								</td>
 							</tr>
 							</tbody>

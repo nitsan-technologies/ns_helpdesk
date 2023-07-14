@@ -1,5 +1,8 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Repository;
+
+use TYPO3\CMS\Extbase\Persistence\Repository;
 
 /***
  *
@@ -14,6 +17,6 @@ namespace NITSAN\NsHelpdesk\Domain\Repository;
 /**
  * The repository for Ticket Categories
  */
-class DefaultAssigneeRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class DefaultAssigneeRepository extends Repository
 {
 }

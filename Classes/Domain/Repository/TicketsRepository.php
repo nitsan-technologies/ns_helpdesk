@@ -1,8 +1,12 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Repository;
 
-use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /***
  *
@@ -17,50 +21,53 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The repository for Tickets
  */
-class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class TicketsRepository extends Repository
 {
-
     /**
-     * @var array
+     * @var array<non-empty-string, 'ASC'|'DESC'>
      */
-    protected $defaultOrderings = ['crdate' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_DESCENDING];
+    protected $defaultOrderings = ['crdate' => QueryInterface::ORDER_DESCENDING];
 
     public function getFromAll()
     {
-        $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
     public function fetchTickets($filterData = null)
     {
         $query = $this->createQuery();
-        $constraints = [];
+
         if ($filterData) {
+            $filterData['userid'] = isset($filterData['userid']) ? $filterData['userid'] : '';
             if ($filterData['userid']) {
                 $filterData['backendUser'] = isset($filterData['backendUser']) ? $filterData['backendUser'] : '';
                 if ($filterData['backendUser']) {
-                    $constraints[] = $query->equals('assignee_id', $filterData['userid']);
+                    $query->matching($query->logicalAnd(
+                        $query->equals('assignee_id', $filterData['userid'])
+                    ));
                 } else {
-                    $constraints[] = $query->equals('user_id', $filterData['userid']);
+                    $query->matching($query->logicalAnd(
+                        $query->equals('user_id', $filterData['userid'])
+                    ));
+
                 }
             }
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
             $filterData['sword'] = isset($filterData['sword']) ? $filterData['sword'] : '';
             if ($filterData['ticket_status']) {
-                $constraints[] = $query->in('ticket_status', $filterData['ticket_status']);
+                $query->matching($query->logicalAnd(
+                    $query->equals('ticket_status', $filterData['ticket_status'])
+                ));
             }
             if (is_string($filterData['sword']) && strlen($filterData['sword']) > 0) {
-                $constraints[] = $query->logicalOr(
-                    [
-                        $query->like('ticket_subject', '%' . $filterData['sword'] . '%'),
-                        $query->like('ticket_text', '%' . $filterData['sword'] . '%')
-                    ]
-                );
+                $query->matching($query->logicalOr(
+                    $query->like('ticket_subject', '%' . $filterData['sword'] . '%'),
+                    $query->like('ticket_text', '%' . $filterData['sword'] . '%')
+                ));
             }
         }
-        if ($filterData) {
-            $query->matching($query->logicalAnd($constraints));
-        }
+
         return $query->execute();
     }
 
@@ -73,7 +80,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->where(
                 $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($langId))
             )
-            ->execute()->fetch();
+            ->executeQuery()->fetchAllAssociative();
         return $statement;
     }
     public function getSlug($slug = null)
@@ -86,52 +93,46 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function getCustomerReview()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
-        $totalTickets = $queryBuilder
-            ->count('uid')
-            ->from('tx_nshelpdesk_domain_model_tickets')
-            ->execute()
-            ->fetchColumn(0);
-
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total4Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(4, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total3Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(3, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total2Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(2, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
+            ->executeQuery()
+            ->fetchOne();
 
         $total1Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
                 $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
             )
-            ->execute()
-            ->fetchColumn(0);
-        $totalAvg = ($total5Ratings * 5 + $total4Ratings * 4 + $total3Ratings * 3 + $total2Ratings * 2 + $total1Ratings * 1);
-
-        $totalRatings = 0;
-        if ($totalAvg > 0) {
-            $totalRatings = $totalAvg / ($total5Ratings + $total4Ratings + $total3Ratings + $total2Ratings + $total1Ratings);
-        }
-        return $totalRatings;
+            ->executeQuery()
+            ->fetchOne();
+        return [
+            'total5Ratings' => $total5Ratings,
+            'total4Ratings' => $total4Ratings,
+            'total3Ratings' => $total3Ratings,
+            'total2Ratings' => $total2Ratings,
+            'total1Ratings' => $total1Ratings
+        ];
     }
 }

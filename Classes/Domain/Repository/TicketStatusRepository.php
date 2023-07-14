@@ -1,5 +1,10 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Domain\Repository;
+
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings;
 
 /***
  *
@@ -14,11 +19,11 @@ namespace NITSAN\NsHelpdesk\Domain\Repository;
 /**
  * The repository for Tickets
  */
-class TicketStatusRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class TicketStatusRepository extends Repository
 {
     public function getFromAll()
     {
-        $querySettings = $this->objectManager->get(\TYPO3\CMS\Extbase\Persistence\Generic\Typo3QuerySettings::class);
+        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
     }

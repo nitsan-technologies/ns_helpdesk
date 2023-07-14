@@ -1,14 +1,35 @@
 <?php
-defined('TYPO3_MODE') || die('Access denied');
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'NITSAN.NsHelpdesk',
-    'Helpdesk',
-    'Helpdesk'
+
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
+defined('TYPO3') || die('Access denied');
+
+// Ticket Listing Plugin
+ExtensionUtility::registerPlugin(
+    'NsHelpdesk',
+    'HelpdeskList',
+    'Helpdesk - List View'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nshelpdesk_helpdesk'] = 'recursive,select_key,pages';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['nshelpdesk_helpdesk'] = 'pi_flexform';
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPiFlexFormValue(
-    'nshelpdesk_helpdesk',
-    'FILE:EXT:' . $_EXTKEY . '/Configuration/FlexForms/NsHelpdesk_Flexform.xml'
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nshelpdesk_helpdesklist'] = 'recursive,select_key,pages';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['nshelpdesk_helpdesklist'] = 'pi_flexform';
+
+ExtensionManagementUtility::addPiFlexFormValue(
+    'nshelpdesk_helpdesklist',
+    'FILE:EXT:ns_helpdesk/Configuration/FlexForms/NsHelpdesk_ListView.xml'
+);
+
+// Ticket Submission Plugin
+ExtensionUtility::registerPlugin(
+    'NsHelpdesk',
+    'HelpdeskTicket',
+    'Helpdesk - Ticket Submission'
+);
+
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nshelpdesk_helpdeskticket'] = 'recursive,select_key,pages';
+$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['nshelpdesk_helpdeskticket'] = 'pi_flexform';
+ExtensionManagementUtility::addPiFlexFormValue(
+    'nshelpdesk_helpdeskticket',
+    'FILE:EXT:ns_helpdesk/Configuration/FlexForms/NsHelpdesk_TicketSubmission.xml'
 );

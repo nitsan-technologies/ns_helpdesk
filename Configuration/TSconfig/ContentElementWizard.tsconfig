@@ -1,13 +1,22 @@
 mod {
 	wizards.newContentElement.wizardItems.plugins {
 		elements {
-			helpdesk {
+			nshelpdesk_helpdesklist {
 				iconIdentifier = ns_helpdesk-plugin-helpdesk
-				title = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.name
+				title = Helpdesk - List View
 				description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
 				tt_content_defValues {
 					CType = list
-					list_type = nshelpdesk_helpdesk
+					list_type = nshelpdesk_helpdesklist
+				}
+			}
+			nshelpdesk_helpdeskticket {
+				iconIdentifier = ns_helpdesk-plugin-helpdesk
+				title = Helpdesk - Ticket Submission
+				description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
+				tt_content_defValues {
+					CType = list
+					list_type = nshelpdesk_helpdeskticket
 				}
 			}
 		}
@@ -16,3 +25,5 @@ mod {
 }
 
 options.dashboard.dashboardPresetsForNewUsers = default, dashboardPreset-nsHelpdesk
+mod.web_layout.tt_content.preview.list.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskList.html
+mod.web_layout.tt_content.preview.list.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicket.html

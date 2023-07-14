@@ -343,10 +343,10 @@
 											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="{typo3.systemConfiguration.backend.loginLogo}" width="150" />
 										</f:then>
 										<f:else if="{typo3.systemConfiguration.backend.loginHighlightColor}">
-											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="EXT:backend/Resources/Public/Images/typo3_black.svg" width="150" />
+											<f:image absolute="1" alt="TYPO3 Logo" height="41" src="ns_helpdesk/Resources/Public/images/typo3_black.svg" width="150" />
 										</f:else>
 										<f:else>
-											<img alt="TYPO3 Logo" height="41" src="{normalizedParams}{f:uri.resource(extensionName: 'backend', path: 'Images/typo3_orange.svg')}" width="150" />
+											<img alt="TYPO3 Logo" height="41" src="{normalizedParams}{f:uri.resource(extensionName: 'ns_helpdesk', path: 'images/typo3_orange.svg')}" width="150" />
 										</f:else>
 									</f:if>
 								</td>
@@ -378,15 +378,15 @@
 									<f:if condition="{user.quick} == 1">
 										<f:then>
 											<f:if condition="{user.submitter_name}">
-												<h4><f:translate key="nshelpdesk.mail.admin.salutaion" /> {user.submitter_name}</h4>
+												<h4><f:translate key="nshelpdesk.mail.admin.salutaion" extensionName="ns_helpdesk" /> {user.submitter_name}</h4>
 											</f:if>
 											<f:if condition="{settings.body -> f:format.html()}">
 												{settings.body -> f:format.html()}
 											</f:if>
-											<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" />:</strong></p>
-											<p><strong><f:translate key="nshelpdesk.mail.admin.subject" />:</strong> {user.ticket_subject} </p>
-											<p><strong><f:translate key="nshelpdesk.mail.admin.desc" />:</strong></p>
-											<p>{user.description -> f:format.nl2br()}</p>
+											<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" extensionName="ns_helpdesk" />:</strong></p>
+											<p><strong><f:translate key="nshelpdesk.mail.admin.subject" extensionName="ns_helpdesk" />:</strong> {user.ticket_subject} </p>
+											<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
+											<p>{user.description -> f:format.html()}</p>
 										</f:then>
 										<f:else>
 											{settings.body -> f:format.html()}

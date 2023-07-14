@@ -1,38 +1,43 @@
 ############################
 ### CUSTOM SUBCATEGORIES ###
 ###########################
-# customsubcategory=10_helpdesk_ticketassign=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_ticketassign
-# customsubcategory=20_helpdesk_admin=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_administrator
-# customsubcategory=25_helpdesk_jslib=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_jslib
-# customsubcategory=30_helpdesk_storage=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_storage
-# customsubcategory=35_helpdesk_googleCaptcha=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_googleCaptcha
+
+# customsubcategory=1010_helpdesk_ticketassign=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_ticketassign
+# customsubcategory=2020_helpdesk_admin=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_administrator
+# customsubcategory=2525_helpdesk_jslib=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_jslib
+# customsubcategory=3030_helpdesk_storage=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_storage
+# customsubcategory=3535=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.cat_googleCaptcha
+# customsubcategory=1020=Ticket Config
 
 plugin.tx_nshelpdesk_helpdesk {
     notify {
         email {
-            #cat = ns_helpdesk_globalSettings/20_helpdesk_admin/01; type=string; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.adminEmail
+            #cat = ns_helpdesk_globalSettings/2020_helpdesk_admin/01; type=string; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.adminEmail
             adminMail = test.t3admn@gmail.com
 
-            #cat = ns_helpdesk_globalSettings/20_helpdesk_admin/02; type=string; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.adminName
+            #cat = ns_helpdesk_globalSettings/2020_helpdesk_admin/02; type=string; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.adminName
             adminName = NS Helpdesk
         }
-        #cat = ns_helpdesk_globalSettings/20_helpdesk_admin/03; type=boolean; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.notifyAdmin
+        #cat = ns_helpdesk_globalSettings/2020_helpdesk_admin/03; type=boolean; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.notifyAdmin
         adminNotify =
     }
     includeJSLibrary {
-        #cat = ns_helpdesk_globalSettings/25_helpdesk_jslib/03; type=boolean; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.enable_jquery
+        #cat = ns_helpdesk_globalSettings/2525_helpdesk_jslib/03; type=boolean; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.enable_jquery
         helpdeskJqueryLib =
     }
     storagePid {
-        #cat=ns_helpdesk_globalSettings/30_helpdesk_storage/01; type=int+; label= LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.storagePid
+        #cat=ns_helpdesk_globalSettings/3030_helpdesk_storage/01; type=int+; label= LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.storagePid
         storagePid =
     }
 
-    #cat=ns_helpdesk_globalSettings/30_helpdesk_storage/02; type=int+; label= LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.loginPage
+    #cat=ns_helpdesk_globalSettings/3030_helpdesk_storage/02; type=int+; label= LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.loginPage
     loginPage =
 
+    #cat=ns_helpdesk_globalSettings/3030_helpdesk_storage/03; type=int+; label= LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:nshelpdesk.registrationPage
+    registrationPage =
+
     commonSettings {
-        #cat=ns_helpdesk_globalSettings/10_helpdesk_ticketassign/01; type=int+; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:defaultAssigneeId
+         #cat=ns_helpdesk_globalSettings/1010_helpdesk_ticketassign/10; type=int+; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:defaultAssigneeId
         defaultAssigneeId = 1
     }
 }

@@ -9,7 +9,7 @@ CREATE TABLE tx_nshelpdesk_domain_model_tickets (
 	slug varchar(255) DEFAULT '' NOT NULL,
 	ticket_text text,
 	ticket_post_date int(11) DEFAULT '0' NOT NULL,
-	ticket_status int(11) unsigned DEFAULT '0',
+	ticket_status int(11) unsigned DEFAULT '1',
 	assignee_id int(11) unsigned DEFAULT '0',
 	user_id int(11) DEFAULT '0',
     ticket_rating int(3) unsigned DEFAULT '0' NOT NULL,
@@ -118,18 +118,4 @@ CREATE TABLE tx_nshelpdesk_domain_model_ticketstatus (
     KEY parent (pid),
     KEY t3ver_oid (t3ver_oid,t3ver_wsid),
     KEY language (l10n_parent,sys_language_uid)
-);
-
-#
-# Table structure for table 'tx_nshelpdesk_domain_model_apidata'
-#
-CREATE TABLE tx_nshelpdesk_domain_model_apidata (
-    id int(11) NOT NULL auto_increment,
-    extension_key varchar(255) DEFAULT '',
-    right_sidebar_html text,
-    premuim_extension_html text,
-    support_html text,
-    footer_html text,
-    last_update date,
-    PRIMARY KEY (id)
 );

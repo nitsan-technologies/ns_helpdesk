@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\ViewHelpers\Misc;
 
 use NITSAN\NsHelpdesk\Utility\BackendUtility;
@@ -19,8 +20,6 @@ class BackendNewLinkViewHelper extends AbstractViewHelper
     /**
      * Create a link for backend new
      *
-     * @param string $tableName
-     * @param int $identifier
      * @return string
      */
     public function render()

@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Utility;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,34 +35,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BackendUtility extends AbstractUtility
 {
-
-    /**
-     * Check if backend user is admin
-     *
-     * @return bool
-     */
-    public static function isBackendAdmin()
-    {
-        if (isset(self::getBackendUserAuthentication()->user)) {
-            return self::getBackendUserAuthentication()->user['admin'] === 1;
-        }
-        return false;
-    }
-
-    /**
-     * Get property from backend user
-     *
-     * @param string $property
-     * @return string
-     */
-    public static function getPropertyFromBackendUser($property = 'uid')
-    {
-        if (!empty(self::getBackendUserAuthentication()->user[$property])) {
-            return self::getBackendUserAuthentication()->user[$property];
-        }
-        return '';
-    }
-
     /**
      * Create an URI to edit any record
      *
@@ -130,37 +103,8 @@ class BackendUtility extends AbstractUtility
      */
     public static function getModuleUrl($moduleName, $urlParameters = [])
     {
-        if (version_compare(TYPO3_branch, '10', '>=')) {
-            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-            return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
-        } else {
-            return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
-        }
-    }
-
-    /**
-     * Get all GET/POST params without module name and token
-     *
-     * @param array $getParameters
-     * @return array
-     */
-    public static function getCurrentParameters($getParameters = [])
-    {
-        if (empty($getParameters)) {
-            $getParameters = GeneralUtility::_GET();
-        }
-        $parameters = [];
-        $ignoreKeys = [
-            'M',
-            'moduleToken',
-        ];
-        foreach ($getParameters as $key => $value) {
-            if (in_array($key, $ignoreKeys)) {
-                continue;
-            }
-            $parameters[$key] = $value;
-        }
-        return $parameters;
+        $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+        return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
     }
 
     /**
@@ -169,8 +113,11 @@ class BackendUtility extends AbstractUtility
      */
     public static function getPidFromBackendPage($returnUrl = '')
     {
+        $getData = $_GET;
+        $postData = $_POST;
+        $requestData = array_merge((array)$getData, (array)$postData);
         if (empty($returnUrl)) {
-            $returnUrl = GeneralUtility::_GP('returnUrl');
+            $returnUrl = $requestData['returnUrl'];
         }
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);
