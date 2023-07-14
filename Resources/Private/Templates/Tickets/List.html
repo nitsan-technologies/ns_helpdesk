@@ -93,25 +93,6 @@
                         <div class="ns_helpdesk--top-left"></div>
                         <div class="ns_helpdesk--top-right"></div>
                     </div>
-                    <aside class="col-lg-3 col-md-8">
-                        <f:if condition="{statusList}">
-                            <div class="ns_helpdesk--filter-item">
-                                <div class="ns_helpdesk--filter-title">
-                                    <h4>
-                                        <f:translate key="tr.status"/>
-                                    </h4>
-                                </div>
-                                <div class="ns_helpdesk--filter-content disabled">
-                                    <f:for each="{statusList}" as="status" iteration="i">
-                                        <div class="c-control c-checkbox">
-                                            <input type="checkbox" class="c-control-input">
-                                            <label class="c-control-label" for="status-{status.uid}">{status.statusTitle}</label>
-                                        </div>
-                                    </f:for>
-                                </div>
-                            </div>
-                        </f:if>
-                    </aside>
                     <article class="col-lg-9 col-md-8">
                         <div class="ns_helpdesk--tickets">
                             <div class="ns-helpdesk-alert ns-helpdesk-alert-info">
