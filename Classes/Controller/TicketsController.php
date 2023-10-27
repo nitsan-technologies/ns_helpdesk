@@ -396,6 +396,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
 
         //Check slug availability...
         $isSlugAvail = $this->ticketsRepository->getSlug($slug);
+        $data = [];
         if (count($isSlugAvail) > 0) {
             foreach ($isSlugAvail as $row) {
                 $data[] = $row->getSlug();
@@ -405,6 +406,11 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 while (in_array(($slug . '-' . ++$count), $data));
                 $slug = $slug . '-' . $count;
             }
+        }
+        // set Ticket Status
+        if($newTickets->getTicketStatus() == null) {
+            $ticketStatus =$this->ticketStatusRepository->findAll()[0];
+            $newTickets->setTicketStatus($ticketStatus);
         }
         //set Ticket Slug
         $newTickets->setSlug($slug);
@@ -465,7 +471,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $sendDetails['tickets'] = $newTickets;
             $this->sendMailNotification($sendDetails, 'Admin/AdminNotify');
         }
-
         $response = [
             'code' => 200,
             'status' => 'success'

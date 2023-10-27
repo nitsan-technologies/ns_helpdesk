@@ -1,6 +1,7 @@
 ############################
 ### CUSTOM SUBCATEGORIES ###
 ###########################
+
 # customsubcategory=10_ticketsubmitform=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:cat_fullform
 # customsubcategory=20_user_registration=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:cat_user_registration
 
@@ -20,9 +21,6 @@ plugin.tx_nshelpdesk_helpdesk {
             required = 1
         }
 
-        #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/27; type=hr;
-        hr =
-
         emailfield {
             #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/30; type=boolean; label = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:emailinclude
             include = 1
@@ -37,8 +35,6 @@ plugin.tx_nshelpdesk_helpdesk {
             required = 1
         }
 
-        #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/46; type=hr;
-        hr1 =
         subjectField {
             #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/46; type=boolean; label = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:subjectinclude
             include = 1
@@ -53,8 +49,6 @@ plugin.tx_nshelpdesk_helpdesk {
             required = 1
         }
 
-        #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/50; type=hr;
-        hr2 =
         textareafield {
             #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/50; type=boolean; label = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:textareainclude
             include = 1
@@ -73,8 +67,6 @@ plugin.tx_nshelpdesk_helpdesk {
 
         }
 
-        #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/89; type=hr;
-        hr6 =
         submitBtn {
             #cat=ns_helpdesk_formsSettings/10_ticketsubmitform/90; type=string; label = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:submitlabel
             submitLabel = Submit

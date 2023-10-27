@@ -1,5 +1,5 @@
 <?php
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['ns_helpdesk'] = [
     'title' => '[NITSAN] Helpdesk TYPO3 Extension',
     'description' => 'An all-in-one TYPO3 Help Desk extension that helps you balance everything your customers need to be happy. Demo: https://demo.t3planet.com/t3t-extensions/helpdesk You can download PRO version for more-features & free-support at https://t3planet.com/ns-helpdesk-typo3-extension',
     'category' => 'plugin',
@@ -10,7 +10,7 @@ $EM_CONF[$_EXTKEY] = [
     'uploadfolder' => 0,
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '2.2.0',
+    'version' => '2.2.1',
     'constraints' => [
         'depends' => [
             'typo3' => '8.0.0-11.5.99',
