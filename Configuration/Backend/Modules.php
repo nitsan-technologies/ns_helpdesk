@@ -11,7 +11,7 @@ return [
     'nitsan_nshelpdeskmodule_configuration' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],
-        'access' => 'admin,user,group',
+        'access' => 'user',
         'path' => '/module/nitsan/NsHelpdeskConfiguration',
         'icon'   => 'EXT:ns_helpdesk/Resources/Public/Icons/module-nshelpdesk.svg',
         'labels' => 'LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_helpdesk_conf.xlf',
@@ -30,7 +30,7 @@ return [
     'nitsan_nshelpdeskmodule_dashboard' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],
-        'access' => 'user,group',
+        'access' => 'user',
         'path' => '/module/nitsan/NsHelpdeskDashboard',
         'icon' => 'EXT:ns_helpdesk/Resources/Public/Icons/module-nshelpdesk.svg',
         'labels' => 'LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_helpdesk_dashboard.xlf',
