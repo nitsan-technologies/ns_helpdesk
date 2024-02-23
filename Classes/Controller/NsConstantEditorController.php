@@ -133,7 +133,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $categories = $astConstantCommentVisitor->getCategories();
         $relevantCategories = [];
         foreach ($categories as $categoryKey => $aCategory) {
-            if ($aCategory['usageCount'] > 0) {
+            if ($aCategory['usageCount'] > 0 && str_starts_with($categoryKey, 'ns_')) {
                 $relevantCategories[$categoryKey] = $aCategory;
             }
         }
