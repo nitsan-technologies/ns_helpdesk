@@ -141,12 +141,15 @@ class TicketsController extends ActionController
      * @return void
      */
     public function initializeObject()
-    {
-        $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $this->config = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-        $this->config = $this->config['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
-        $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
-    }
+{
+    $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+    $fullTypoScriptConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+    if (isset($fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk']['settings.'])) {
+        $this->config = $fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
+    }   
+    $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
+}
+
 
     /**
      * Initialize Action
@@ -394,7 +397,7 @@ class TicketsController extends ActionController
         if($newTickets->getTicketStatus() == null) {
             $ticketStatus =$this->ticketStatusRepository->findAll()[0];
             $newTickets->setTicketStatus($ticketStatus);
-        }
+          }
         //set Ticket Slug
         $newTickets->setSlug($slug);
         //Set Ticket PostDate
