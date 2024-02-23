@@ -396,7 +396,9 @@ class TicketsController extends ActionController
         // set Ticket Status
         if($newTickets->getTicketStatus() == null) {
             $ticketStatus =$this->ticketStatusRepository->findAll()[0];
-            $newTickets->setTicketStatus($ticketStatus);
+            if($ticketStatus){
+                $newTickets->setTicketStatus($ticketStatus);
+            }
           }
         //set Ticket Slug
         $newTickets->setSlug($slug);
