@@ -177,7 +177,7 @@ listAction {
     }
 }
 
-createTicketAction = PAGE
+createTicketAction < listAction
 createTicketAction {
     typeNum = 15021994
     10 {
