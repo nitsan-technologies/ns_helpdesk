@@ -1,7 +1,7 @@
 {
   "name": "nitsan/ns-helpdesk",
   "type": "typo3-cms-extension",
-  "description": "Manage customer support with the all-in-one TYPO3 Help Desk extension. This user-friendly tool lets you set up a support help desk quickly with support tickets, providing a dedicated dashboard, ticketing system, email notifications, restricted access, and options for file and media uploads. *** Live Demo: https://demo.t3planet.com/t3-extensions/helpdesk *** Premium Version, Documentation & Free Support: https://t3planet.com/typo3-helpdesk-extension",
+  "description": "Manage customer support with the all-in-one TYPO3 Help Desk extension. This user-friendly tool lets you set up a support help desk quickly with support tickets, providing a dedicated dashboard, ticketing system, email notifications, restricted access, and options for file and media uploads.",
   "license": "GPL-2.0+",
   "keywords": [
     "TYPO3 CMS",
