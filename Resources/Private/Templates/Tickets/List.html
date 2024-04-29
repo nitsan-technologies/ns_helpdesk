@@ -83,14 +83,6 @@
                                             </div>
                                         </f:link.action>
                                     </f:for>
-                                    <f:if condition="{backend}">
-                                        <f:then>
-                                            <f:render partial="FrontEnd/Pagination" arguments="{_all}"/>
-                                        </f:then>
-                                        <f:else>
-                                            <f:render partial="FrontEnd/Pagination" arguments="{_all}"/>
-                                        </f:else>
-                                    </f:if>
                                 </div>
                             </article>
                             <f:link.action action="list" pageType="741852" id="ajaxFilter"/>

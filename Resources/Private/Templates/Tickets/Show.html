@@ -31,14 +31,18 @@
                                 <f:else>
                                     <f:if condition="{backend}">
                                         <f:then><f:link.action action="closeTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-secondary modal-btn-close"><f:translate key="closetickets" /></f:link.action></f:then>
-                                        <f:else><a href="javascript:;" class="c-btn c-btn-secondary" data-toggle="modal" data-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:else>
+                                        <f:else>
+                                            <a href="javascript:;" class="c-btn c-btn-secondary" data-toggle="modal" data-target="#helpdeskModal">
+                                                <f:translate key="closetickets" />
+                                            </a>
+                                        </f:else>
                                     </f:if>
                                 </f:else>
                             </f:if>
                         </li>
                     </ul>
                 </div>
-            </div>
+             </div>
             <article class="col-lg-12 col-md-11">
                 <div class="ns_helpdesk--ticket-detail">
                     <div class="ns_helpdesk--ticket">
@@ -125,6 +129,7 @@
                 <div class="modal-footer">
                     <f:link.action action="closeTicket" arguments="{tickets:tickets}" class="c-btn c-btn-primary modal-btn-close" additionalAttributes="{data-dismiss:'modal'}" pageType="15021995"><f:translate key="closetickets" /></f:link.action>
                 </div>
+
             </div>
         </div>
     </div>

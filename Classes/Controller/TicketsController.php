@@ -3,7 +3,7 @@ namespace NITSAN\NsHelpdesk\Controller;
 
 /***
  *
- * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
+ * This file is part of the "Helpdesk" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -30,8 +30,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     protected $constantObj;
     protected $sidebarData;
     protected $dashboardSupportData;
-    protected $generalFooterData;
-    protected $premiumExtensionData;
     protected $constants;
     protected $contentObject = null;
     protected $beUser = null;
@@ -232,11 +230,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
         $customerReview = $this->ticketsRepository->getCustomerReview();
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign = [
+        
+        $this->view->assignMultiple([
             'action' => 'dashboard',
             'pid' => $this->pid,
             'rightSide' => $this->sidebarData,
@@ -248,10 +243,9 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'isBackendUser' => $this->isBackendUser,
             'customerReview' => $customerReview,
             'userDetail' => $this->beUser,
-            'bootstrapVariable' => $bootstrapVariable
+            'bootstrapVariable' => 'data'
 
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
     }
 
     /**
@@ -271,7 +265,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $statusChecked = $req['ticketStatus'];
         $typeChecked = $req['ticketTypes'];
         $sword = $req['sword'];
-        $settings = $this->settings;
 
         //Search criteria...
         if ($statusChecked) {
@@ -322,16 +315,13 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
                 $assign['userDetails'] = $this->feUser;
             }
         }
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+
         $statusList = $this->ticketStatusRepository->findAll();
         $tickets = isset($tickets) ? $tickets : '';
         $assign['tickets'] = $tickets;
         $assign['statusList'] = $statusList;
         $assign['statusChecked'] = $statusChecked;
-        $assign['bootstrapVariable'] = $bootstrapVariable;
+        $assign['bootstrapVariable'] = 'data';
         $this->view->assignMultiple($assign);
     }
 
@@ -348,14 +338,14 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'tickets' => $tickets,
             'userDetails' => $this->userDetails,
         ];
+        $statusList = $this->ticketStatusRepository->findAll();
+        $assign['statusList'] = $statusList;
         if ($this->beUser) {
             $assign['backend'] = 1;
         }
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign['bootstrapVariable'] = $bootstrapVariable;
+
+       
+        $assign['bootstrapVariable'] = 'data';
         $this->view->assignMultiple($assign);
     }
 
@@ -491,37 +481,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      */
     private function setConfiguration()
     {
-        $extKey =  $this->request->getControllerExtensionKey();
-
-        //Links for the All Dashboard VIEW from API...
-        $sidebarUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=DashboardRightSidebar';
-        $dashboardSupportUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=DashboardSupport';
-        $generalFooterUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=GeneralFooter';
-        $premiumExtensionUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=' . $extKey . '&blockName=PremiumExtension';
-
-        $this->helpdeskRepository->deleteOldApiData();
-        $checkApiData = $this->helpdeskRepository->checkApiData();
-        if (!$checkApiData) {
-            $this->sidebarData = $this->helpdeskRepository->curlInitCall($sidebarUrl);
-            $this->dashboardSupportData = $this->helpdeskRepository->curlInitCall($dashboardSupportUrl);
-            $this->generalFooterData = $this->helpdeskRepository->curlInitCall($generalFooterUrl);
-            $this->premiumExtensionData = $this->helpdeskRepository->curlInitCall($premiumExtensionUrl);
-
-            $data = [
-                'right_sidebar_html' => $this->sidebarData,
-                'support_html'=> $this->dashboardSupportData,
-                'footer_html' => $this->generalFooterData,
-                'premuim_extension_html' => $this->premiumExtensionData,
-                'extension_key' => $extKey,
-                'last_update' => date('Y-m-d')
-            ];
-            $this->helpdeskRepository->insertNewData($data);
-        } else {
-            $this->sidebarData = $checkApiData['right_sidebar_html'];
-            $this->dashboardSupportData = $checkApiData['support_html'];
-            $this->premiumExtensionData = $checkApiData['premuim_extension_html'];
-        }
-
         //GET CONSTANTs
         $this->constantObj->init($this->pObj);
         $this->constants = $this->constantObj->main();
@@ -535,16 +494,12 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public function getConstantsAction()
     {
         $menu = GeneralUtility::_GP('cat');
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign = [
+        $this->view->assignMultiple([
             'action' => $menu,
             'constant' => $this->constants,
-            'bootstrapVariable' => $bootstrapVariable
-        ];
-        $this->view->assignMultiple($assign);
+            'bootstrapVariable' => 'data'
+        ]);
+        
     }
 
     /**
@@ -649,18 +604,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         return $status;
     }
 
-    /**
-     * Returns a built URI by buildUri
-     *
-     * @param int $uid The uid to use for building link
-     * @return string The link
-     */
-    private function buildUri($uid)
-    {
-        $uri = $this->uriBuilder->reset()->setTargetPageUid($uid)->build();
-        $uri = $this->addBaseUriIfNecessary($uri);
-        return $uri;
-    }
 
     /**
      * @param  \NITSAN\NsHelpdesk\Domain\Model\Tickets  $tickets
@@ -719,6 +662,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         exit();
     }
 
+
     /**
      * @param  \NITSAN\NsHelpdesk\Domain\Model\Tickets  $tickets
      * @throws \TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException
@@ -773,19 +717,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         exit();
     }
 
-    /**
-     * action premiumExtension
-     *
-     * @return void
-     */
-    public function premiumExtensionAction()
-    {
-        $assign = [
-            'action' => 'premiumExtension',
-            'premiumExdata' => $this->premiumExtensionData
-        ];
-        $this->view->assignMultiple($assign);
-    }
     public function getFrontendTicketUrl($ticket)
     {
         return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesk[action]' => 'show', 'tx_nshelpdesk_helpdesk[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesk[tickets]' => $ticket])->build();

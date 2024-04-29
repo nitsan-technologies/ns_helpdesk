@@ -1,6 +1,6 @@
 <?php
 $EM_CONF['ns_helpdesk'] = [
-    'title' => '[NITSAN] Helpdesk TYPO3 Extension',
+    'title' => 'Helpdesk TYPO3 Extension',
     'description' => 'An all-in-one TYPO3 Help Desk extension that helps you balance everything your customers need to be happy. Demo: https://demo.t3planet.com/t3t-extensions/helpdesk You can download PRO version for more-features & free-support at https://t3planet.com/ns-helpdesk-typo3-extension',
     'category' => 'plugin',
     'author' => 'Team NITSAN',
