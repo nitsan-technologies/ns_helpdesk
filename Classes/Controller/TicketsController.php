@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsHelpdesk\Controller;
 
 /***
@@ -11,6 +12,7 @@ namespace NITSAN\NsHelpdesk\Controller;
  *  (c) 2020
  *
  ***/
+
 use NITSAN\NsHelpdesk\NsTemplate\ExtendedTemplateService;
 use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateConstantEditorModuleFunctionController;
 use NITSAN\NsHelpdesk\NsTemplate\TypoScriptTemplateModuleController;
@@ -44,18 +46,19 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
     public $config;
 
     /**
-     * Storage page
+     * Storage page ID
      *
-     * @var int
+     * @var int|null
      */
     protected $pid = null;
 
     /**
      * Complete Configuration
      *
-     * @var array
+     * @var array|null
      */
     protected $allConfig = null;
+
     /**
      * @var TypoScriptTemplateModuleController
      */
@@ -84,14 +87,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
      * @inject
      */
     protected $ticketStatusRepository = null;
-
-    /**
-     * assigneeRepository
-     *
-     * @var \NITSAN\NsHelpdesk\Domain\Repository\DefaultAssigneeRepository
-     * @inject
-     */
-    protected $assigneeRepository = null;
 
     /**
      * @var \TYPO3\CMS\Extbase\Domain\Repository\FrontendUserRepository
@@ -205,7 +200,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk'] : '';
             $extConfig = unserialize($GLOBALS['TYPO3_CONF_VARS']['EXT']['extConf']['ns_helpdesk']);
         }
-        if($extConfig){
+        if ($extConfig) {
             $this->pid = $extConfig['globalStorage'];
         }
 
@@ -230,7 +225,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
         $customerReview = $this->ticketsRepository->getCustomerReview();
-        
+
         $this->view->assignMultiple([
             'action' => 'dashboard',
             'pid' => $this->pid,
@@ -260,20 +255,20 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $req = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1');
         $req['ticketStatus'] = isset($req['ticketStatus']) ? $req['ticketStatus'] : '';
         $req['ticketTypes'] = isset($req['ticketTypes']) ? $req['ticketTypes'] : '';
-        
-       $statusChecked = $req['ticketStatus'];
+
+        $statusChecked = $req['ticketStatus'];
         // $typeChecked = $req['ticketTypes'];
-      
+
 
         //Search criteria...
         if ($statusChecked) {
             $filterData['ticket_status'] = $statusChecked; // Search by Ticket Status like close, new, etc..
         }
-       
+
 
         if ($this->beUser) {
             //Check isAdmin user or not... True portion is for the Admin User and False is
-            if ($this->beUser['admin']==1) {
+            if ($this->beUser['admin'] == 1) {
                 $filterData = isset($filterData) ? $filterData : '';
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
             } else {
@@ -337,11 +332,10 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         ];
         $statusList = $this->ticketStatusRepository->findAll();
         $assign['statusList'] = $statusList;
-        if ($this->beUser) {
-            $assign['backend'] = 1;
-        }
+        $assign['backend'] = $this->beUser ? 1 : 0;
 
-       
+
+
         $assign['bootstrapVariable'] = 'data';
         $this->view->assignMultiple($assign);
     }
@@ -395,8 +389,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         }
         // set Ticket Status
-        if($newTickets->getTicketStatus() == null) {
-            $ticketStatus =$this->ticketStatusRepository->findAll()[0];
+        if ($newTickets->getTicketStatus() == null) {
+            $ticketStatus = $this->ticketStatusRepository->findAll()[0];
             $newTickets->setTicketStatus($ticketStatus);
         }
         //set Ticket Slug
@@ -496,7 +490,6 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             'constant' => $this->constants,
             'bootstrapVariable' => 'data'
         ]);
-        
     }
 
     /**
@@ -655,7 +648,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             ];
             $this->sendMailNotification($sendDetails, 'Admin/CloseTicket');
         }
-        echo json_encode(['status'=>'success', 'message'=>translate::translate('nshelpdesk.ticket.close.message', 'NsHelpdesk')]);
+        echo json_encode(['status' => 'success', 'message' => translate::translate('nshelpdesk.ticket.close.message', 'NsHelpdesk')]);
         exit();
     }
 
@@ -710,12 +703,17 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             ];
             $this->sendMailNotification($sendDetails, 'Admin/CloseTicket');
         }
-        echo json_encode(['status'=>'success', 'message'=>translate::translate('nshelpdesk.ticket.reopen.message', 'NsHelpdesk')]);
+        echo json_encode(['status' => 'success', 'message' => translate::translate('nshelpdesk.ticket.reopen.message', 'NsHelpdesk')]);
         exit();
     }
 
     public function getFrontendTicketUrl($ticket)
     {
-        return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesk[action]' => 'show', 'tx_nshelpdesk_helpdesk[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesk[tickets]' => $ticket])->build();
+        return $this->uriBuilder->reset()
+            ->setCreateAbsoluteUri(true)
+            ->setArguments(['tx_nshelpdesk_helpdesk[action]'
+            => 'show', 'tx_nshelpdesk_helpdesk[controller]'
+            => 'Tickets', 'tx_nshelpdesk_helpdesk[tickets]'
+            => $ticket])->build();
     }
 }

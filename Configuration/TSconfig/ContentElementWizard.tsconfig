@@ -13,6 +13,17 @@ mod {
 		}
 		show = *
 	}
+	web_layout {
+        tt_content {
+            preview {
+                list{
+                    # Your CType
+                    nshelpdesk_helpdesk = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdesk.html
+                    
+                }
+            }
+        }
+    }
 }
 
 options.dashboard.dashboardPresetsForNewUsers = default, dashboardPreset-nsHelpdesk

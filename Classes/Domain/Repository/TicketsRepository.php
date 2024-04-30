@@ -66,11 +66,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function getCustomerReview()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
-        $totalTickets = $queryBuilder
-            ->count('uid')
-            ->from('tx_nshelpdesk_domain_model_tickets')
-            ->execute()
-            ->fetchColumn(0);
+     
 
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
