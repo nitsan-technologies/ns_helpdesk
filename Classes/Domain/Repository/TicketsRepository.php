@@ -45,18 +45,11 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 }
             }
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
-            $filterData['sword'] = isset($filterData['sword']) ? $filterData['sword'] : '';
+          
             if ($filterData['ticket_status']) {
                 $constraints[] = $query->in('ticket_status', $filterData['ticket_status']);
             }
-            if (is_string($filterData['sword']) && strlen($filterData['sword']) > 0) {
-                $constraints[] = $query->logicalOr(
-                    [
-                        $query->like('ticket_subject', '%' . $filterData['sword'] . '%'),
-                        $query->like('ticket_text', '%' . $filterData['sword'] . '%')
-                    ]
-                );
-            }
+           
         }
         if ($filterData) {
             $query->matching($query->logicalAnd($constraints));

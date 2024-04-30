@@ -260,19 +260,16 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $req = GeneralUtility::_GP('tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1');
         $req['ticketStatus'] = isset($req['ticketStatus']) ? $req['ticketStatus'] : '';
         $req['ticketTypes'] = isset($req['ticketTypes']) ? $req['ticketTypes'] : '';
-        $req['sword'] = isset($req['sword']) ? $req['sword'] : '';
-
-        $statusChecked = $req['ticketStatus'];
-        $typeChecked = $req['ticketTypes'];
-        $sword = $req['sword'];
+        
+       $statusChecked = $req['ticketStatus'];
+        // $typeChecked = $req['ticketTypes'];
+      
 
         //Search criteria...
         if ($statusChecked) {
             $filterData['ticket_status'] = $statusChecked; // Search by Ticket Status like close, new, etc..
         }
-        if ($sword) {
-            $filterData['sword'] = $sword; // Search using word
-        }
+       
 
         if ($this->beUser) {
             //Check isAdmin user or not... True portion is for the Admin User and False is
