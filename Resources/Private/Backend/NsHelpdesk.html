@@ -11,7 +11,7 @@
         <tr>
             <th><f:translate key="nshelpdesk.plugin.display" extensionName="ns_helpdesk" /></th>
             <td>
-                <f:switch expression="{ pi_flexform_transformed.switchableControllerActions}">
+                <f:switch expression="{pi_flexform_transformed.switchableControllerActions}">
                     <f:case value="Tickets->new;Tickets->create">
                         <f:translate key="nshelpdesk.plugin.display.type.ticketSubmission" extensionName="ns_helpdesk" />
                     </f:case>
@@ -21,7 +21,7 @@
                 </f:switch>
             </td>
         </tr>
-        <f:if condition="{ pi_flexform_transformed.switchableControllerActions} == 'Tickets->list;Tickets->show;Tickets->closeTicket;Tickets->reopenTicket'">
+        <f:if condition="{pi_flexform_transformed.switchableControllerActions} == 'Tickets->list;Tickets->show;Tickets->closeTicket;Tickets->reopenTicket'">
             <tr>
                 <th><f:translate key="nshelpdesk.plugin.list.listPageId" extensionName="ns_helpdesk" /></th>
                 <td>
