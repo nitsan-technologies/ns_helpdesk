@@ -11,30 +11,6 @@
                         <div class="ns_helpdesk--top-right">
                             <ul>
                                 <li>
-                                    <form class="ns_helpdesk--search-form">
-                                        <div class="input-group">
-                                            <input name="sword" id="sword" type="text" class="form-control"
-                                                   placeholder="{f:translate(key: 'helpdesk.search')}">
-                                            <div class="input-group-prepend">
-                                                <button class="btn" onclick="getTicketsList(); return false;">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="17.707" height="16.956"
-                                                         viewBox="0 0 17.707 16.956">
-                                                        <g id="Group_33" data-name="Group 33"
-                                                           transform="translate(-0.485 -0.506)">
-                                                            <g id="Ellipse_2" data-name="Ellipse 2" transform="translate(0.485 0.506)" fill="none" stroke="#fff" stroke-width="2">
-                                                                <circle cx="7.5" cy="7.5" r="7.5" stroke="none"/>
-                                                                <circle cx="7.5" cy="7.5" r="6.5" fill="none"/>
-                                                            </g>
-                                                            <line id="Line_122" data-name="Line 122" x2="4.112" y2="4.112" transform="translate(13.373 12.642)" fill="none"
-                                                                  stroke="#fff" stroke-width="2"/>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </li>
-                                <li>
                                     <f:if condition="{backend}">
                                         <f:then>
                                             <a href="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
