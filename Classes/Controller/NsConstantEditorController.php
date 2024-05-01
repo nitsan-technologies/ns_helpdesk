@@ -34,8 +34,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         private readonly AstTraverser $astTraverser,
         private readonly AstBuilderInterface $astBuilder,
         private readonly LosslessTokenizer $losslessTokenizer,
-        // private readonly TicketsController $ticketsController,
-        // private readonly CommentsController $commentsController,
+      
     ) {
     }
 

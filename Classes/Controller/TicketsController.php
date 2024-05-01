@@ -46,7 +46,6 @@ class TicketsController extends ActionController
     protected $sidebarData;
     protected $dashboardSupportData;
     protected $generalFooterData;
-    protected $premiumExtensionData;
     protected $constants;
     protected $contentObject = null;
     protected $beUser = null;

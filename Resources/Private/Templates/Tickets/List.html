@@ -23,16 +23,29 @@
                             <ul>
                                
                                 <li>
-                                    <f:if condition="!{backend}">
+                                    <f:if condition="{backend}">
                                         <f:then>
+                                            <a href="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
+                                                <f:translate key="newticket"/>
+                                            </a>
+                                            <f:variable name="salName" value="{f:if(condition:'{userDetails.realName}',then:userDetails.realName,else: userDetails.username)}" />
+                                        </f:then>
+                                        <f:else>
                                             <f:link.typolink parameter="{settings.list.createPageId}" class="c-btn c-btn-secondary"><f:translate key="newticket"/></f:link.typolink>
                                             <f:variable name="salName" value="{f:if(condition:'{userDetails.first_name}',then:userDetails.first_name,else: userDetails.username)}" />
-                                        </f:then>
+                                        </f:else>
                                     </f:if>
                                 </li>
                             </ul>
                         </div>
                     </div>
+                    <aside class="col-lg-3 col-md-8">
+                        <f:form action="list">
+                            <f:if condition="{statusList}">
+                                <f:render section="statusFilter" arguments="{statusList: statusList}"/>
+                            </f:if>
+                        </f:form>
+                    </aside>
                     <f:if condition="{tickets}">
                         <f:then>
                             <article class="col-lg-9 col-md-8">
@@ -107,5 +120,25 @@
             </div>
         </f:else>
     </f:if>
+</f:section>
+<f:section name="statusFilter">
+    <div class="ns_helpdesk--filter-item">
+        <div class="ns_helpdesk--filter-title">
+            <h4>
+                <f:translate key="tr.status"/>
+            </h4>
+        </div>
+        <div class="ns_helpdesk--filter-content">
+            <f:for each="{statusList}" as="status" iteration="i">
+                <div class="c-control c-checkbox">
+                    <input type="checkbox" class="c-control-input"
+                           onclick="return getTicketsList()"
+                           name="tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1[ticketStatus]"
+                           id="status-{status.uid}" value="{status.uid}" {f:if(condition:'{x}=={status.uid}', then: 'checked') -> f:for(each: '{statusChecked}', as:'x', iteration: 'i')}>
+                    <label class="c-control-label" for="status-{status.uid}">{status.statusTitle}</label>
+                </div>
+            </f:for>
+        </div>
+    </div>
 </f:section>
 </html>
