@@ -54,16 +54,9 @@ class TicketsRepository extends Repository
                 }
             }
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
-            $filterData['sword'] = isset($filterData['sword']) ? $filterData['sword'] : '';
             if ($filterData['ticket_status']) {
                 $query->matching($query->logicalAnd(
                     $query->equals('ticket_status', $filterData['ticket_status'])
-                ));
-            }
-            if (is_string($filterData['sword']) && strlen($filterData['sword']) > 0) {
-                $query->matching($query->logicalOr(
-                    $query->like('ticket_subject', '%' . $filterData['sword'] . '%'),
-                    $query->like('ticket_text', '%' . $filterData['sword'] . '%')
                 ));
             }
         }
