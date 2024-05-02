@@ -389,7 +389,11 @@ class TicketsController extends ActionController
         $creatorEmail = $ticketCreator_User->getEmail();
         $creatorName = $ticketCreator_User->getFirstName() . ' ' . $ticketCreator_User->getLastName();
         $strReplace = ['{visitor_name}', '{ticket_number}', '{ticket_assignee}'];
-        $strWith = [$creatorName, $newTickets->getUid(), ($newTickets->getAssigneeId()->getRealName() ? $newTickets->getAssigneeId()->getRealName() : $newTickets->getAssigneeId()->getUsername())];
+        $strWith = [$creatorName, $newTickets->getUid(), (
+            $newTickets->getAssigneeId()->getRealName() ? 
+            $newTickets->getAssigneeId()->getRealName() : 
+            $newTickets->getAssigneeId()->getUsername()
+            )];
 
         $sendDetails = $this->getMailTemplateDetails();
         $sendDetails['settings']['body'] = str_replace($strReplace, $strWith, $this->settings['body']);
