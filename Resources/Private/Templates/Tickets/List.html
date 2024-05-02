@@ -45,7 +45,7 @@
                                                 <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
                                             </div>
                                             <div class="ns_helpdesk--ticket-text">
-                                                <f:format.html>{ticket.ticketText -> f:format.crop(maxCharacters: '250')}</f:format.html>
+                                                <f:format.raw>{ticket.ticketText -> f:format.crop(maxCharacters: '50')}</f:format.raw>
                                             </div>
                                             <div class="ns_helpdesk--ticket-list">
                                                 <ul>

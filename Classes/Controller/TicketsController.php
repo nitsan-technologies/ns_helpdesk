@@ -202,7 +202,8 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         }
         if ($extConfig) {
             $this->pid = $extConfig['globalStorage'];
-        }
+        } 
+        
 
         //Set USER ..
         if (TYPO3_MODE === 'BE') {
@@ -227,7 +228,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $customerReview = $this->ticketsRepository->getCustomerReview();
 
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+        if (version_compare(TYPO3_branch, '11', '>=')) {
             $bootstrapVariable = 'data-bs';
         }
 
@@ -313,7 +314,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
             }
         } 
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+        if (version_compare(TYPO3_branch, '11', '>=')) {
             $bootstrapVariable = 'data-bs';
         }
 
@@ -344,7 +345,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $assign['backend'] = $this->beUser ? 1 : 0;
 
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+        if (version_compare(TYPO3_branch, '11', '>=')) {
             $bootstrapVariable = 'data-bs';
         }
 
@@ -499,7 +500,7 @@ class TicketsController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionControll
         $menu = GeneralUtility::_GP('cat');
 
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+        if (version_compare(TYPO3_branch, '11', '>=')) {
             $bootstrapVariable = 'data-bs';
         }
         $this->view->assignMultiple([
