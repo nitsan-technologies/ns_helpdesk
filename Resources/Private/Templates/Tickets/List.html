@@ -11,17 +11,11 @@
                         <div class="ns_helpdesk--top-right">
                             <ul>
                                 <li>
-                                    <f:if condition="{backend}">
+                                    <f:if condition="!{backend}">
                                         <f:then>
-                                            <a href="{ns:Misc.BackendNewLink(tableName:'tx_nshelpdesk_domain_model_tickets', identifier:'{pid}')}" class="c-btn c-btn-secondary">
-                                                <f:translate key="newticket"/>
-                                            </a>
-                                            <f:variable name="salName" value="{f:if(condition:'{userDetails.realName}',then:userDetails.realName,else: userDetails.username)}" />
-                                        </f:then>
-                                        <f:else>
                                             <f:link.typolink parameter="{settings.list.createPageId}" class="c-btn c-btn-secondary"><f:translate key="newticket"/></f:link.typolink>
                                             <f:variable name="salName" value="{f:if(condition:'{userDetails.first_name}',then:userDetails.first_name,else: userDetails.username)}" />
-                                        </f:else>
+                                        </f:then>
                                     </f:if>
                                 </li>
                             </ul>
