@@ -35,13 +35,13 @@
                         <li>
                             <f:if condition="{tickets.ticketStatus.uid}==2">
                                 <f:then>
-                                    <f:if condition="{backend} || {userDetails}">
-                                        <f:link.action action="reopenTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" extensionName="ns_helpdesk"/></f:link.action>
+                                    <f:if condition="!{backend}">
+                                        <f:link.action action="reopenTicket" arguments="{tickets:tickets}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" /></f:link.action>
                                     </f:if>
                                 </f:then>
                                 <f:else>
-                                    <f:if condition="{backend}">
-                                        <f:then><a href="javascript:;" class="c-btn c-btn-secondary" data-bs-toggle="modal" data-bs-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:then>
+                                    <f:if condition="!{backend}">
+                                        <f:then><a href="javascript:;" class="c-btn c-btn-secondary" {bootstrapVariable}-toggle="modal" {bootstrapVariable}-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:then>
                                     </f:if>
                                 </f:else>
                             </f:if>
