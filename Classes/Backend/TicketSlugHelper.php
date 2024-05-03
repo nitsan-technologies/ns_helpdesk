@@ -5,9 +5,7 @@ namespace NITSAN\NsHelpdesk\Backend;
 use TYPO3\CMS\Core\Charset\CharsetConverter;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
-/**
- * Generate slug for 8.x
- */
+
 class TicketSlugHelper
 {
     /**

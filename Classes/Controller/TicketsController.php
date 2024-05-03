@@ -527,14 +527,6 @@ class TicketsController extends ActionController
         $mail->setTo($recipient)->setFrom($sender)->setSubject($subject);
         // HTML Email
         $mail->html($emailBody);
-        $variables['user']['attachment'] = isset($variables['user']['attachment']) ? $variables['user']['attachment'] : '';
-        if ($variables['user']['attachment']) {
-            if (count($variables['user']['attachment']) > 0) {
-                foreach ($variables['user']['attachment'] as $at) {
-                    $mail->attachFromPath($at);
-                }
-            }
-        }
         $mail->send();
         $status = $mail->isSent();
         return $status;
@@ -664,12 +656,14 @@ class TicketsController extends ActionController
 
     public function getFrontendTicketUrl($ticket)
     {
-        return $this->uriBuilder->reset()
+        return $this->uriBuilder
+            ->reset()
             ->setCreateAbsoluteUri(true)
-            ->setArguments(['tx_nshelpdesk_helpdesklist[action]'
-            => 'show', 'tx_nshelpdesk_helpdesklist[controller]'
-            => 'Tickets', 'tx_nshelpdesk_helpdesklist[tickets]'
-            => $ticket])
+            ->setArguments(
+                ['tx_nshelpdesk_helpdesklist[action]'=> 'show', 
+                'tx_nshelpdesk_helpdesklist[controller]'=> 'Tickets', 
+                'tx_nshelpdesk_helpdesklist[tickets]' => $ticket]
+                )
             ->build();
     }
 
