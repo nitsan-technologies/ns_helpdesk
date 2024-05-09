@@ -88,53 +88,47 @@ class NsHelpdeskWidget implements WidgetInterface, RequestAwareWidgetInterface
             ->executeQuery()
             ->fetchOne();
 
-        $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
-            ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5, \PDO::PARAM_INT))
-            )
-            ->executeQuery()
-            ->fetchOne();
+        // Array to hold the total count for each rating
+        $totalRatings = [];
 
-        $total4Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
-            ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(4, \PDO::PARAM_INT))
-            )
-            ->executeQuery()
-            ->fetchOne();
+        // Loop through ratings 1 to 5
+        for ($i = 1; $i <= 5; $i++) {
+           
+            // Count the tickets with the current rating
+            $totalRatings[$i] = $queryBuilder
+                ->count('uid')
+                ->from('tx_nshelpdesk_domain_model_tickets')
+                ->where(
+                    $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter($i, \PDO::PARAM_INT))
+                )
+                ->executeQuery()
+                ->fetchOne();
+        }
 
-        $total3Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
-            ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(3, \PDO::PARAM_INT))
-            )
-            ->executeQuery()
-            ->fetchOne();
+        // Calculate the total average rating
+        $totalAvg = 0;
+        $totalTicketsWithRating = 0;
+        foreach ($totalRatings as $rating => $count) {
+            $totalAvg += $rating * $count;
+            $totalTicketsWithRating += $count;
+        }
 
-        $total2Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
-            ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(2, \PDO::PARAM_INT))
-            )
-            ->executeQuery()
-            ->fetchOne();
+        $totalRatingsCount = array_sum($totalRatings);
 
-        $total1Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
-            ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
-            )
-            ->executeQuery()
-            ->fetchOne();
-        $totalAvg = ($total5Ratings * 5 + $total4Ratings * 4 + $total3Ratings * 3 + $total2Ratings * 2 + $total1Ratings * 1);
-
-        $totalRatings = 0;
-        if ($totalAvg > 0) {
-            $totalRatings = $totalAvg / ($total5Ratings + $total4Ratings + $total3Ratings + $total2Ratings + $total1Ratings);
+        $totalRatingsAverage = 0;
+        if ($totalTicketsWithRating > 0) {
+            $totalRatingsAverage = $totalAvg / $totalTicketsWithRating;
         }
 
         $this->view->assignMultiple([
             'totalTickets' => $totalTickets,
             'totalClosedTickets' => $totalClosedTickets,
             'totalNewTickets' => $totalNewTickets,
-            'totalRatings' => (int)round($totalRatings)
+            'totalRatings' => (int)round($totalRatingsAverage),
+            'totalRatingsCount' => $totalRatingsCount,
+            'totalRatingsDistribution' => $totalRatings
         ]);
+
         return $this->view->render();
     }
     public function getCssFiles(): array

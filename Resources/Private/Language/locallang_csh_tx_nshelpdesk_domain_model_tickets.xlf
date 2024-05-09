@@ -12,9 +12,6 @@
 			<trans-unit id="ticket_post_date.description">
 				<source>ticketPostDate</source>
 			</trans-unit>
-			<trans-unit id="attachment.description">
-				<source>attachment</source>
-			</trans-unit>
 			<trans-unit id="ticket_status.description">
 				<source>ticketStatus</source>
 			</trans-unit>

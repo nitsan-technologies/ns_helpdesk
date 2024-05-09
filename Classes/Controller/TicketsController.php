@@ -31,7 +31,6 @@ use NITSAN\NsHelpdesk\Domain\Repository\BackendUserRepository;
 use NITSAN\NsHelpdesk\Domain\Repository\FrontendUserRepository;
 use NITSAN\NsHelpdesk\Domain\Repository\TicketStatusRepository;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
-use NITSAN\NsHelpdesk\Domain\Repository\DefaultAssigneeRepository;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
@@ -41,12 +40,7 @@ use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
  */
 class TicketsController extends ActionController
 {
-    protected $templateService;
-    protected $constantObj;
-    protected $sidebarData;
-    protected $dashboardSupportData;
-    protected $generalFooterData;
-    protected $premiumExtensionData;
+
     protected $constants;
     protected $contentObject = null;
     protected $beUser = null;
@@ -87,13 +81,6 @@ class TicketsController extends ActionController
      * @var TicketStatusRepository
      */
     protected TicketStatusRepository $ticketStatusRepository;
-
-    /**
-     * DefaultAssigneeRepository
-     *
-     * @var DefaultAssigneeRepository
-     */
-    protected DefaultAssigneeRepository $assigneeRepository;
 
     /**
      * FrontendUserRepository
@@ -141,14 +128,14 @@ class TicketsController extends ActionController
      * @return void
      */
     public function initializeObject()
-{
-    $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-    $fullTypoScriptConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
-    if (isset($fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk']['settings.'])) {
-        $this->config = $fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
-    }   
-    $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
-}
+    {
+        $this->contentObject = GeneralUtility::makeInstance(ContentObjectRenderer::class);
+        $fullTypoScriptConfig = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FULL_TYPOSCRIPT);
+        if (isset($fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk']['settings.'])) {
+            $this->config = $fullTypoScriptConfig['plugin.']['tx_nshelpdesk_helpdesk.']['settings.'];
+        }
+        $this->backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
+    }
 
 
     /**
@@ -164,7 +151,7 @@ class TicketsController extends ActionController
 
         $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] = isset($GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk']) ? $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'] : '';
         $extConfig = $GLOBALS['TYPO3_CONF_VARS']['EXTENSIONS']['ns_helpdesk'];
-        if($extConfig) {
+        if ($extConfig) {
             $this->pid = $extConfig['globalStorage'];
         }
 
@@ -196,11 +183,10 @@ class TicketsController extends ActionController
         $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
         $bootstrapVariable = 'data-bs';
         $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
-        $assign = [
+
+        $view->assignMultiple([
             'action' => 'dashboard',
             'pid' => $this->pid,
-            'rightSide' => $this->sidebarData,
-            'dashboardSupport' => $this->dashboardSupportData,
             'totalTicket' => $totalTickets,
             'assignToMe' => $assignToMe,
             'newTicket' => $newTicket,
@@ -211,8 +197,7 @@ class TicketsController extends ActionController
             'bootstrapVariable' => $bootstrapVariable,
             'isBackend' => $isBackend
 
-        ];
-        $view->assignMultiple($assign);
+        ]);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
             return $view->renderResponse();
@@ -241,24 +226,19 @@ class TicketsController extends ActionController
         $req = isset($requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1']) ? $requestData['tx_nshelpdesk_nitsan_nshelpdeskhelpdeskmi1'] : [];
         $req['ticketStatus'] = isset($req['ticketStatus']) ? $req['ticketStatus'] : '';
         $req['ticketTypes'] = isset($req['ticketTypes']) ? $req['ticketTypes'] : '';
-        $req['sword'] = isset($req['sword']) ? $req['sword'] : '';
 
         $statusChecked = $req['ticketStatus'];
-        $typeChecked = $req['ticketTypes'];
-        $sword = $req['sword'];
-        $settings = $this->settings;
+
         $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
         //Search criteria...
         if ($statusChecked) {
             $filterData['ticket_status'] = $statusChecked; // Search by Ticket Status like close, new, etc..
         }
-        if ($sword) {
-            $filterData['sword'] = $sword; // Search using word
-        }
+
 
         if ($this->beUser) {
             //Check isAdmin user or not... True portion is for the Admin User and False is
-            if ($this->beUser['admin']==1) {
+            if ($this->beUser['admin'] == 1) {
                 $tickets = $this->ticketsRepository->fetchTickets($filterData);
             } else {
                 $filterData['userid'] =  $this->beUser['uid'];
@@ -276,8 +256,6 @@ class TicketsController extends ActionController
             $assign = [
                 'action' => 'list',
                 'pid' => $this->pid,
-                'rightSide' => $this->sidebarData,
-                'dashboardSupport' => $this->dashboardSupportData,
                 'modalClasses' => $modal_classes,
                 'backend' => 1,
                 'isShow' => 1,
@@ -329,9 +307,9 @@ class TicketsController extends ActionController
             'tickets' => $tickets,
             'userDetails' => $this->userDetails,
         ];
-        if ($this->beUser) {
-            $assign['backend'] = 1;
-        }
+
+        $assign['backend'] = ($this->beUser) ? 1 : 0;
+
         $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
         $bootstrapVariable = 'data-bs';
         $assign['bootstrapVariable'] = $bootstrapVariable;
@@ -353,11 +331,10 @@ class TicketsController extends ActionController
     public function newAction(): ResponseInterface
     {
         $newTickets = GeneralUtility::makeInstance(Tickets::class);
-        $assign = [
+        $this->view->assignMultiple([
             'newTickets' => $newTickets,
             'userDetails' => $this->feUser
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
 
         return $this->htmlResponse();
     }
@@ -394,12 +371,12 @@ class TicketsController extends ActionController
             }
         }
         // set Ticket Status
-        if($newTickets->getTicketStatus() == null) {
-            $ticketStatus =$this->ticketStatusRepository->findAll()[0];
-            if($ticketStatus){
+        if ($newTickets->getTicketStatus() == null) {
+            $ticketStatus = $this->ticketStatusRepository->findAll()[0];
+            if ($ticketStatus) {
                 $newTickets->setTicketStatus($ticketStatus);
             }
-          }
+        }
         //set Ticket Slug
         $newTickets->setSlug($slug);
         //Set Ticket PostDate
@@ -412,7 +389,11 @@ class TicketsController extends ActionController
         $creatorEmail = $ticketCreator_User->getEmail();
         $creatorName = $ticketCreator_User->getFirstName() . ' ' . $ticketCreator_User->getLastName();
         $strReplace = ['{visitor_name}', '{ticket_number}', '{ticket_assignee}'];
-        $strWith = [$creatorName, $newTickets->getUid(), ($newTickets->getAssigneeId()->getRealName() ? $newTickets->getAssigneeId()->getRealName() : $newTickets->getAssigneeId()->getUsername())];
+        $strWith = [$creatorName, $newTickets->getUid(), (
+            $newTickets->getAssigneeId()->getRealName() ? 
+            $newTickets->getAssigneeId()->getRealName() : 
+            $newTickets->getAssigneeId()->getUsername()
+            )];
 
         $sendDetails = $this->getMailTemplateDetails();
         $sendDetails['settings']['body'] = str_replace($strReplace, $strWith, $this->settings['body']);
@@ -546,14 +527,6 @@ class TicketsController extends ActionController
         $mail->setTo($recipient)->setFrom($sender)->setSubject($subject);
         // HTML Email
         $mail->html($emailBody);
-        $variables['user']['attachment'] = isset($variables['user']['attachment']) ? $variables['user']['attachment'] : '';
-        if ($variables['user']['attachment']) {
-            if (count($variables['user']['attachment']) > 0) {
-                foreach ($variables['user']['attachment'] as $at) {
-                    $mail->attachFromPath($at);
-                }
-            }
-        }
         $mail->send();
         $status = $mail->isSent();
         return $status;
@@ -618,7 +591,7 @@ class TicketsController extends ActionController
             ];
             $this->sendMailNotification($sendDetails, 'Admin/CloseTicket');
         }
-        echo json_encode(['status'=>'success', 'message'=>translate::translate('nshelpdesk.ticket.close.message', 'NsHelpdesk')]);
+        echo json_encode(['status' => 'success', 'message' => translate::translate('nshelpdesk.ticket.close.message', 'NsHelpdesk')]);
         exit();
     }
 
@@ -677,13 +650,21 @@ class TicketsController extends ActionController
             ];
             $this->sendMailNotification($sendDetails, 'Admin/CloseTicket');
         }
-        echo json_encode(['status'=>'success', 'message'=>translate::translate('nshelpdesk.ticket.reopen.message', 'NsHelpdesk')]);
+        echo json_encode(['status' => 'success', 'message' => translate::translate('nshelpdesk.ticket.reopen.message', 'NsHelpdesk')]);
         exit();
     }
 
     public function getFrontendTicketUrl($ticket)
     {
-        return $this->uriBuilder->reset()->setCreateAbsoluteUri(true)->setArguments(['tx_nshelpdesk_helpdesklist[action]' => 'show', 'tx_nshelpdesk_helpdesklist[controller]' => 'Tickets', 'tx_nshelpdesk_helpdesklist[tickets]' => $ticket])->build();
+        return $this->uriBuilder
+            ->reset()
+            ->setCreateAbsoluteUri(true)
+            ->setArguments(
+                ['tx_nshelpdesk_helpdesklist[action]'=> 'show', 
+                'tx_nshelpdesk_helpdesklist[controller]'=> 'Tickets', 
+                'tx_nshelpdesk_helpdesklist[tickets]' => $ticket]
+                )
+            ->build();
     }
 
     /**
@@ -700,7 +681,8 @@ class TicketsController extends ActionController
         if ($totalAvg > 0) {
             $totalRatings = $totalAvg / ($config['total5Ratings'] + $config['total4Ratings'] + $config['total3Ratings'] + $config['total2Ratings'] + $config['total1Ratings']);
         }
-        return $totalRatings;
+        // Round to nearest integer
+        return (int)round($totalRatings);
     }
 
     /**

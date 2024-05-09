@@ -1,5 +1,6 @@
 <?php
-
+use NITSAN\NsHelpdesk\Controller\NsConstantEditorController;
+use NITSAN\NsHelpdesk\Controller\TicketsController;
 
 return [
     'nitsan_module' => [
@@ -19,7 +20,7 @@ return [
         'extensionName' => 'NsHelpdesk',
         'routes' => [
             '_default' => [
-                'target' => \NITSAN\NsHelpdesk\Controller\NsConstantEditorController::class . '::handleRequest',
+                'target' => NsConstantEditorController::class . '::handleRequest',
             ],
         ],
         'moduleData' => [
@@ -37,7 +38,7 @@ return [
         'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
         'extensionName' => 'NsHelpdesk',
         'controllerActions' => [
-            \NITSAN\NsHelpdesk\Controller\TicketsController::class => [
+            TicketsController::class => [
                 'dashboard',
                 'list',
                 'show',
