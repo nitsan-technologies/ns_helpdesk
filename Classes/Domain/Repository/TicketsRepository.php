@@ -6,7 +6,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /***
  *
- * This file is part of the "NS Helpdesk" Extension for TYPO3 CMS.
+ * This file is part of the "Helpdesk" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -45,36 +45,16 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
                 }
             }
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
-            $filterData['sword'] = isset($filterData['sword']) ? $filterData['sword'] : '';
+          
             if ($filterData['ticket_status']) {
                 $constraints[] = $query->in('ticket_status', $filterData['ticket_status']);
             }
-            if (is_string($filterData['sword']) && strlen($filterData['sword']) > 0) {
-                $constraints[] = $query->logicalOr(
-                    [
-                        $query->like('ticket_subject', '%' . $filterData['sword'] . '%'),
-                        $query->like('ticket_text', '%' . $filterData['sword'] . '%')
-                    ]
-                );
-            }
+           
         }
         if ($filterData) {
             $query->matching($query->logicalAnd($constraints));
         }
         return $query->execute();
-    }
-
-    public function getLanguageIso($langId)
-    {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_language');
-        $statement = $queryBuilder
-            ->select('language_isocode')
-            ->from('sys_language')
-            ->where(
-                $queryBuilder->expr()->eq('uid', $queryBuilder->createNamedParameter($langId))
-            )
-            ->execute()->fetch();
-        return $statement;
     }
     public function getSlug($slug = null)
     {
@@ -86,11 +66,7 @@ class TicketsRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     public function getCustomerReview()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
-        $totalTickets = $queryBuilder
-            ->count('uid')
-            ->from('tx_nshelpdesk_domain_model_tickets')
-            ->execute()
-            ->fetchColumn(0);
+     
 
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(

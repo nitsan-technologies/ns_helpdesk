@@ -24,7 +24,8 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'status_title,status_color',
-        'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_ticketstatus.svg'
+        'iconfile' => 'EXT:ns_helpdesk/Resources/Public/Icons/tx_nshelpdesk_domain_model_ticketstatus.svg',
+        'hideTable' => true
     ],
     'interface' => [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, status_title, status_color',

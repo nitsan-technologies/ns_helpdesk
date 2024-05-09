@@ -8,9 +8,6 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 class LoadAssetsViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
-    protected $extPath;
-    protected $config =[];
-    protected $constant;
 
     public function render()
     {
@@ -27,9 +24,9 @@ class LoadAssetsViewHelper extends AbstractViewHelper
      * Load static CSS for the Forms
      * @param $pageRender
      * @param $settings
-     * @param $data
+     
      */
-    public function loadResource($pageRender, $settings, $data)
+    public function loadResource($pageRender, $settings)
     {
         $css ='';
 
