@@ -8,18 +8,10 @@
               SHEET General Settings
             ################################
         -->
-        <sDEF>
-            <ROOT>
-                <sheetTitle>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:globalSettings</sheetTitle>
-                <type>array</type>
-                <el>
-       
-                </el>
-            </ROOT>
-        </sDEF>
+
         <settings.quickreply>
             <ROOT>
-                <sheetTitle>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:helpdesk.mailTab</sheetTitle>
+                <sheetTitle>LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_flex.xlf:globalSettings</sheetTitle>
                 <type>array</type>
                 <el>
                     <settings.adminSubject>

@@ -387,7 +387,7 @@
 									<p><strong><f:translate key="nshelpdesk.mail.admin.sentBy.email" extensionName="ns_helpdesk" />:</strong> <f:link.email email="{sender.email}" /> </p>
 									<p><strong><f:translate key="nshelpdesk.mail.admin.subject" extensionName="ns_helpdesk" />:</strong> {tickets.ticketSubject} </p>
 									<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
-									<p>{tickets.ticketText -> f:format.html()}</p>
+									<p>{tickets.ticketText -> f:format.raw()}</p>
 								</td>
 							</tr>
 							</tbody>

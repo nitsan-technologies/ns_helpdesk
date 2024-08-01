@@ -352,7 +352,7 @@
                 <source>Have a great day!</source>
             </trans-unit>
             <trans-unit id="helpdesk.opps">
-                <source>Opps!</source>
+                <source>Oops!</source>
             </trans-unit>
             <trans-unit id="helpdesk.notloginticket">
                 <source><![CDATA[Please <a href="%s">login</a> to see your tickets! If you have not registered yet <a href="%s">click here</a>!]]> </source>
