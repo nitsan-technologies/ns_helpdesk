@@ -10,12 +10,9 @@ $(document).on('click','.ns-bitbucket',function(){
     });
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('.dataTables_length select,\ .dataTables_filter input').addClass('form-control');
-    if ($(".inputfile").length > 0) {
-        setDefaultImageTypes($(".inputfile"));
-    }
     $('#TypoScriptTemplateModuleController').on('submit',function(e){
         e.preventDefault();
+        let url;
         url = $(this).attr('action');
         $.ajax({
             url:url,
