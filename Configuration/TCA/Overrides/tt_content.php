@@ -9,7 +9,9 @@ defined('TYPO3') || die('Access denied');
 ExtensionUtility::registerPlugin(
     'NsHelpdesk',
     'HelpdeskList',
-    'Helpdesk - List View'
+    'Helpdesk - List View',
+    'ns_helpdesk-plugin-helpdesk',
+    'plugins'
 );
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nshelpdesk_helpdesklist'] = 'recursive,select_key,pages';
@@ -24,7 +26,9 @@ ExtensionManagementUtility::addPiFlexFormValue(
 ExtensionUtility::registerPlugin(
     'NsHelpdesk',
     'HelpdeskTicket',
-    'Helpdesk - Ticket Submission'
+    'Helpdesk - Ticket Submission',
+    'ns_helpdesk-plugin-helpdesk',
+    'plugins'
 );
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nshelpdesk_helpdeskticket'] = 'recursive,select_key,pages';
