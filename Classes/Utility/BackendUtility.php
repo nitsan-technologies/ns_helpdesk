@@ -9,7 +9,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Backend utility functions
  *
  */
-class BackendUtility extends AbstractUtility
+class BackendUtility
 {
     /**
      * Create an URI to edit any record

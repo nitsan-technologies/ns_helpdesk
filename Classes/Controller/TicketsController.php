@@ -201,7 +201,7 @@ class TicketsController extends ActionController
         ]);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/Dashboard');
         } else {
             return $this->htmlResponse();
         }
@@ -284,7 +284,7 @@ class TicketsController extends ActionController
         $view->assignMultiple($assign);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/List');
         } else {
             return $this->htmlResponse();
         }
@@ -318,7 +318,7 @@ class TicketsController extends ActionController
         $view->assignMultiple($assign);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/Show');
         } else {
             return $this->htmlResponse();
         }
