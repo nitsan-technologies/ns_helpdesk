@@ -350,9 +350,18 @@ class TicketsController extends ActionController
     {
         $settings = $this->settings;
         $backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
+        $settings['defaultAssigneeId'] = ($settings['defaultAssigneeId'] > 0) ? $settings['defaultAssigneeId'] : 1;
 
         if ($settings['defaultAssigneeId']) {
             $assignee = $backendUserRepository->findByUid($settings['defaultAssigneeId']);
+            if ($assignee == null){
+                $response = [
+                    'status' => 'error'
+                ];
+                echo json_encode($response);
+                exit();
+            }
+
             $newTickets->setAssigneeId($assignee);
         }
 

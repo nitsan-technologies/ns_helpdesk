@@ -83,12 +83,17 @@ function formAjax(elem) {
             $('.loader-wraper').show();
         },
         success: function (data) {
-            if ($(elem).hasClass('nshelpdesk-popup-form')){
-                $(elem).hide();
+            data = JSON.parse(data);
+            if (data.status === 'error'){
+                alert("There is some internal issue, please contact to Administrator");
             } else {
-                $(elem).remove();
+                if ($(elem).hasClass('nshelpdesk-popup-form')){
+                    $(elem).hide();
+                } else {
+                    $(elem).remove();
+                }
+                $('.nshelpdesk-success-msg').show();
             }
-            $('.nshelpdesk-success-msg').show();
         },
         complete: function () {
             $('.loader-wraper').hide();
