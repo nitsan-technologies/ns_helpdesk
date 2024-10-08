@@ -355,7 +355,10 @@
                 <source>Oops!</source>
             </trans-unit>
             <trans-unit id="helpdesk.notloginticket">
-                <source><![CDATA[Please <a href="%s">login</a> to see your tickets! If you have not registered yet <a href="%s">click here</a>!]]> </source>
+                <source><![CDATA[Please <a href="%s">login</a> to see your tickets!]]> </source>
+            </trans-unit>
+            <trans-unit id="helpdesk.configuration.massage">
+                <source>Please make proper configuration!</source>
             </trans-unit>
             <trans-unit id="helpdesk.form.emailError">
                 <source>Please enter valid email address.</source>
@@ -394,7 +397,7 @@
                 <source>Ticket Description</source>
             </trans-unit>
             <trans-unit id="helpdesk.create.notlogin">
-                <source><![CDATA[Please <a href="%s">login</a> to create a new ticket! If you have not registered yet <a href="%s">click here</a>!]]></source>
+                <source><![CDATA[Please <a href="%s">login</a> to create a new ticket!]]></source>
             </trans-unit>
             <trans-unit id="helpdesk.search">
                 <source>Search ticket</source>
