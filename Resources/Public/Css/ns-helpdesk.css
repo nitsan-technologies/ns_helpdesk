@@ -56,6 +56,7 @@
 a,
 a:focus {
     outline: none;
+    text-decoration: none;
 }
 
 a:hover {
@@ -241,8 +242,8 @@ a:hover {
 }
 
 .ns_helpdesk--ticket {
-    background-color: light-dark(#F6FAFF, #151515);
-    border: 1px solid light-dark(#DBDFE4, #151515);
+    background-color: #F6FAFF;
+    border: 1px solid #DBDFE4;
     box-shadow: 3px 3px 9px rgba(0, 0, 0, 0);
     color: light-dark(#333, #d9d9d9);
     display: block;
@@ -251,7 +252,7 @@ a:hover {
 }
 
 .ns_helpdesk--ticket:hover {
-    color: light-dark(#333, #fff);
+    color: #333;
     box-shadow: 3px 3px 9px rgba(0, 0, 0, 0.1);
 }
 
@@ -263,6 +264,7 @@ a:hover {
 
 .ns_helpdesk--ticket-headline h3 {
     font-size: 20px;
+    font-weight: 500;
 }
 
 .tag {
@@ -1511,4 +1513,18 @@ span.mandatory {
 .tx-ns-helpdesk .btn-file-clear,
 .ns_helpdesk-main-container .btn-file-clear {
     display: none;
+}
+
+.nitsan-module .ns_helpdesk--ticket {
+    background-color: light-dark(#F6FAFF, #151515);
+    border: 1px solid light-dark(#DBDFE4, #151515);
+    color: light-dark(#333, #d9d9d9);
+}
+
+.nitsan-module .ns_helpdesk--ticket:hover {
+    color: light-dark(#333, #fff);
+}
+
+.c-btn {
+    border: 1px solid light-dark(#fff, #293B51);
 }

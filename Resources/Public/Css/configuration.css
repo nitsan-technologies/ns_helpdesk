@@ -1,36 +1,51 @@
-::-moz-selection { /* Code for Firefox */
+::-moz-selection {
+    /* Code for Firefox */
     color: #fff;
     background: #F49700;
 }
+
 ::selection {
     color: #fff;
     background: #F49700;
 }
 
-a:hover, .ns_helpdesk-modal .modal-title {
+a:hover,
+.ns_helpdesk-modal .modal-title {
     color: #F49700;
 }
 
+.c-btn,
+.pagination .page-item a,
+.pagination .page-nav a,
+.ns_helpdesk--ticket,
+.ns_helpdesk--ticket:hover {
+    color: #293B51;
+}
+
 .c-btn-primary,
-.c-btn:hover { 
+.c-btn:hover {
     background-color: #293B51;
     color: #fff;
 }
-.c-btn-primary:hover { 
+
+.c-btn-primary:hover {
     background-color: #F49700;
     border-color: #F49700;
     color: #fff;
 }
+
 .c-btn-secondary {
     background-color: #F49700;
     border-color: #F49700;
     color: #fff;
 }
+
 .c-btn-secondary:hover {
     background-color: #293B51;
     border-color: #293B51;
     color: #fff;
 }
+
 .ns_helpdesk--search-form .btn {
     background-color: #293B51;
     border-color: #293B51;
@@ -42,14 +57,17 @@ a:hover, .ns_helpdesk-modal .modal-title {
 }
 
 .ns_helpdesk--filter-title {
-    background-color: #293B51; 
+    background-color: #293B51;
 }
 
 .pagination li svg path {
     stroke: #F49700;
 }
 
-.pagination .page-item a:hover, .pagination .page-item a.active, .pagination .page-nav a:hover, .pagination .page-nav a.active {
+.pagination .page-item a:hover,
+.pagination .page-item a.active,
+.pagination .page-nav a:hover,
+.pagination .page-nav a.active {
     background-color: #293B51;
     color: #fff;
 }
@@ -59,17 +77,17 @@ a:hover, .ns_helpdesk-modal .modal-title {
 }
 
 /* Hover state of the stars */
-.rating-stars ul > li.star.hover > svg,
-.rating-stars ul > li.star.hover > svg path {
+.rating-stars ul>li.star.hover>svg,
+.rating-stars ul>li.star.hover>svg path {
     color: #F9DDAE;
     fill: #F9DDAE;
 }
 
 /* Selected state of the stars */
-.rating-stars ul > li.star.selected > svg,
-.rating-stars ul > li.star.selected > svg path {
+.rating-stars ul>li.star.selected>svg,
+.rating-stars ul>li.star.selected>svg path {
     color: #F49700;
-    fill:#F49700;
+    fill: #F49700;
 }
 
 @media(min-width:576px) {
@@ -77,6 +95,7 @@ a:hover, .ns_helpdesk-modal .modal-title {
         max-width: 100%;
     }
 }
+
 @media(min-width:768px) {
     .ns_helpdesk--top {
         display: flex;
