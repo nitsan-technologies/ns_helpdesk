@@ -10,15 +10,10 @@
 a:hover, .ns_helpdesk-modal .modal-title {
     color: #F49700;
 }
-.c-btn,
-.pagination .page-item a, .pagination .page-nav a,
-.ns_helpdesk--ticket, .ns_helpdesk--ticket:hover { 
-    color: #293B51;
-}
+
 .c-btn-primary,
 .c-btn:hover { 
     background-color: #293B51;
-    border-color: #293B51;
     color: #fff;
 }
 .c-btn-primary:hover { 
@@ -44,11 +39,6 @@ a:hover, .ns_helpdesk-modal .modal-title {
 .ns_helpdesk--search-form .btn:hover {
     background-color: #F49700;
     border-color: #F49700;
-}
-
-.form-control:focus {
-    color: #293B51;
-    border-color: #293B51;
 }
 
 .ns_helpdesk--filter-title {
@@ -92,12 +82,4 @@ a:hover, .ns_helpdesk-modal .modal-title {
         display: flex;
         justify-content: space-between;
     }
-}
-
-@media(min-width:992px) {
-
-}
-
-@media(min-width:1200px) {
-    
 }
