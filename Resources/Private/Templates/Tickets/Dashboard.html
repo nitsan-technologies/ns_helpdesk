@@ -7,7 +7,7 @@
 				<f:if condition="{totalTicket} > 0">
 					<f:then>
 						<div class="row">
-							<div class="col-sm-6 col-lg-4">
+							<div class="col-sm-6 col-lg-3">
 								<div class="card">
 									<div class="card-body">
 										<div class="ns-ext-report-block d-flex align-items-center">
@@ -21,21 +21,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-sm-6 col-lg-4">
-								<div class="card">
-									<div class="card-body">
-										<div class="ns-ext-report-block d-flex align-items-center">
-											<div class="report-block-content">
-												<h5><f:translate key="{f:if(condition: '{closeTicket} <= 1',then: 'dashboard.singular.close.ticket',else: 'dashboard.plural.close.ticket')}" /></h5>
-											</div>
-											<div class="report-block-icon">
-												<em class="fa text-danger" aria-hidden="true"><strong><span>{closeTicket}</span></strong></em>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="col-sm-6 col-lg-4">
+							<div class="col-sm-6 col-lg-3">
 								<div class="card">
 									<div class="card-body">
 										<div class="ns-ext-report-block d-flex align-items-center">
@@ -44,6 +30,34 @@
 											</div>
 											<div class="report-block-icon">
 												<em class="fa text-success" aria-hidden="true"><strong><span>{newTicket}</span></strong></em>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-lg-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="ns-ext-report-block d-flex align-items-center">
+											<div class="report-block-content">
+												<h5><f:translate key="{f:if(condition: '{reopenTicket} <= 1',then: 'dashboard.singular.reopen.ticket',else: 'dashboard.plural.reopen.ticket')}" /></h5>
+											</div>
+											<div class="report-block-icon">
+												<em class="fa text-warning" aria-hidden="true"><strong><span>{reopenTicket}</span></strong></em>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-6 col-lg-3">
+								<div class="card">
+									<div class="card-body">
+										<div class="ns-ext-report-block d-flex align-items-center">
+											<div class="report-block-content">
+												<h5><f:translate key="{f:if(condition: '{closeTicket} <= 1',then: 'dashboard.singular.close.ticket',else: 'dashboard.plural.close.ticket')}" /></h5>
+											</div>
+											<div class="report-block-icon">
+												<em class="fa text-danger" aria-hidden="true"><strong><span>{closeTicket}</span></strong></em>
 											</div>
 										</div>
 									</div>

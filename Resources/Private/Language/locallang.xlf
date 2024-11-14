@@ -138,6 +138,15 @@
             <trans-unit id="dashboard.plural.new.ticket">
                 <source>New Tickets</source>
             </trans-unit>
+
+            <trans-unit id="dashboard.singular.reopen.ticket">
+                <source>Re-open Ticket</source>
+            </trans-unit>
+            <trans-unit id="dashboard.plural.reopen.ticket">
+                <source>Re-open Tickets</source>
+            </trans-unit>
+
+
             <trans-unit id="customerreview">
                 <source>Customer Review</source>
             </trans-unit>

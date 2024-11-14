@@ -180,6 +180,7 @@ class TicketsController extends ActionController
         $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
+        $reopenTicket = $this->ticketsRepository->findByTicketStatus(3)->count();
         $customerReviewDetails  = $this->ticketsRepository->getCustomerReview();
         $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
         $bootstrapVariable = 'data-bs';
@@ -192,6 +193,7 @@ class TicketsController extends ActionController
             'assignToMe' => $assignToMe,
             'newTicket' => $newTicket,
             'closeTicket' => $closeTicket,
+            'reopenTicket' => $reopenTicket,
             'isBackendUser' => $this->isBackendUser,
             'customerReview' => $customerReview,
             'userDetail' => $this->beUser,
