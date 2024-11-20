@@ -13,6 +13,8 @@ namespace NITSAN\NsHelpdesk\Controller;
  *
  ***/
 
+use TYPO3\CMS\Core\Context\Context;
+use TYPO3\CMS\Core\Context\UserAspect;
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
@@ -40,7 +42,6 @@ use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
  */
 class TicketsController extends ActionController
 {
-
     protected $constants;
     protected $contentObject = null;
     protected $beUser = null;
@@ -143,7 +144,7 @@ class TicketsController extends ActionController
      *
      * @return void
      */
-    public function initializeAction()
+    public function initializeAction(): void
     {
         parent::initializeAction();
 
@@ -159,7 +160,7 @@ class TicketsController extends ActionController
         if (ApplicationType::fromRequest($GLOBALS['TYPO3_REQUEST'])->isBackend()) {
             $this->userDetails = $this->beUser = $GLOBALS['BE_USER']->user;
         } else {
-            $this->userDetails = $this->feUser = $GLOBALS['TSFE']->fe_user->user;
+            $this->userDetails = $this->feUser = $this->request->getAttribute('frontend.user')->user;
         }
     }
 
@@ -179,6 +180,7 @@ class TicketsController extends ActionController
         $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
         $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
         $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
+        $reopenTicket = $this->ticketsRepository->findByTicketStatus(3)->count();
         $customerReviewDetails  = $this->ticketsRepository->getCustomerReview();
         $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
         $bootstrapVariable = 'data-bs';
@@ -191,6 +193,7 @@ class TicketsController extends ActionController
             'assignToMe' => $assignToMe,
             'newTicket' => $newTicket,
             'closeTicket' => $closeTicket,
+            'reopenTicket' => $reopenTicket,
             'isBackendUser' => $this->isBackendUser,
             'customerReview' => $customerReview,
             'userDetail' => $this->beUser,
@@ -200,7 +203,7 @@ class TicketsController extends ActionController
         ]);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/Dashboard');
         } else {
             return $this->htmlResponse();
         }
@@ -283,7 +286,7 @@ class TicketsController extends ActionController
         $view->assignMultiple($assign);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/List');
         } else {
             return $this->htmlResponse();
         }
@@ -317,7 +320,7 @@ class TicketsController extends ActionController
         $view->assignMultiple($assign);
 
         if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse();
+            return $view->renderResponse('Tickets/Show');
         } else {
             return $this->htmlResponse();
         }
@@ -349,9 +352,18 @@ class TicketsController extends ActionController
     {
         $settings = $this->settings;
         $backendUserRepository = GeneralUtility::makeInstance(BackendUserRepository::class);
+        $settings['defaultAssigneeId'] = ($settings['defaultAssigneeId'] > 0) ? $settings['defaultAssigneeId'] : 1;
 
         if ($settings['defaultAssigneeId']) {
             $assignee = $backendUserRepository->findByUid($settings['defaultAssigneeId']);
+            if ($assignee == null){
+                $response = [
+                    'status' => 'error'
+                ];
+                echo json_encode($response);
+                exit();
+            }
+
             $newTickets->setAssigneeId($assignee);
         }
 
@@ -390,10 +402,10 @@ class TicketsController extends ActionController
         $creatorName = $ticketCreator_User->getFirstName() . ' ' . $ticketCreator_User->getLastName();
         $strReplace = ['{visitor_name}', '{ticket_number}', '{ticket_assignee}'];
         $strWith = [$creatorName, $newTickets->getUid(), (
-            $newTickets->getAssigneeId()->getRealName() ? 
-            $newTickets->getAssigneeId()->getRealName() : 
+            $newTickets->getAssigneeId()->getRealName() ?
+            $newTickets->getAssigneeId()->getRealName() :
             $newTickets->getAssigneeId()->getUsername()
-            )];
+        )];
 
         $sendDetails = $this->getMailTemplateDetails();
         $sendDetails['settings']['body'] = str_replace($strReplace, $strWith, $this->settings['body']);
@@ -460,21 +472,6 @@ class TicketsController extends ActionController
         $sender = $sendingDetails['sender'];
         $receiver = $sendingDetails['receiver'];
         $this->sendTemplateEmail([$receiver['email'] => $receiver['name']], [$sender['email'] => $sender['name']], $sendingDetails['email_subject'], $template, $sendingDetails);
-    }
-
-    /**
-     * Assigns all values, which should be available in all views
-     *
-     * @return void
-     */
-    public function assignForAll(): void
-    {
-        $this->view->assignMultiple(
-            [
-                'storagePid' => $this->allConfig['persistence']['storagePid'],
-                'data' => $this->contentObject->data
-            ]
-        );
     }
 
     /**
@@ -660,10 +657,10 @@ class TicketsController extends ActionController
             ->reset()
             ->setCreateAbsoluteUri(true)
             ->setArguments(
-                ['tx_nshelpdesk_helpdesklist[action]'=> 'show', 
-                'tx_nshelpdesk_helpdesklist[controller]'=> 'Tickets', 
+                ['tx_nshelpdesk_helpdesklist[action]' => 'show',
+                'tx_nshelpdesk_helpdesklist[controller]' => 'Tickets',
                 'tx_nshelpdesk_helpdesklist[tickets]' => $ticket]
-                )
+            )
             ->build();
     }
 

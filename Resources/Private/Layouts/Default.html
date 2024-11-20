@@ -1,14 +1,13 @@
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:NsHelpdesk="http://typo3.org/ns/NITSAN/NsHelpdesk/ViewHelpers" data-namespace-typo3-fluid="true">
 <f:if condition="{isBackend}">
 	<f:then>
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_helpdesk')}" media="all">
+		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap5.3.min.css', extensionName: 'ns_helpdesk')}" media="all">
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_helpdesk')}" media="all">
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_helpdesk')}" media="all">
-		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/jquery.fancybox.min.css', extensionName: 'ns_helpdesk')}" media="all">
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/ns-helpdesk.css', extensionName: 'ns_helpdesk')}" media="all">
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/configuration.css', extensionName: 'ns_helpdesk')}" media="all">
 		<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/font-awesome.css', extensionName: 'ns_helpdesk')}" media="all">
-		<script>
+		<script nonce="{f:security.nonce()}">
 			var imageTypes = '{settings.imageTypes}', imageMaxSize = 1050000 * '{settings.imageMaxSize}';
 			var selectedLLL = '{f:translate(key:"nshelpdesk.selectedItems")}'
 		</script>

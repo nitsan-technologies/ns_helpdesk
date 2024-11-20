@@ -11,7 +11,7 @@ class LoadAssetsViewHelper extends AbstractViewHelper
 {
     use CompileWithRenderStatic;
     protected $extPath;
-    protected $config =[];
+    protected $config = [];
     protected $constant;
 
     public function render()
@@ -33,7 +33,7 @@ class LoadAssetsViewHelper extends AbstractViewHelper
      */
     public function loadResource($pageRender, $settings, $data)
     {
-        $css ='';
+        $css = '';
 
         $settings['buttonstyle'] = isset($settings['buttonstyle']) ? $settings['buttonstyle'] : '';
         $settings['buttonbg'] = isset($settings['buttonbg']) ? $settings['buttonbg'] : '';

@@ -35,7 +35,7 @@ plugin.tx_nshelpdesk_helpdesk {
 
 
     commonSettings {
-         #cat=ns_helpdesk_globalSettings/1010_helpdesk_ticketassign/10; type=int+; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:defaultAssigneeId
+        #cat=ns_helpdesk_globalSettings/1010_helpdesk_ticketassign/10; type=int+; label=LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_constant.xlf:defaultAssigneeId
         defaultAssigneeId = 1
     }
 }

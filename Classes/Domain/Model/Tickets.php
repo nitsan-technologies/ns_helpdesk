@@ -35,7 +35,6 @@ class Tickets extends AbstractEntity
      * ticketText
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
     protected string $ticketText = '';
 

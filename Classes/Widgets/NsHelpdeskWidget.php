@@ -93,7 +93,7 @@ class NsHelpdeskWidget implements WidgetInterface, RequestAwareWidgetInterface
 
         // Loop through ratings 1 to 5
         for ($i = 1; $i <= 5; $i++) {
-           
+
             // Count the tickets with the current rating
             $totalRatings[$i] = $queryBuilder
                 ->count('uid')

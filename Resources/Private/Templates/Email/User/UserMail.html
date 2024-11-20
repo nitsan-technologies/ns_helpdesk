@@ -1,5 +1,8 @@
 <!doctype html>
-<html data-namespace-typo3-fluid="true" xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:v="urn:schemas-microsoft-com:vml" >
+<html data-namespace-typo3-fluid="true" xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+	  xmlns:o="urn:schemas-microsoft-com:office:office"
+	  xmlns:v="urn:schemas-microsoft-com:vml" >
 <head>
 	<!--[if gte mso 15]>
 	<xml>
@@ -380,16 +383,16 @@
 											<f:if condition="{user.submitter_name}">
 												<h4><f:translate key="nshelpdesk.mail.admin.salutaion" extensionName="ns_helpdesk" /> {user.submitter_name}</h4>
 											</f:if>
-											<f:if condition="{settings.body -> f:format.html()}">
-												{settings.body -> f:format.html()}
+											<f:if condition="{settings.body -> f:format.raw()}">
+												{settings.body -> f:format.raw()}
 											</f:if>
 											<p><strong><f:translate key="nshelpdesk.mail.admin.startingLine" extensionName="ns_helpdesk" />:</strong></p>
 											<p><strong><f:translate key="nshelpdesk.mail.admin.subject" extensionName="ns_helpdesk" />:</strong> {user.ticket_subject} </p>
 											<p><strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk" />:</strong></p>
-											<p>{user.description -> f:format.html()}</p>
+											<p>{user.description -> f:format.raw()}</p>
 										</f:then>
 										<f:else>
-											{settings.body -> f:format.html()}
+											{settings.body -> f:format.raw()}
 										</f:else>
 									</f:if>
 								</td>

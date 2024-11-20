@@ -388,7 +388,7 @@
 									<p><strong><f:translate key="nshelpdesk.mail.admin.ticket" extensionName="ns_helpdesk"/>:</strong> {tickets.ticketSubject} </p>
 									<p>
 										<strong><f:translate key="nshelpdesk.mail.admin.desc" extensionName="ns_helpdesk"/>:</strong><br>
-										{tickets.ticketText -> f:format.html()}
+										{tickets.ticketText -> f:format.raw()}
 									</p>
 									<p><strong><f:translate key="nshelpdesk.mail.admin.ticket.rating" extensionName="ns_helpdesk"/>:</strong> {tickets.ticketRating} </p>
 									<p><f:format.raw><f:translate key="nshelpdesk.see.ticket.detail.email" arguments="{0:ticketUrl}" extensionName="ns_helpdesk"/></f:format.raw></p>

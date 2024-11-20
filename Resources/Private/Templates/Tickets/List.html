@@ -5,10 +5,9 @@
     <f:if condition="{isBackend}">
         <f:then>
             <f:be.pageRenderer
-                includeRequireJsModules="{
-                    0:'TYPO3/CMS/NsHelpdesk/Jquery',
-                    1:'TYPO3/CMS/NsHelpdesk/Datatables',
-                    7:'TYPO3/CMS/NsHelpdesk/nshelpdesk'
+                 includeJavaScriptModules="{
+                    0:'@nitsan/ns-helpdesk/Jquery.js',
+                    7:'@nitsan/ns-helpdesk/nshelpdesk.js'
                 }"
             />
         </f:then>
@@ -97,7 +96,14 @@
                         <div class="ns_helpdesk--tickets">
                             <div class="ns-helpdesk-alert ns-helpdesk-alert-info">
                                 <h4 class="ns-helpdesk-alert-heading"><f:translate key="helpdesk.opps" /></h4>
-                                <p><f:format.raw><f:translate key="helpdesk.notloginticket" arguments="{0:'{f:uri.page(pageUid: \'{settings.loginPage}\')}', 1:'{f:uri.page(pageUid: \'{settings.registrationPage}\')}'}" /></f:format.raw></p>
+                                <f:if condition="{settings.loginPage}">
+                                    <f:then>
+                                        <p><f:format.raw><f:translate key="helpdesk.notloginticket" arguments="{0:'{f:uri.page(pageUid: \'{settings.loginPage}\')}'}" /></f:format.raw></p>
+                                    </f:then>
+                                    <f:else>
+                                        <p><f:translate key="helpdesk.configuration.massage" /></p>
+                                    </f:else>
+                                </f:if>
                                 <hr>
                                 <p><f:translate key="helpdesk.end.salutation" /></p>
                             </div>

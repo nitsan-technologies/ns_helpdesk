@@ -1,9 +1,6 @@
-define([
-    'jquery',
-    'TYPO3/CMS/NsHelpdesk/Main',
-    'TYPO3/CMS/NsHelpdesk/Datatables'
-], function ($, Main) {
-    $(document).on('click','.ns-bitbucket',function(){
+import $ from "jquery";
+
+$(document).on('click','.ns-bitbucket',function(){
         $('.modal-backdrop').hide();
         $('.category-changed').css('background-color',"rgba(0,0,0,0.4)");
     });
@@ -13,12 +10,9 @@ define([
     });
     $('[data-toggle="tooltip"]').tooltip();
 
-    $('.dataTables_length select,\ .dataTables_filter input').addClass('form-control');
-    if ($(".inputfile").length > 0) {
-        setDefaultImageTypes($(".inputfile"));
-    }
     $('#TypoScriptTemplateModuleController').on('submit',function(e){
         e.preventDefault();
+        let url;
         url = $(this).attr('action');
         $.ajax({
             url:url,
@@ -71,7 +65,7 @@ define([
         })
         e.preventDefault();
     });
-});
+
 
 /*****
  * All Custom functions

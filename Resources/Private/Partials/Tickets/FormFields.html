@@ -1,62 +1,59 @@
 {namespace nshd=NITSAN\NsHelpdesk\ViewHelpers}
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:if condition="{settings.formConf.namefield.include}">
-	<div class="ns-form-group">
-		<f:if condition="{userDetails.name}">
-			<f:then>
-				<f:variable value="{userDetails.name}" name="username" />
-			</f:then>
-			<f:else if="{userDetails.first_name}">
-				<f:variable value="{userDetails.first_name} {userDetails.last_name}" name="username" />
-			</f:else>
-			<f:else>
-				<f:variable value="{userDetails.username}" name="username" />
-			</f:else>
-		</f:if>
-		<label>{settings.formConf.namefield.label} <f:if condition="{settings.formConf.namefield.required}"><span class="mandatory">*</span></f:if></label>
-		<f:form.textfield placeholder="{settings.formConf.namefield.placeholder}"
-						  class="{f:if(condition:'{settings.formConf.namefield.required}', then:'validate-this')} {f:if(condition:'{settings.formConf.textareafield.minChar}', then:'name-validation')}"
-						  value="{f:if(condition: username, then: username)}"
-						  readonly="{f:if(condition: '{userDetails}',then:'true')}"
-						  additionalAttributes="{minchar:settings.formConf.namefield.minChar}"
-		/>
-		<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
-		<div class="error-msg error-valid"><p><f:translate key="nshelpdesk.name_validation" arguments="{0:settings.formConf.namefield.minChar}" /></p></div>
-		<f:if condition="{userDetails}">
-			<f:form.hidden property="userId" value="{userDetails.uid}" />
-		</f:if>
-	</div>
-</f:if>
-<f:if condition="{settings.formConf.emailfield.include}">
-	<div class="ns-form-group">
-		<label>{settings.formConf.emailfield.label} <f:if condition="{settings.formConf.emailfield.required}"><span class="mandatory">*</span></f:if></label>
-		<f:form.textfield placeholder="{settings.formConf.emailfield.placeholder}"
-						  class="{f:if(condition:'{settings.formConf.emailfield.required}', then:'validate-this email-validation')}"
-						  value="{userDetails.email}"
-						  readonly="{f:if(condition: '{userDetails}',then:'true')}"
-		/>
-		<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
-		<div class="error-msg error-valid"><p><f:translate key="nshelpdesk.mail_validation" /></p></div>
-	</div>
-</f:if>
-<f:if condition="{settings.formConf.subjectfield.include}">
-	<div class="ns-form-group">
-		<label>{settings.formConf.subjectfield.label} <f:if condition="{settings.formConf.subjectfield.required}"><span class="mandatory">*</span></f:if></label>
-		<f:form.textfield property="ticketSubject"
-						  placeholder="{settings.formConf.subjectfield.placeholder}"
-						  class="{f:if(condition:'{settings.formConf.subjectfield.required}', then:'validate-this')}"
-		/>
-		<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
-	</div>
-</f:if>
+
+<div class="ns-form-group">
+	<f:if condition="{userDetails.name}">
+		<f:then>
+			<f:variable value="{userDetails.name}" name="username" />
+		</f:then>
+		<f:else if="{userDetails.first_name}">
+			<f:variable value="{userDetails.first_name} {userDetails.last_name}" name="username" />
+		</f:else>
+		<f:else>
+			<f:variable value="{userDetails.username}" name="username" />
+		</f:else>
+	</f:if>
+	<label>{settings.formConf.namefield.label} <span class="mandatory">*</span></label>
+	<f:form.textfield class="validate-this {f:if(condition:'{settings.formConf.textareafield.minChar}', then:'name-validation')}"
+					  value="{f:if(condition: username, then: username)}"
+					  readonly="{f:if(condition: '{userDetails}',then:'true')}"
+					  additionalAttributes="{minchar:settings.formConf.namefield.minChar, placeholder: settings.formConf.namefield.placeholder}"
+	/>
+	<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
+	<div class="error-msg error-valid"><p><f:translate key="nshelpdesk.name_validation" arguments="{0:settings.formConf.namefield.minChar}" /></p></div>
+	<f:if condition="{userDetails}">
+		<f:form.hidden property="userId" value="{userDetails.uid}" />
+	</f:if>
+</div>
+
+<div class="ns-form-group">
+	<label>{settings.formConf.emailfield.label} <span class="mandatory">*</span></label>
+	<f:form.textfield class="validate-this email-validation"
+					  value="{userDetails.email}"
+					  readonly="{f:if(condition: '{userDetails}',then:'true')}"
+					  additionalAttributes="{placeholder: settings.formConf.emailfield.placeholder}"
+
+	/>
+	<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
+	<div class="error-msg error-valid"><p><f:translate key="nshelpdesk.mail_validation" /></p></div>
+</div>
+
+<div class="ns-form-group">
+	<label>{settings.formConf.subjectfield.label} <span class="mandatory">*</span></label>
+	<f:form.textfield property="ticketSubject"
+					  class="validate-this"
+					  additionalAttributes="{placeholder: settings.formConf.subjectfield.placeholder}"
+	/>
+	<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
+</div>
+
 <f:if condition="{settings.formConf.textareafield.include}">
 	<div class="ns-form-group">
 		<label>{settings.formConf.textareafield.label}</label>
 		<f:if condition="{settings.formConf.textareafield.required}"><span class="mandatory">*</span></f:if>
-		<f:form.textarea  property="ticketText"
-						  placeholder="{settings.formConf.textareafield.placeholder}"
-						  class="{f:if(condition:'{settings.formConf.textareafield.required}', then:'validate-this')} {f:if(condition:'{settings.formConf.textareafield.minChar}', then:'textarea-validation')}"
-						  additionalAttributes="{minchar:settings.formConf.textareafield.minChar}"
+		<f:form.textarea property="ticketText"
+						 class="{f:if(condition:'{settings.formConf.textareafield.required}', then:'validate-this')} {f:if(condition:'{settings.formConf.textareafield.minChar}', then:'textarea-validation')}"
+						 additionalAttributes="{minchar:settings.formConf.textareafield.minChar, placeholder: settings.formConf.textareafield.placeholder}"
 		/>
 		<div class="error-msg error-required"><p><f:translate key="nshelpdesk.field.required" /></p></div>
 		<div class="error-msg error-valid"><p><f:translate key="nshelpdesk.desc_validation" arguments="{0:settings.formConf.textareafield.minChar}" /></p></div>

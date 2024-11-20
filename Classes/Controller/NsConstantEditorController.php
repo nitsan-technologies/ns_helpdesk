@@ -9,7 +9,6 @@ use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Http\RedirectResponse;
-use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\TypoScript\AST\AstBuilderInterface;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
 use TYPO3\CMS\Core\TypoScript\AST\Traverser\AstTraverser;
@@ -34,7 +33,6 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         private readonly AstTraverser $astTraverser,
         private readonly AstBuilderInterface $astBuilder,
         private readonly LosslessTokenizer $losslessTokenizer,
-      
     ) {
     }
 
@@ -59,7 +57,6 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             return $this->saveAction($request);
         }
 
-        $pageUid = (int)($queryParams['id'] ?? 0);
         $allTemplatesOnPage = $this->getAllTemplateRecordsOnPage($pageUid);
         if (empty($allTemplatesOnPage)) {
             return $this->noTemplateAction($request);
@@ -446,7 +443,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             ->setValue('1')
             ->setForm('TypoScriptConstantEditorController')
             ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-save', Icon::SIZE_SMALL))
+            ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
             ->setShowLabelText(true);
         $buttonBar->addButton($saveButton);
     }

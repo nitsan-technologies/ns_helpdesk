@@ -88,35 +88,35 @@ class TicketsRepository extends Repository
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
         $total5Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(5))
             )
             ->executeQuery()
             ->fetchOne();
 
         $total4Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(4, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(4))
             )
             ->executeQuery()
             ->fetchOne();
 
         $total3Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(3, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(3))
             )
             ->executeQuery()
             ->fetchOne();
 
         $total2Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(2, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(2))
             )
             ->executeQuery()
             ->fetchOne();
 
         $total1Ratings = $queryBuilder->count('uid')->from('tx_nshelpdesk_domain_model_tickets')
             ->where(
-                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(1, \PDO::PARAM_INT))
+                $queryBuilder->expr()->eq('ticket_rating', $queryBuilder->createNamedParameter(1))
             )
             ->executeQuery()
             ->fetchOne();

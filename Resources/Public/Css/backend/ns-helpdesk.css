@@ -1,45 +1,46 @@
 /*Widget CSS*/
 .widget-identifier-nshelpdeskwid1 .content {
-margin-top: 40px;
+    margin-top: 40px;
 }
+
 .widget-content-footer .top-btn-group {
     margin-bottom: 20px;
 }
+
 .rating-stars ul {
     display: block;
-    list-style-type:none;
+    list-style-type: none;
     padding: 0;
     margin: 0;
-    -moz-user-select:none;
-    -webkit-user-select:none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
 }
 
-.rating-stars ul > li.star {
-    display:inline-block;
+.rating-stars ul>li.star {
+    display: inline-block;
     vertical-align: top;
     margin: 0;
     width: 15px;
     height: 18px;
 }
 
-.rating-stars ul > li.star > svg {
+.rating-stars ul>li.star>svg {
     cursor: pointer;
     height: 18px;
     width: 15px;
 }
 
 /* Idle State of the stars */
-.rating-stars ul > li.star > svg,
-.rating-stars ul > li.star > svg path {
+.rating-stars ul>li.star>svg,
+.rating-stars ul>li.star>svg path {
     color: #DBDFE4;
     fill: #DBDFE4;
 }
 
 
 /* Selected state of the stars */
-.rating-stars ul > li.star.selected > svg,
-.rating-stars ul > li.star.selected > svg path {
+.rating-stars ul>li.star.selected>svg,
+.rating-stars ul>li.star.selected>svg path {
     color: #ff8700;
     fill: #ff8700;
 }
-
