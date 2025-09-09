@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
+	<file source-language="en" datatype="plaintext" original="EXT:ns_helpdesk/Resources/Private/Language/locallang.xlf" date="2020-05-26T10:52:13Z" product-name="ns_helpdesk">
 		<header/>
 		<body>
 			<trans-unit id="tx_nshelpdesk_domain_model_tickets">

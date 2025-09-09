@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="messages" date="2019-12-28T17:40:31Z" product-name="ns_helpdesk">
+	<file source-language="en" datatype="plaintext" original="EXT:ns_helpdesk/Resources/Private/Language/locallang_helpdesk_dashboard.xlf" date="2019-12-28T17:40:31Z" product-name="ns_helpdesk">
 		<header/>
 		<body>
 			<trans-unit id="mlang_tabs_tab">
