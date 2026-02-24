@@ -56,10 +56,23 @@ class NsHelpdeskWidget implements WidgetInterface, RequestAwareWidgetInterface
 
     public function renderWidgetContent(): string
     {
+         $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '13') {
         $this->view->setLayoutRootPaths([GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Layouts/')]);
         $this->view->setPartialRootPaths([GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Partials/')]);
         $this->view->setTemplateRootPaths([GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Templates/')]);
         $this->view->setTemplate('Widget/Helpdesk');
+        }
+        else {
+        $viewFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\View\ViewFactory::class);
+        $this->view = $viewFactory->create(
+            new \TYPO3\CMS\Core\View\ViewFactoryData(
+                templateRootPaths: [GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Templates/')],
+                partialRootPaths: [GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Partials/')],
+                layoutRootPaths: [GeneralUtility::getFileAbsFileName('EXT:ns_helpdesk/Resources/Private/Layouts/')],
+            )
+        );
+        }
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nshelpdesk_domain_model_tickets');
         //Total tickets
         $totalTickets = $queryBuilder

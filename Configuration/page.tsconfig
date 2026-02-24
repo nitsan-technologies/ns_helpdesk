@@ -6,8 +6,7 @@ mod {
                 title = Helpdesk - List View
                 description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
                 tt_content_defValues {
-                    CType = list
-                    list_type = nshelpdesk_helpdesklist
+                    CType = nshelpdesk_helpdesklist
                 }
             }
             nshelpdesk_helpdeskticket {
@@ -15,8 +14,7 @@ mod {
                 title = Helpdesk - Ticket Submission
                 description = LLL:EXT:ns_helpdesk/Resources/Private/Language/locallang_db.xlf:tx_ns_helpdesk_helpdesk.description
                 tt_content_defValues {
-                    CType = list
-                    list_type = nshelpdesk_helpdeskticket
+                    CType = nshelpdesk_helpdeskticket
                 }
             }
         }
@@ -26,4 +24,6 @@ mod {
 
 options.dashboard.dashboardPresetsForNewUsers = default, dashboardPreset-nsHelpdesk
 mod.web_layout.tt_content.preview.list.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskList.html
+mod.web_layout.tt_content.preview.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskListv14.html
 mod.web_layout.tt_content.preview.list.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicket.html
+mod.web_layout.tt_content.preview.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicketv14.html

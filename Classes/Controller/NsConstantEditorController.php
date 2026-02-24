@@ -162,7 +162,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $view = $this->moduleTemplateFactory->create($request);
         $view->setTitle($languageService->sL($currentModule->getTitle()), $pageRecord['title']);
         $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
-        $this->addShortcutButtonToDocHeader($view, $currentModuleIdentifier, $pageRecord, $pageUid);
+        $this->addShortcutButtonToDocHeader($view, $currentModuleIdentifier, $pageRecord, $pageUid, $currentModule->getTitle());
         if (!empty($relevantCategories)) {
             $this->addSaveButtonToDocHeader($view);
         }
@@ -441,12 +441,13 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             ->setValue('1')
             ->setForm('TypoScriptConstantEditorController')
             ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
+            ->setIcon($this->iconFactory->getIcon('actions-document-save', \TYPO3\CMS\Core\Imaging\IconSize::SMALL))
             ->setShowLabelText(true);
         $buttonBar->addButton($saveButton);
     }
 
-    private function addShortcutButtonToDocHeader(ModuleTemplate $view, string $moduleIdentifier, array $pageInfo, int $pageUid): void
+   // private function addShortcutButtonToDocHeader(ModuleTemplate $view, string $moduleIdentifier, array $pageInfo, int $pageUid): void
+    protected function addShortcutButtonToDocHeader(ModuleTemplate $view, string $moduleIdentifier, array $pageInfo, int $pageUid, string $moduleTitle): void
     {
         $languageService = $this->getLanguageService();
         $buttonBar = $view->getDocHeaderComponent()->getButtonBar();

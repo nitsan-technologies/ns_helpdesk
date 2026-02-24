@@ -9,7 +9,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 class LoadAssetsViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
+   // use CompileWithRenderStatic;
     protected $extPath;
     protected $config = [];
     protected $constant;

@@ -1,0 +1,152 @@
+categories:
+  nshelpdesk:
+    label: 'NS Helpdesk Global Settings'
+  nshelpdesk.admin:
+    label: 'Administrator'
+    parent: nshelpdesk
+  nshelpdesk.jslib:
+    label: 'JS Library'
+    parent: nshelpdesk
+  nshelpdesk.storage:
+    label: 'Storage'
+    parent: nshelpdesk
+  nshelpdesk.ticketassign:
+    label: 'Ticket Assign'
+    parent: nshelpdesk
+  nshelpdesk.form:
+    label: 'New Ticket Form'
+    parent: nshelpdesk
+  nshelpdesk.form.name:
+    label: 'Name Field'
+    parent: nshelpdesk.form
+  nshelpdesk.form.email:
+    label: 'Email Field'
+    parent: nshelpdesk.form
+  nshelpdesk.form.subject:
+    label: 'Subject Field'
+    parent: nshelpdesk.form
+  nshelpdesk.form.textarea:
+    label: 'Textarea Field'
+    parent: nshelpdesk.form
+  nshelpdesk.form.submit:
+    label: 'Submit Button'
+    parent: nshelpdesk.form
+
+settings:
+  # ── commonSettings_constants.typoscript ──────────────────
+
+  plugin.tx_nshelpdesk_helpdesk.notify.email.adminMail:
+    label: 'Admin Email'
+    type: string
+    default: 'test.t3admn@gmail.com'
+    category: nshelpdesk.admin
+
+  plugin.tx_nshelpdesk_helpdesk.notify.email.adminName:
+    label: 'Admin Name'
+    type: string
+    default: 'NS Helpdesk'
+    category: nshelpdesk.admin
+
+  plugin.tx_nshelpdesk_helpdesk.notify.adminNotify:
+    label: 'Notify Admin'
+    type: bool
+    default: false
+    category: nshelpdesk.admin
+
+  plugin.tx_nshelpdesk_helpdesk.includeJSLibrary.helpdeskJqueryLib:
+    label: 'Enable jQuery Library'
+    type: bool
+    default: false
+    category: nshelpdesk.jslib
+
+  plugin.tx_nshelpdesk_helpdesk.storagePid.storagePid:
+    label: 'Storage PID'
+    type: int
+    default: 0
+    category: nshelpdesk.storage
+
+  plugin.tx_nshelpdesk_helpdesk.loginPage:
+    label: 'Login Page UID'
+    type: int
+    default: 0
+    category: nshelpdesk.storage
+
+  plugin.tx_nshelpdesk_helpdesk.commonSettings.defaultAssigneeId:
+    label: 'Default Assignee ID'
+    type: int
+    default: 1
+    category: nshelpdesk.ticketassign
+
+  # ── newTicketForm.typoscript ──────────────────────────────
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.namefield.label:
+    label: 'Name Label'
+    type: string
+    default: 'Name'
+    category: nshelpdesk.form.name
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.namefield.placeholder:
+    label: 'Name Placeholder'
+    type: string
+    default: 'Enter your Name'
+    category: nshelpdesk.form.name
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.label:
+    label: 'Email Label'
+    type: string
+    default: 'Email Address'
+    category: nshelpdesk.form.email
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.emailfield.placeholder:
+    label: 'Email Placeholder'
+    type: string
+    default: 'Enter your Email'
+    category: nshelpdesk.form.email
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.label:
+    label: 'Subject Label'
+    type: string
+    default: 'Subject'
+    category: nshelpdesk.form.subject
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.subjectField.placeholder:
+    label: 'Subject Placeholder'
+    type: string
+    default: 'Subject'
+    category: nshelpdesk.form.subject
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.include:
+    label: 'Include Textarea'
+    type: bool
+    default: true
+    category: nshelpdesk.form.textarea
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.label:
+    label: 'Textarea Label'
+    type: string
+    default: 'Ticket Description'
+    category: nshelpdesk.form.textarea
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.placeholder:
+    label: 'Textarea Placeholder'
+    type: string
+    default: 'Write your Description'
+    category: nshelpdesk.form.textarea
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.required:
+    label: 'Textarea Required'
+    type: bool
+    default: true
+    category: nshelpdesk.form.textarea
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.textareafield.minChar:
+    label: 'Minimum Characters'
+    type: int
+    default: 150
+    category: nshelpdesk.form.textarea
+
+  plugin.tx_nshelpdesk_helpdesk.formConf.submitBtn.submitLabel:
+    label: 'Submit Button Label'
+    type: string
+    default: 'Submit'
+    category: nshelpdesk.form.submit

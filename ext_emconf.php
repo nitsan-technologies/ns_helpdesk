@@ -14,7 +14,7 @@ $EM_CONF['ns_helpdesk'] = [
     'version' => '13.0.2',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.0.0-13.9.99',
+            'typo3' => '12.0.0-14.9.99',
         ],
         'conflicts' => [],
         'suggests' => [],

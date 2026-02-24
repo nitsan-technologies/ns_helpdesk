@@ -36,6 +36,12 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
+use TYPO3\CMS\Core\View\ViewFactoryInterface;
+use TYPO3\CMS\Core\Mail\Mailer;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use TYPO3\CMS\Core\View\ViewFactoryData;
+use TYPO3\CMS\Core\Mail\MailerInterface;
+use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
  * TicketsController
@@ -74,35 +80,35 @@ class TicketsController extends ActionController
      *
      * @var TicketsRepository
      */
-    protected TicketsRepository $ticketsRepository;
+    protected ?TicketsRepository $ticketsRepository;
 
     /**
      * TicketStatusRepository
      *
      * @var TicketStatusRepository
      */
-    protected TicketStatusRepository $ticketStatusRepository;
+    protected ?TicketStatusRepository $ticketStatusRepository;
 
     /**
      * FrontendUserRepository
      *
      * @var FrontendUserRepository
      */
-    protected FrontendUserRepository $frontendUserRepository;
+    protected ?FrontendUserRepository $frontendUserRepository;
 
     /**
      * BackendUserRepository
      *
      * @var BackendUserRepository
      */
-    protected BackendUserRepository $backendUserRepository;
+    protected ?BackendUserRepository $backendUserRepository;
 
     /**
      * PersistenceManager
      *
      * @var PersistenceManager
      */
-    protected PersistenceManager $persistenceManager;
+    protected ?PersistenceManager $persistenceManager;
 
     /**
      * @var array
@@ -111,6 +117,7 @@ class TicketsController extends ActionController
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        //protected readonly ?ViewFactoryInterface $viewFactory,
         PersistenceManager $persistenceManager,
         FrontendUserRepository $frontendUserRepository,
         TicketsRepository $ticketsRepository,
@@ -177,10 +184,21 @@ class TicketsController extends ActionController
             $view = $this->view;
         }
         $totalTickets = $this->ticketsRepository->countAll();
-        $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
-        $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
-        $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
-        $reopenTicket = $this->ticketsRepository->findByTicketStatus(3)->count();
+        // $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
+        // $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
+        // $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
+        // $reopenTicket = $this->ticketsRepository->findByTicketStatus(3)->count();
+        $query = $this->ticketsRepository->createQuery();
+        $assignToMe = $query->matching($query->equals('assigneeId.uid', (int)$this->beUser['uid']))->execute()->count();
+
+        $query = $this->ticketsRepository->createQuery();
+        $newTicket = $query->matching($query->equals('ticketStatus.uid', 1))->execute()->count();
+
+        $query = $this->ticketsRepository->createQuery();
+        $closeTicket = $query->matching($query->equals('ticketStatus.uid', 2))->execute()->count();
+
+        $query = $this->ticketsRepository->createQuery();
+        $reopenTicket = $query->matching($query->equals('ticketStatus.uid', 3))->execute()->count();
         $customerReviewDetails  = $this->ticketsRepository->getCustomerReview();
         $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
         $bootstrapVariable = 'data-bs';
@@ -499,34 +517,46 @@ class TicketsController extends ActionController
      * @param array $variables variables to be passed to the Fluid view
      * @return bool
      */
+
+
     protected function sendTemplateEmail(
         array $recipient,
         array $sender,
-        $subject,
-        $templateName,
+        string $subject,
+        string $templateName,
         array $variables = []
-    ): bool {
-        /** @var StandaloneView $emailView */
-        $emailView = GeneralUtility::makeInstance(StandaloneView::class);
-
-        /*For use of Localize value */
-        $extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-        $templateRootPath = GeneralUtility::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPaths']['0']);
-
+    ) {
+        $extbaseFrameworkConfiguration = $this->configurationManager
+            ->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+        $templateRootPath = GeneralUtility::getFileAbsFileName(
+            $extbaseFrameworkConfiguration['view']['templateRootPaths']['0']
+        );
         $templatePathAndFilename = $templateRootPath . 'Email/' . $templateName . '.html';
-        $emailView->setTemplatePathAndFilename($templatePathAndFilename);
-        $emailView->assignMultiple($variables);
-        $emailBody = $emailView->render();
 
-        $mail = GeneralUtility::makeInstance(MailMessage::class);
+        $versionNumber = VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] < 13) {
+            $emailView = GeneralUtility::makeInstance(\TYPO3\CMS\Fluid\View\StandaloneView::class);
+            $emailView->setTemplatePathAndFilename($templatePathAndFilename);
+            $emailView->assignMultiple($variables);
+            $emailBody = $emailView->render();
+        } else {
+            $viewFactory = GeneralUtility::makeInstance(ViewFactoryInterface::class);
+            $emailView = $viewFactory->create(
+                new \TYPO3\CMS\Core\View\ViewFactoryData(
+                    templateRootPaths: [$templateRootPath],
+                    templatePathAndFilename: $templatePathAndFilename,
+                )
+            );
+            $emailView->assignMultiple($variables);
+            $emailBody = $emailView->render();
+        }
 
-        /*Mail*/
-        $mail->setTo($recipient)->setFrom($sender)->setSubject($subject);
-        // HTML Email
-        $mail->html($emailBody);
-        $mail->send();
-        $status = $mail->isSent();
-        return $status;
+        $message = GeneralUtility::makeInstance(MailMessage::class);
+        $message->setTo($recipient)->setFrom($sender)->setSubject($subject);
+        $message->html($emailBody);
+        $mailer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Mail\Mailer::class);
+        $mailer->send($message);
+        return true;
     }
 
     /**

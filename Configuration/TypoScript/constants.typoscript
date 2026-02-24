@@ -1,4 +1,4 @@
-
+@import 'EXT:ns_helpdesk/Configuration/TypoScript/FeaturesConstants/*.typoscript'
 plugin.tx_nshelpdesk_helpdesk {
     view {
         # cat=plugin.tx_nshelpdesk_helpdesk/file; type=string; label=Path to template root (FE)
@@ -22,4 +22,4 @@ module.tx_nshelpdesk_helpdesk {
 }
 
 # Includes FormsConstant
-<INCLUDE_TYPOSCRIPT: source="DIR:EXT:ns_helpdesk/Configuration/TypoScript/FeaturesConstants" extensions="typoscript">
+
