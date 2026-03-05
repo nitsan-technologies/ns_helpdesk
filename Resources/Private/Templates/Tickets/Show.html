@@ -60,7 +60,7 @@
                             <div class="ns_helpdesk--ticket-list">
                                     <ul>
                                         <li>
-                                            <f:translate key="postedon" />: {tickets.ticketPostDate -> f:format.date(format:'j')}<sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - h:i A')}
+                                            <f:translate key="postedon" />: {tickets.ticketPostDate -> f:format.date(format:'j')} <sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - h:i A')}
                                         </li>
                                         <f:if condition="{tickets.ticketType}">
                                             <li>

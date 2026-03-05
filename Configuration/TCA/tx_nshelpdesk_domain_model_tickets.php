@@ -120,7 +120,7 @@ return [
             'label' => $ll . 'ticket_post_date',
             'config' => [
                 'type' => 'datetime',
-                'format' => 'date',
+                'format' => 'datetime',
                 'size' => 10,
                 'default' => time()
             ],
