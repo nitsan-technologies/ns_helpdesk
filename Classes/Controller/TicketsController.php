@@ -184,10 +184,6 @@ class TicketsController extends ActionController
             $view = $this->view;
         }
         $totalTickets = $this->ticketsRepository->countAll();
-        // $assignToMe = $this->ticketsRepository->findByAssigneeId($this->beUser['uid'])->count();
-        // $newTicket = $this->ticketsRepository->findByTicketStatus(1)->count();
-        // $closeTicket = $this->ticketsRepository->findByTicketStatus(2)->count();
-        // $reopenTicket = $this->ticketsRepository->findByTicketStatus(3)->count();
         $query = $this->ticketsRepository->createQuery();
         $assignToMe = $query->matching($query->equals('assigneeId.uid', (int)$this->beUser['uid']))->execute()->count();
 
