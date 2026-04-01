@@ -117,7 +117,6 @@ class TicketsController extends ActionController
 
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
-        //protected readonly ?ViewFactoryInterface $viewFactory,
         PersistenceManager $persistenceManager,
         FrontendUserRepository $frontendUserRepository,
         TicketsRepository $ticketsRepository,
