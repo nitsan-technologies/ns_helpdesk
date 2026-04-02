@@ -24,6 +24,6 @@ mod {
 
 options.dashboard.dashboardPresetsForNewUsers = default, dashboardPreset-nsHelpdesk
 mod.web_layout.tt_content.preview.list.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskList.html
-mod.web_layout.tt_content.preview.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskList.html
+mod.web_layout.tt_content.preview.nshelpdesk_helpdesklist = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskListv14.html
 mod.web_layout.tt_content.preview.list.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicket.html
-mod.web_layout.tt_content.preview.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicket.html
+mod.web_layout.tt_content.preview.nshelpdesk_helpdeskticket = EXT:ns_helpdesk/Resources/Private/Backend/NsHelpdeskTicketv14.html
