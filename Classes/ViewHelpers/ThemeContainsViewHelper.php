@@ -2,7 +2,7 @@
 
 namespace NITSAN\NsHelpdesk\ViewHelpers;
 
-use TYPO3Fluid\Fluid\Core\Rendering\RenderingContextInterface;
+
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 class ThemeContainsViewHelper extends AbstractViewHelper

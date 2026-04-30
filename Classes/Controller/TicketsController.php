@@ -13,12 +13,10 @@ namespace NITSAN\NsHelpdesk\Controller;
  *
  ***/
 
-use TYPO3\CMS\Core\Context\Context;
-use TYPO3\CMS\Core\Context\UserAspect;
+
 use TYPO3\CMS\Core\Mail\MailMessage;
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Http\ApplicationType;
-use TYPO3\CMS\Fluid\View\StandaloneView;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use NITSAN\NsHelpdesk\Domain\Model\Tickets;
 use Psr\Http\Message\ServerRequestInterface;
@@ -37,10 +35,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Extbase\Persistence\Exception\UnknownObjectException;
 use TYPO3\CMS\Extbase\Persistence\Exception\IllegalObjectTypeException;
 use TYPO3\CMS\Core\View\ViewFactoryInterface;
-use TYPO3\CMS\Core\Mail\Mailer;
 use TYPO3\CMS\Core\Utility\VersionNumberUtility;
-use TYPO3\CMS\Core\View\ViewFactoryData;
-use TYPO3\CMS\Core\Mail\MailerInterface;
 use TYPO3\CMS\Core\Information\Typo3Version;
 
 /**
@@ -175,52 +170,7 @@ class TicketsController extends ActionController
      *
      * @return ResponseInterface
      */
-    public function dashboardAction(): ResponseInterface
-    {
-        if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            $view = $this->initializeModuleTemplate($this->request);
-        } else {
-            $view = $this->view;
-        }
-        $totalTickets = $this->ticketsRepository->countAll();
-        $query = $this->ticketsRepository->createQuery();
-        $assignToMe = $query->matching($query->equals('assigneeId.uid', (int)$this->beUser['uid']))->execute()->count();
 
-        $query = $this->ticketsRepository->createQuery();
-        $newTicket = $query->matching($query->equals('ticketStatus.uid', 1))->execute()->count();
-
-        $query = $this->ticketsRepository->createQuery();
-        $closeTicket = $query->matching($query->equals('ticketStatus.uid', 2))->execute()->count();
-
-        $query = $this->ticketsRepository->createQuery();
-        $reopenTicket = $query->matching($query->equals('ticketStatus.uid', 3))->execute()->count();
-        $customerReviewDetails  = $this->ticketsRepository->getCustomerReview();
-        $customerReview = $this->getCustomerReviewRatings($customerReviewDetails);
-        $bootstrapVariable = 'data-bs';
-        $isBackend = ApplicationType::fromRequest($this->request)->isBackend();
-
-        $view->assignMultiple([
-            'action' => 'dashboard',
-            'pid' => $this->pid,
-            'totalTicket' => $totalTickets,
-            'assignToMe' => $assignToMe,
-            'newTicket' => $newTicket,
-            'closeTicket' => $closeTicket,
-            'reopenTicket' => $reopenTicket,
-            'isBackendUser' => $this->isBackendUser,
-            'customerReview' => $customerReview,
-            'userDetail' => $this->beUser,
-            'bootstrapVariable' => $bootstrapVariable,
-            'isBackend' => $isBackend
-
-        ]);
-
-        if (ApplicationType::fromRequest($this->request)->isBackend()) {
-            return $view->renderResponse('Tickets/Dashboard');
-        } else {
-            return $this->htmlResponse();
-        }
-    }
 
     /**
      * action list
