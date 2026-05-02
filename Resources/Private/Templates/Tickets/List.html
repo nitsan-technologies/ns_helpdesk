@@ -1,7 +1,9 @@
 {namespace ns=NITSAN\NsHelpdesk\ViewHelpers}
 <html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+    
 <f:layout name="Default"/>
 <f:section name="content">
+     
     <f:if condition="{isBackend}">
         <f:then>
             <f:be.pageRenderer
@@ -14,6 +16,7 @@
     </f:if>
     <f:if condition="{isShow}">
         <f:then>
+            
             <div class="ns_helpdesk-main-container container">
                 <div class="row">
                     <div class="col-12 ns_helpdesk--top">
@@ -33,14 +36,18 @@
                         </div>
                     </div>
                     <f:if condition="{tickets}">
+                        
                         <f:then>
                             <article class="col-lg-9 col-md-8">
                                 <div class="ns_helpdesk--tickets">
                                     <f:for each="{tickets}" as="ticket">
-                                        <f:link.action action="show" class="ns_helpdesk--ticket" arguments="{tickets:ticket}">
+                                        <f:link.action action="show" class="ns_helpdesk--ticket" arguments="{tickets: ticket.uid}">
                                             <div class="ns_helpdesk--ticket-headline">
                                                 <h3>{ticket.ticketSubject -> f:format.crop(maxCharacters: 50)}</h3>
-                                                <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
+                                                <f:if condition="{ticket.ticketStatus}">
+                                                    <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
+                                                </f:if>
+                                               
                                             </div>
                                             <div class="ns_helpdesk--ticket-text">
                                                 <f:format.raw>{ticket.ticketText -> f:format.crop(maxCharacters: 50)}</f:format.raw>
