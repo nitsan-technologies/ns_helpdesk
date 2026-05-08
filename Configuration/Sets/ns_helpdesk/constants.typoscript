@@ -1,1 +1,1 @@
-@import 'EXT:ns_cookiebot/Configuration/TypoScript/constants.typoscript'
+@import 'EXT:ns_helpdesk/Configuration/TypoScript/constants.typoscript'

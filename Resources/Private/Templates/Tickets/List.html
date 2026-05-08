@@ -44,9 +44,7 @@
                                         <f:link.action action="show" class="ns_helpdesk--ticket" arguments="{tickets: ticket.uid}">
                                             <div class="ns_helpdesk--ticket-headline">
                                                 <h3>{ticket.ticketSubject -> f:format.crop(maxCharacters: 50)}</h3>
-                                                <f:if condition="{ticket.ticketStatus}">
-                                                    <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
-                                                </f:if>
+                                                <span class="tag" style="background-color:{ticket.ticketStatus.statusColor};">{ticket.ticketStatus.statusTitle}</span>
                                                
                                             </div>
                                             <div class="ns_helpdesk--ticket-text">

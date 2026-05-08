@@ -33,36 +33,32 @@ class TicketsRepository extends Repository
         $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
         $querySettings->setRespectStoragePage(false);
         $this->setDefaultQuerySettings($querySettings);
-        debug($querySettings);
-        die();
     }
     public function fetchTickets($filterData = null)
     {
         $query = $this->createQuery();
 
         if ($filterData) {
-            $constraints = [];
 
             $filterData['userid'] = isset($filterData['userid']) ? $filterData['userid'] : '';
             if ($filterData['userid']) {
                 $filterData['backendUser'] = isset($filterData['backendUser']) ? $filterData['backendUser'] : '';
-                $userId = (int)$filterData['userid'];
                 if ($filterData['backendUser']) {
-                    $constraints[] = $query->equals('assigneeId.uid', $userId);
+                    $query->matching($query->logicalAnd(
+                        $query->equals('assignee_id', $filterData['userid'])
+                    ));
                 } else {
-                    $constraints[] = $query->equals('userId.uid', $userId);
+                    $query->matching($query->logicalAnd(
+                        $query->equals('user_id', $filterData['userid'])
+                    ));
                 }
             }
 
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
             if ($filterData['ticket_status']) {
-                $constraints[] = $query->equals('ticketStatus.uid', (int)$filterData['ticket_status']);
-            }
-
-            if ($constraints !== []) {
-                $query->matching(
-                    count($constraints) === 1 ? $constraints[0] : $query->logicalAnd(...$constraints)
-                );
+                $query->matching($query->logicalAnd(
+                    $query->equals('ticket_status', $filterData['ticket_status'])
+                ));
             }
         }
 
