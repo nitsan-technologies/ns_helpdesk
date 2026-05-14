@@ -90,7 +90,10 @@
 		</div>
 	</f:then>
 	<f:else>
+		  <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap5.3.min.css', extensionName: 'ns_helpdesk')}" media="all">
+			<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/ns-helpdesk.css', extensionName: 'ns_helpdesk')}" media="all">
 		<NsHelpdesk:loadAssets />
+
 		<div class="tx-ns-helpdesk ns_helpdesk-main">
 			<div class="loader-wraper">
 				<div class="loader-mail">

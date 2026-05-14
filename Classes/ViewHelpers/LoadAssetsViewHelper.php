@@ -5,11 +5,9 @@ namespace NITSAN\NsHelpdesk\ViewHelpers;
 use TYPO3\CMS\Core\Page\PageRenderer;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
-use TYPO3Fluid\Fluid\Core\ViewHelper\Traits\CompileWithRenderStatic;
 
 class LoadAssetsViewHelper extends AbstractViewHelper
 {
-    use CompileWithRenderStatic;
     protected $extPath;
     protected $config = [];
     protected $constant;

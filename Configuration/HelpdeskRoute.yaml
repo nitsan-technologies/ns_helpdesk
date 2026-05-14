@@ -2,7 +2,8 @@ routeEnhancers:
   TicketSystem:
     type: Extbase
     extension: NsHelpdesk
-    plugin: Helpdesk
+    # Registered plugin name in ext_localconf.php (tx_nshelpdesk_helpdesklist), NOT TypoScript alias tx_nshelpdesk_helpdesk
+    plugin: HelpdeskList
     routes:
       - routePath: '/{ticket-sub}'
         _controller: 'Tickets::show'

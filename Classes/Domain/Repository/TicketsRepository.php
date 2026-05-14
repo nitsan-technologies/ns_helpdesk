@@ -39,6 +39,7 @@ class TicketsRepository extends Repository
         $query = $this->createQuery();
 
         if ($filterData) {
+
             $filterData['userid'] = isset($filterData['userid']) ? $filterData['userid'] : '';
             if ($filterData['userid']) {
                 $filterData['backendUser'] = isset($filterData['backendUser']) ? $filterData['backendUser'] : '';
@@ -50,9 +51,9 @@ class TicketsRepository extends Repository
                     $query->matching($query->logicalAnd(
                         $query->equals('user_id', $filterData['userid'])
                     ));
-
                 }
             }
+
             $filterData['ticket_status'] = isset($filterData['ticket_status']) ? $filterData['ticket_status'] : '';
             if ($filterData['ticket_status']) {
                 $query->matching($query->logicalAnd(

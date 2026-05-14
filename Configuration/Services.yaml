@@ -1,6 +1,3 @@
-imports:
-  - { resource: Backend/DashboardWidgets.yaml }
-
 services:
   _defaults:
     autowire: true
@@ -10,14 +7,3 @@ services:
   NITSAN\NsHelpdesk\:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
-
-  NITSAN\NsHelpdesk\Controller\NsConstantEditorController:
-    public: true
-    arguments:
-      $moduleTemplateFactory: '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
-      $sysTemplateRepository: '@TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateRepository'
-      $treeBuilder: '@TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateTreeBuilder'
-      $treeTraverser: '@TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser'
-      $astTraverser: '@TYPO3\CMS\Core\TypoScript\AST\Traverser\AstTraverser'
-      $astBuilder: '@TYPO3\CMS\Core\TypoScript\AST\AstBuilderInterface'
-      $losslessTokenizer: '@TYPO3\CMS\Core\TypoScript\Tokenizer\LosslessTokenizer'

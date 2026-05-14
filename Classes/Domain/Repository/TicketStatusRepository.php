@@ -23,8 +23,10 @@ class TicketStatusRepository extends Repository
 {
     public function getFromAll()
     {
-        $querySettings = GeneralUtility::makeInstance(Typo3QuerySettings::class);
+        /** @var Typo3QuerySettings $querySettings */
+        $querySettings = $this->createQuery()->getQuerySettings();
         $querySettings->setRespectStoragePage(false);
+        $querySettings->setRespectSysLanguage(false);
         $this->setDefaultQuerySettings($querySettings);
     }
 }

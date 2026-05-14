@@ -22,7 +22,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         $ticketsController => 'list, show, closeTicket, reopenTicket',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
 
 ExtensionUtility::configurePlugin(
@@ -34,28 +35,8 @@ ExtensionUtility::configurePlugin(
     // non-cacheable actions
     [
         $ticketsController => 'new, create, quickPopupTicket',
-    ]
+    ],
+    ExtensionUtility::PLUGIN_TYPE_CONTENT_ELEMENT
 );
-
-$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
-
-$icon = [
-    'ns_helpdesk-plugin-helpdesk'
-    , 'module-nshelpdesk'
-    , 'parent-module-nshelpdesk'
-];
-
-foreach ($icon as $value) {
-    $iconRegistry->registerIcon(
-        $value,
-        SvgIconProvider::class,
-        ['source' => 'EXT:ns_helpdesk/Resources/Public/Icons/' . $value . '.svg']
-    );
-}
-
-$GLOBALS['TYPO3_CONF_VARS']['SYS']['fluid']['namespaces']['NsHelpdesk'] = [
-    'NITSAN\NsHelpdesk\ViewHelpers',
-];
-
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['ns_helpdesk'] =
     DataHandler::class;

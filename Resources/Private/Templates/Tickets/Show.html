@@ -32,18 +32,23 @@
                 <div class="ns_helpdesk--top-right">
                     <ul>
                         <li>
-                            <f:if condition="{tickets.ticketStatus.uid}==2">
-                                <f:then>
-                                    <f:if condition="!{backend}">
-                                        <f:link.action action="reopenTicket" arguments="{tickets:tickets}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" /></f:link.action>
-                                    </f:if>
-                                </f:then>
-                                <f:else>
-                                    <f:if condition="!{backend}">
-                                        <f:then><a href="javascript:;" class="c-btn c-btn-secondary" {bootstrapVariable}-toggle="modal" {bootstrapVariable}-target="#helpdeskModal"><f:translate key="closetickets" /></a></f:then>
-                                    </f:if>
-                                </f:else>
-                            </f:if>
+                              <f:if condition="{tickets.ticketStatus.uid}==2">
+                                        <f:then>
+                                            <f:if condition="{backend} || {userDetails}">
+                                                <f:link.action action="reopenTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-info modal-btn-close" pageType="15021995"><f:translate key="reopentickets" /></f:link.action>
+                                            </f:if>
+                                        </f:then>
+                                        <f:else>
+                                            <f:if condition="{backend}">
+                                                <f:then>
+                                                    <f:link.action action="closeTicket" arguments="{tickets:tickets, fromBackend:1}" class="c-btn c-btn-secondary modal-btn-close"><f:translate key="closetickets" /></f:link.action>
+                                                </f:then>
+                                                <f:else>
+                                                    <a href="javascript:;" class="c-btn c-btn-secondary" data-bs-toggle="modal" data-bs-target="#helpdeskModal"><f:translate key="closetickets" /></a>
+                                                </f:else>
+                                            </f:if>
+                                        </f:else>
+                                </f:if>
                         </li>
                     </ul>
                 </div>
@@ -53,20 +58,20 @@
                     <div class="ns_helpdesk--ticket">
                         <div class="ns_helpdesk--ticket-headline">
                             <div class="ns_helpdesk--ticket-list">
-                                <ul>
-                                    <li>
-                                        <f:translate key="postedon" extensionName="ns_helpdesk" />: {tickets.ticketPostDate -> f:format.date(format:'j')}<sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - H:i A')}
-                                    </li>
-                                    <f:if condition="{tickets.ticketType}">
+                                    <ul>
                                         <li>
-                                            <f:translate key="tr.type" extensionName="ns_helpdesk" />: {tickets.ticketType.typeTitle}
+                                            <f:translate key="postedon"/>: {tickets.ticketPostDate -> f:format.date(format:'j')}<sup>{tickets.ticketPostDate -> f:format.date(format:'S')}</sup> {tickets.ticketPostDate -> f:format.date(format:'M Y - H:i')}
                                         </li>
-                                    </f:if>
-                                    <li>
-                                        <f:translate key="assignedto" extensionName="ns_helpdesk" /> : {f:if(condition: tickets.assigneeId.realName, then: tickets.assigneeId.realName, else: tickets.assigneeId.userName)}
-                                    </li>
-                                </ul>
-                            </div>
+                                        <f:if condition="{tickets.ticketType}">
+                                            <li>
+                                                <f:translate key="tr.type" />: {tickets.ticketType.typeTitle}
+                                            </li>
+                                        </f:if>
+                                        <li>
+                                            <f:translate key="assignedto"/> : {f:if(condition: tickets.assigneeId.realName, then: tickets.assigneeId.realName, else: tickets.assigneeId.userName)}
+                                        </li>
+                                    </ul>
+                                </div>
                             <span class="tag" style="background-color:{tickets.ticketStatus.statusColor};">{tickets.ticketStatus.statusTitle}</span>
                         </div>
                     </div>
