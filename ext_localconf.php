@@ -40,3 +40,9 @@ ExtensionUtility::configurePlugin(
 );
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['t3lib/class.t3lib_tcemain.php']['processDatamapClass']['ns_helpdesk'] =
     DataHandler::class;
+
+$GLOBALS['TYPO3_CONF_VARS']['SYS']['formEngine']['nodeResolver'][1791976894] = [
+    'nodeName' => 'flexFormNoTabsContainer',
+    'priority' => 43,
+    'class' => \NITSAN\NsHelpdesk\Form\Resolver\PremiumStripFlexFormNoTabsContainerResolver::class,
+];
